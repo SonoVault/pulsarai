@@ -273,7 +273,7 @@ let editingId=null,saveTimer=null,interimText='',finalText='';
 let apiKey=localStorage.getItem('pulsar_api_key')||'';
 let treeState={};
 
-window.addEventListener('DOMContentLoaded',()=>{
+window.onload=()=>{
   if(apiKey){
     document.getElementById('apiKeyInput').value=apiKey;
     document.getElementById('apiSaved').style.display='block';
@@ -302,7 +302,6 @@ window.addEventListener('DOMContentLoaded',()=>{
       toggleMic();
     }
   });
-});
 
 function signIn(){
   const k=document.getElementById('apiKeyInput').value.trim();
