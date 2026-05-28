@@ -396,4 +396,166 @@ function delPhrase(){
   db=db.filter(d=>d.id!==editingId);
   openEd(null);renderList();updateCount();schedSave();
   showToast('Excluída');
+}async function callClaude(msg){
+  const phrases=db.map(d=>`- "${d.keyword}" → ${d.phrase}`).join('\n');
+  const system=`Você é o PulsarAI, assistente especializado em laudos médicos de imagem (radiologia, ultrassonografia, tomografia, ressonância magnética).
+
+Banco de frases do médico:
+${phrases}
+
+INSTRUÇÕES:
+1. Quando o médico descrever achados, gere um laudo médico profissional completo em português com terminologia correta.
+2. Quando mencionar palavra-chave do banco, use exatamente a frase correspondente.
+3. Se pedir para SALVAR uma frase, responda: SALVAR_FRASE|keyword|categoria|frase completa
+4. Laudos em terceira pessoa, estilo radiológico formal.
+5. Inclua: técnica (quando informada), achados, impressão diagnóstica.`;
+
+  try{
+    const r=await fetch(PROXY,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,system,messages:[{role:'user',content:msg}]})
+    });
+    const data=await r.json();
+    if(data.error)return{text:`Erro: ${data.error.message}`,save:null};
+    const text=data.content[0].text;
+    if(text.includes('SALVAR_FRASE|')){
+      const parts=text.split('SALVAR_FRASE|')[1].split('|');
+      if(parts.length>=3){
+        const[kw,cat,...rest]=parts;
+        const phrase=rest.join('|').trim();
+        db.push({id:uid(),keyword:kw.trim(),cat:cat.trim()||'Geral',phrase});
+        renderList();updateCount();schedSave();
+        return{text:`✓ Frase salva!\nKeyword: "${kw.trim()}"\nCategoria: ${cat.trim()}\n\n${phrase}`,save:true};
+      }
+    }
+    return{text,save:false};
+  }catch(e){return{text:'Erro ao conectar com Claude. Verifique sua chave API.',save:null};}
 }
+
+function addMsg(role,text){
+  const chat=document.getElementById('chat');
+  const div=document.createElement('div');
+  div.className=`msg ${role}`;
+  const av=role==='user'?'EU':'✦';
+  div.innerHTML=`<div class="av">${av}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
+}
+
+function addTyping(){
+  const chat=document.getElementById('chat');
+  const div=document.createElement('div');
+  div.className='msg ai';div.id='typing';
+  div.innerHTML=`<div class="av">✦</div><div class="typing"><span></span><span></span><span></span></div>`;
+  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
+}
+
+function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+
+async function sendMsg(){
+  const box=document.getElementById('inpBox');
+  const txt=box.value.trim();
+  if(!txt)return;
+  box.value='';autoResize(box);
+  const match=db.find(d=>txt.toLowerCase()===d.keyword.toLowerCase());
+  if(match){
+    addMsg('user',txt);
+    addMsg('ai',`🔑 Atalho: <strong>${match.keyword}</strong>`);
+    appendLaudo(match.phrase);
+    return;
+  }
+  addMsg('user',txt);
+  addTyping();
+  const{text,save}=await callClaude(txt);
+  removeTyping();
+  addMsg('ai',text);
+  if(!save&&text.length>80&&!text.startsWith('Erro'))appendLaudo(text);
+}
+
+function appendLaudo(t){
+  laudoText+=(laudoText?'\n\n':'')+t;
+  document.getElementById('laudoBox').textContent=laudoText;
+  document.getElementById('laudoWrap').style.display='';
+}
+
+function clearLaudo(){
+  laudoText='';
+  document.getElementById('laudoBox').textContent='';
+  document.getElementById('laudoWrap').style.display='none';
+}
+
+function copyLaudo(){
+  if(!laudoText)return;
+  navigator.clipboard.writeText(laudoText).then(()=>showToast('Laudo copiado!'));
+}
+
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+
+function toggleMic(){
+  if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){showToast('Use Chrome para voz');return;}
+  isListening?stopMic():startMic();
+}
+
+function startMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();
+  recognition.lang='pt-BR';
+  recognition.continuous=true;
+  recognition.interimResults=true;
+  recognition.onstart=()=>{
+    isListening=true;
+    document.getElementById('micBtn').classList.add('on');
+    document.getElementById('micHint').textContent='🔴 Gravando... fale os achados. Clique no microfone para enviar.';
+  };
+  recognition.onresult=(e)=>{
+    let t='';
+    for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;
+    document.getElementById('inpBox').value=t;
+    autoResize(document.getElementById('inpBox'));
+  };
+  recognition.onerror=(e)=>{if(e.error!=='no-speech')stopMic();};
+  recognition.onend=()=>{if(isListening)recognition.start();};
+  recognition.start();
+}
+
+function stopMic(){
+  isListening=false;
+  if(recognition){recognition.stop();recognition=null;}
+  document.getElementById('micBtn').classList.remove('on');
+  document.getElementById('micHint').textContent='Clique no microfone para gravar — fale com calma e clique novamente para enviar';
+  const txt=document.getElementById('inpBox').value.trim();
+  if(txt)sendMsg();
+}
+
+function exportCSV(){
+  const csv=db.map(d=>`${d.keyword}|${d.cat||'Geral'}|${d.phrase}`).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/plain'}));
+  a.download='pulsarai_frases.csv';a.click();
+}
+
+function importCSV(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const lines=ev.target.result.trim().split('\n');let added=0;
+    lines.forEach(l=>{
+      const p=l.split('|');if(p.length<3)return;
+      const kw=p[0].trim(),cat=p[1].trim(),ph=p.slice(2).join('|').trim();
+      if(!kw||!ph)return;
+      db.push({id:uid(),keyword:kw,cat:cat||'Geral',phrase:ph});added++;
+    });
+    renderList();updateCount();schedSave();
+    showToast(`${added} frases importadas ✓`);
+  };
+  reader.readAsText(file);
+}
+
+function showToast(m){
+  const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+</script>
+</body>
+</html>
