@@ -27,6 +27,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .btn:hover{background:var(--g0)}
 .btn-p{background:var(--b4);color:#fff;border-color:var(--b4)}.btn-p:hover{background:var(--b6)}
 .btn-t{background:var(--t4);color:#fff;border-color:var(--t4)}.btn-t:hover{background:var(--t6)}
+.btn-sm{padding:3px 8px;font-size:11px;border-radius:4px}
 #loginScreen{display:flex;align-items:center;justify-content:center;min-height:85vh;padding:40px}
 .lcard{background:var(--card);border:1px solid var(--g1);border-radius:20px;padding:48px;text-align:center;max-width:420px;width:100%}
 .lcard h1{font-size:26px;font-weight:500;color:var(--b8);letter-spacing:-1px;margin-bottom:6px}
@@ -34,55 +35,87 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .lcard p{font-size:13px;color:var(--g5);line-height:1.6;margin-bottom:28px}
 .api-box{background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:16px;margin-bottom:20px;text-align:left}
 .api-box label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);display:block;margin-bottom:6px}
-.api-box input{width:100%;padding:9px 12px;border:1px solid var(--g3);border-radius:var(--rs);font-size:13px;font-family:'DM Mono',monospace;color:var(--g9);background:var(--card);outline:none;transition:border-color .15s}
+.api-box input{width:100%;padding:9px 12px;border:1px solid var(--g3);border-radius:var(--rs);font-size:13px;font-family:'DM Mono',monospace;color:var(--g9);background:var(--card);outline:none}
 .api-box input:focus{border-color:var(--b4)}
-.api-note{font-size:11px;color:var(--g5);margin-top:6px;line-height:1.5}
+.api-note{font-size:11px;color:var(--g5);margin-top:6px}
 .api-saved{font-size:12px;color:var(--t4);margin-top:8px;display:none;font-weight:500}
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 20px;border:1px solid var(--g3);border-radius:var(--rs);background:var(--card);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;color:var(--g7);transition:all .15s}
-.gbtn:hover{background:var(--g0);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.gbtn:hover{background:var(--g0)}
 #app{display:none}
 .layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 97px)}
+
+/* SIDEBAR */
 .sidebar{background:var(--card);border-right:1px solid var(--g1);display:flex;flex-direction:column;overflow:hidden}
 .sb-tabs{display:flex;border-bottom:1px solid var(--g1)}
-.sb-tab{flex:1;padding:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--g5);border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif}
+.sb-tab{flex:1;padding:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--g5);border-bottom:2px solid transparent;font-family:'DM Sans',sans-serif}
 .sb-tab.active{color:var(--b4);border-bottom-color:var(--b4)}
 .sb-panel{display:none;flex:1;flex-direction:column;overflow:hidden}
 .sb-panel.active{display:flex}
-.sb-search{padding:10px 12px;border-bottom:1px solid var(--g1)}
-.sb-search input{width:100%;padding:7px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;background:var(--g0);color:var(--g9);outline:none}
+.sb-search{padding:10px 12px;border-bottom:1px solid var(--g1);display:flex;gap:6px}
+.sb-search input{flex:1;padding:7px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;background:var(--g0);color:var(--g9);outline:none}
 .sb-search input:focus{border-color:var(--b4);background:var(--card)}
-.tree{flex:1;overflow-y:auto;padding:6px 0;user-select:none}
-.tree-method{cursor:pointer;padding:8px 14px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--g5)}
-.tree-method:hover{background:var(--g0)}
-.tree-arrow{font-size:10px;transition:transform .2s;display:inline-block;width:10px}
-.tree-arrow.open{transform:rotate(90deg)}
-.tree-children{display:none;padding-left:0}
-.tree-children.open{display:block}
-.tree-region{cursor:pointer;padding:6px 14px 6px 28px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--g7)}
-.tree-region:hover{background:var(--g0)}
-.tree-phrases{display:none;padding-left:0}
-.tree-phrases.open{display:block}
-.tree-phrase{padding:6px 14px 6px 44px;cursor:pointer;border-left:2px solid transparent}
-.tree-phrase:hover{background:var(--g0)}
-.tree-phrase.active{background:var(--b0);border-left-color:var(--b4)}
-.pkw{font-size:12px;font-weight:500;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ppv{font-size:11px;color:var(--g5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.tree{flex:1;overflow-y:auto;padding:4px 0}
+
+/* Nível 1 - Categoria (ex: Ultrassonografia) */
+.t-cat{display:flex;align-items:center;gap:5px;padding:7px 10px;cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--g7);border-radius:6px;margin:1px 6px}
+.t-cat:hover{background:var(--g0)}
+.t-arr{font-size:9px;transition:transform .2s;display:inline-block;width:10px;flex-shrink:0}
+.t-arr.open{transform:rotate(90deg)}
+.t-cat-ch{display:none;padding-left:6px}
+.t-cat-ch.open{display:block}
+
+/* Nível 2 - Subpasta (ex: Frases, Máscaras) */
+.t-sub{display:flex;align-items:center;gap:5px;padding:5px 10px 5px 20px;cursor:pointer;font-size:12px;font-weight:500;color:var(--g5);border-radius:6px;margin:1px 6px}
+.t-sub:hover{background:var(--g0)}
+.t-sub-ch{display:none;padding-left:4px}
+.t-sub-ch.open{display:block}
+
+/* Nível 3 - Item */
+.t-item{display:flex;align-items:center;padding:5px 8px 5px 34px;cursor:pointer;border-left:2px solid transparent;border-radius:0 6px 6px 0;margin:1px 0 1px 12px;gap:4px}
+.t-item:hover{background:var(--g0)}
+.t-item.active{background:var(--b0);border-left-color:var(--b4)}
+.t-item-name{font-size:12px;font-weight:500;color:var(--g9);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-item-del{font-size:11px;padding:1px 5px;border:none;background:none;color:var(--g3);cursor:pointer;border-radius:3px;flex-shrink:0}
+.t-item-del:hover{background:#fcebeb;color:#e24b4a}
+
+/* Contador */
+.t-count{font-size:10px;color:var(--g3);margin-left:auto;flex-shrink:0}
+
+/* Ações inline nas pastas */
+.t-actions{display:flex;gap:4px;margin-left:auto}
+.t-btn{font-size:10px;padding:1px 6px;border:none;background:none;color:var(--g5);cursor:pointer;border-radius:3px}
+.t-btn:hover{background:var(--g1);color:var(--g9)}
+.t-btn.del:hover{background:#fcebeb;color:#e24b4a}
+
 .sb-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
+
+/* EDITOR PAINEL */
 .ed-form{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;overflow-y:auto}
 .field label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);margin-bottom:4px}
 .field input,.field select,.field textarea{width:100%;padding:8px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--g9);background:var(--g0);outline:none;transition:border-color .15s}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--b4);background:var(--card)}
-.field textarea{min-height:100px;resize:vertical;line-height:1.6}
+.field textarea{min-height:120px;resize:vertical;line-height:1.6}
 .ed-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
+
+/* MAIN */
 .main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
 .tools{display:flex;gap:8px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--g1);align-items:center;flex-wrap:wrap}
 .tools-lbl{font-size:12px;color:var(--g5);margin-right:auto}
 .badge{font-size:11px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;font-weight:500}
+
+/* RICH TEXT EDITOR */
 .laudo-area{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:16px 20px}
-.laudo-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.laudo-title{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g5);flex:1}
-.laudo-editor{flex:1;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:20px 24px;font-size:14px;line-height:1.9;color:var(--g9);resize:none;outline:none;font-family:'DM Sans',sans-serif;overflow-y:auto}
+.laudo-toolbar{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.laudo-title{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g5);margin-right:4px}
+.fmt-btn{padding:4px 10px;border:1px solid var(--g3);border-radius:var(--rs);font-size:12px;cursor:pointer;background:var(--card);color:var(--g7);font-family:'DM Sans',sans-serif}
+.fmt-btn:hover{background:var(--g0)}
+.fmt-btn.active{background:var(--b0);border-color:var(--b4);color:var(--b6)}
+.fmt-sep{width:1px;height:20px;background:var(--g1);margin:0 2px}
+.laudo-editor{flex:1;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:20px 24px;font-size:14px;line-height:1.9;color:var(--g9);outline:none;overflow-y:auto;font-family:'DM Sans',sans-serif}
 .laudo-editor:focus{border-color:var(--b2)}
+.laudo-editor[contenteditable]:empty:before{content:attr(data-placeholder);color:var(--g3);pointer-events:none}
+
+/* MIC + INPUT */
 .inp-area{padding:12px 20px;background:var(--card);border-top:1px solid var(--g1)}
 .mic-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 14px;background:var(--g0);border-radius:var(--rs);font-size:12px;color:var(--g5)}
 .mic-bar.on{background:#fcebeb;color:#a32d2d}
@@ -102,7 +135,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .send-btn:hover{background:var(--b6)}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--g9);color:#fff;padding:10px 18px;border-radius:var(--rs);font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
-.empty{text-align:center;padding:40px 20px;color:var(--g5);font-size:13px}
+.empty{text-align:center;padding:32px 16px;color:var(--g5);font-size:12px;line-height:1.6}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--card);border-radius:16px;padding:24px;width:90%;max-width:400px}
+.modal h3{font-size:15px;font-weight:500;margin-bottom:16px}
+.modal input{width:100%;padding:9px 12px;border:1px solid var(--g3);border-radius:var(--rs);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:14px}
+.modal input:focus{border-color:var(--b4)}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end}
+
 @keyframes pC{0%,100%{r:9}50%{r:11}}
 @keyframes pR{0%{r:9;opacity:.7;stroke-width:1.5}100%{r:22;opacity:0;stroke-width:.3}}
 @keyframes pR2{0%{r:9;opacity:.4;stroke-width:1}100%{r:28;opacity:0;stroke-width:.2}}
@@ -147,7 +190,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
       <circle cx="16" cy="16" r="2" fill="white" opacity=".85"/>
     </svg>
     <h1>Pulsar<em>AI</em></h1>
-    <p>Sistema inteligente de laudos por voz. Dite os achados — o Claude redige o laudo completo. Frases salvas no Google Drive.</p>
+    <p>Sistema inteligente de laudos por voz. Dite os achados — o Claude redige o laudo completo. Frases e máscaras salvas no Google Drive.</p>
     <div class="api-box">
       <label>Chave API Anthropic (Claude)</label>
       <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-...">
@@ -163,55 +206,79 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 
 <div id="app">
   <div class="tools">
-    <span class="tools-lbl" id="cntLbl">0 frases</span>
+    <span class="tools-lbl" id="cntLbl">0 itens</span>
     <span class="badge">✦ Claude Sonnet 4.6</span>
-    <button class="btn" onclick="exportCSV()">↓ Exportar</button>
-    <label class="btn" style="cursor:pointer">↑ Importar<input type="file" accept=".csv,.txt" style="display:none" onchange="importCSV(event)"></label>
-    <button class="btn-t btn" onclick="openEd(null)">+ Nova frase</button>
+    <button class="btn" onclick="exportData()">↓ Exportar</button>
+    <button class="btn" onclick="clearLaudo()">Limpar laudo</button>
+    <button class="btn-p btn" onclick="copyLaudo()">Copiar laudo</button>
   </div>
   <div class="layout">
     <div class="sidebar">
       <div class="sb-tabs">
-        <button class="sb-tab active" onclick="sbTab('F')">Frases</button>
+        <button class="sb-tab active" onclick="sbTab('I')">Itens</button>
         <button class="sb-tab" onclick="sbTab('E')">Editor</button>
       </div>
-      <div class="sb-panel active" id="sbF">
-        <div class="sb-search"><input type="text" id="srch" placeholder="Buscar..." oninput="renderTree()"></div>
+
+      <!-- PAINEL ITENS -->
+      <div class="sb-panel active" id="sbI">
+        <div class="sb-search">
+          <input type="text" id="srch" placeholder="Buscar..." oninput="renderTree()">
+          <button class="btn btn-sm" onclick="addCategory()" title="Nova categoria">+Cat</button>
+        </div>
         <div class="tree" id="tree"></div>
-        <div class="sb-foot"><button class="btn" style="flex:1;font-size:12px" onclick="openEd(null)">+ Adicionar</button></div>
       </div>
+
+      <!-- PAINEL EDITOR -->
       <div class="sb-panel" id="sbE">
         <div class="ed-form">
           <input type="hidden" id="eId">
           <div class="field">
-            <label>Método</label>
-            <select id="eMetodo">
-              <option value="Ultrassonografia">Ultrassonografia</option>
-              <option value="Tomografia">Tomografia</option>
-              <option value="Ressonância Magnética">Ressonância Magnética</option>
-              <option value="Raio-X">Raio-X</option>
-              <option value="Outro">Outro</option>
+            <label>Categoria (Método)</label>
+            <select id="eCat" onchange="updateSubList()"></select>
+          </div>
+          <div class="field">
+            <label>Subpasta</label>
+            <select id="eSub"></select>
+          </div>
+          <div class="field">
+            <label>Tipo</label>
+            <select id="eTipo">
+              <option value="frase">Frase</option>
+              <option value="mascara">Máscara</option>
             </select>
           </div>
-          <div class="field"><label>Região</label><input type="text" id="eCat" placeholder="ex: Ombro, Coluna..."></div>
-          <div class="field"><label>Palavra-chave</label><input type="text" id="eKw" placeholder="ex: supra parcial"></div>
-          <div class="field"><label>Frase do laudo</label><textarea id="ePh" placeholder="Texto completo..."></textarea></div>
+          <div class="field"><label>Nome / Palavra-chave</label><input type="text" id="eKw" placeholder="ex: supra parcial"></div>
+          <div class="field">
+            <label>Conteúdo</label>
+            <textarea id="ePh" placeholder="Texto da frase ou máscara completa..."></textarea>
+          </div>
         </div>
         <div class="ed-foot">
-          <button class="btn-p btn" style="flex:1" onclick="savePhrase()">Salvar</button>
-          <button class="btn" onclick="delPhrase()" id="delBtn" style="display:none;color:#e24b4a;border-color:#f09595">Excluir</button>
+          <button class="btn-p btn" style="flex:1" onclick="saveItem()">Salvar</button>
+          <button class="btn" onclick="deleteItem()" id="delBtn" style="display:none;color:#e24b4a;border-color:#f09595">Excluir</button>
+          <button class="btn" onclick="sbTab('I')">Cancelar</button>
         </div>
       </div>
     </div>
+
+    <!-- MAIN: EDITOR RICH TEXT -->
     <div class="main">
       <div class="laudo-area">
         <div class="laudo-toolbar">
-          <div class="laudo-title">📄 Laudo</div>
-          <button class="btn" onclick="clearLaudo()">Limpar</button>
-          <button class="btn" onclick="improveWithAI()">✦ Melhorar</button>
-          <button class="btn-p btn" onclick="copyLaudo()">Copiar</button>
+          <span class="laudo-title">📄 Laudo</span>
+          <button class="fmt-btn" onclick="fmt('bold')" title="Negrito"><b>N</b></button>
+          <button class="fmt-btn" onclick="fmt('italic')" title="Itálico"><i>I</i></button>
+          <button class="fmt-btn" onclick="fmt('underline')" title="Sublinhado"><u>S</u></button>
+          <button class="fmt-btn" onclick="fmtUpper()" title="MAIÚSCULAS">AA</button>
+          <div class="fmt-sep"></div>
+          <button class="fmt-btn" onclick="improveWithAI()" title="Melhorar com IA">✦ IA</button>
+          <div class="fmt-sep"></div>
+          <button class="fmt-btn" onclick="clearLaudo()">Limpar</button>
+          <button class="fmt-btn btn-p" onclick="copyLaudo()">Copiar</button>
         </div>
-        <textarea class="laudo-editor" id="laudoEditor" placeholder="O laudo aparece aqui. Você pode editar livremente.&#10;&#10;Use o microfone ou pressione Espaço para ditar os achados."></textarea>
+        <div class="laudo-editor" id="laudoEditor" contenteditable="true"
+          data-placeholder="O laudo aparece aqui. Você pode editar livremente com formatação.&#10;&#10;Use o microfone (Espaço) para ditar ou clique em uma frase/máscara na barra lateral.">
+        </div>
       </div>
       <div class="inp-area">
         <div class="mic-bar" id="micBar">
@@ -228,7 +295,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
             </svg>
             <span>ESPAÇO</span>
           </button>
-          <textarea class="inp-box" id="inpBox" placeholder="Ou digite os achados aqui..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <textarea class="inp-box" id="inpBox" placeholder="Ou digite aqui e pressione Enter..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
           <button class="send-btn" onclick="sendMsg()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"/>
@@ -240,20 +307,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
     </div>
   </div>
 </div>
+
+<!-- MODAL NOME -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3 id="modalTitle">Nome</h3>
+    <input type="text" id="modalInput" placeholder="">
+    <div class="modal-btns">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn-p btn" onclick="confirmModal()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <script src="https://accounts.google.com/gsi/client"></script>
 <script>
 const GCLIENT='262932370926-2a6beabjmtc19o3e42q5rgnllpub9na6.apps.googleusercontent.com';
 const GSCOPE='https://www.googleapis.com/auth/drive.file';
-const FNAME='pulsarai_frases.json';
+const FNAME='pulsarai_v3.json';
 const PROXY='https://pulsarai-proxy.rodmilitao.workers.dev';
 
-var db=[],token=null,fileId=null,isListening=false,recognition=null,tokenClient=null;
-var editingId=null,saveTimer=null,finalText='';
-var apiKey=localStorage.getItem('pulsar_api_key')||'';
-var treeState={};
+var token=null,fileId=null,tokenClient=null;
+var isListening=false,recognition=null,finalText='';
+var saveTimer=null,editingId=null;
+var modalCallback=null;
 
-// Inicializa ao carregar
+// Estrutura de dados: {categories:[{id,name,subs:[{id,name,items:[{id,tipo,keyword,content}]}]}]}
+var data={categories:[]};
+var apiKey=localStorage.getItem('pulsar_api_key')||'';
+var treeOpen={};
+
 if(apiKey){
   document.getElementById('apiKeyInput').value=apiKey;
   document.getElementById('apiSaved').style.display='block';
@@ -287,7 +371,7 @@ function signIn(){
 
 function logout(){
   google.accounts.oauth2.revoke(token,function(){});
-  token=null;fileId=null;db=[];
+  token=null;fileId=null;
   document.getElementById('loginScreen').style.display='';
   document.getElementById('app').style.display='none';
   document.getElementById('logoutBtn').style.display='none';
@@ -301,7 +385,7 @@ function setSync(s,l){
 
 document.addEventListener('keydown',function(e){
   var tag=document.activeElement.tagName.toLowerCase();
-  if(e.code==='Space'&&tag!=='input'&&tag!=='textarea'&&tag!=='button'){
+  if(e.code==='Space'&&tag!=='input'&&tag!=='textarea'&&tag!=='button'&&!document.activeElement.isContentEditable){
     e.preventDefault();toggleMic();
   }
 });function dreq(url,opts){
@@ -319,22 +403,22 @@ function loadDrive(){
       fileId=d.files[0].id;
       return dreq('https://www.googleapis.com/drive/v3/files/'+fileId+'?alt=media').then(function(c){return c.json();});
     } else {
-      db=defaultPhrases();
+      data=defaultData();
       saveDrive();
-      return db;
+      return data;
     }
   })
-  .then(function(data){
-    if(data)db=data;
+  .then(function(d){
+    if(d)data=d;
     setSync('ok','Sincronizado');
-    renderTree();updateCount();
+    renderTree();updateCount();updateEditorSelects();
   })
-  .catch(function(){setSync('err','Erro Drive');db=defaultPhrases();renderTree();updateCount();});
+  .catch(function(){setSync('err','Erro Drive');data=defaultData();renderTree();updateCount();});
 }
 
 function saveDrive(){
   setSync('','Salvando...');
-  var body=JSON.stringify(db);
+  var body=JSON.stringify(data);
   var meta=JSON.stringify({name:FNAME,mimeType:'application/json'});
   var url=fileId
     ?'https://www.googleapis.com/upload/drive/v3/files/'+fileId+'?uploadType=multipart'
@@ -350,122 +434,351 @@ function saveDrive(){
 
 function schedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveDrive,1500);}
 
-function defaultPhrases(){
-  return[
-    {id:'d1',keyword:'supra parcial',metodo:'Ultrassonografia',cat:'Ombro',phrase:'Ruptura parcial do tendão do músculo supraespinhal, acometendo sua porção articular, com extensão de aproximadamente 50% da espessura tendinosa, em sua porção crítica, a cerca de 1 cm de sua inserção no tubérculo maior do úmero.'},
-    {id:'d2',keyword:'supra transfixante',metodo:'Ultrassonografia',cat:'Ombro',phrase:'Ruptura transfixante do tendão do músculo supraespinhal, com extensão de aproximadamente 2 cm no plano coronal, com retração do coto tendíneo e presença de líquido articular no recesso subdeltóideo.'},
-    {id:'d3',keyword:'normal',metodo:'Ultrassonografia',cat:'Geral',phrase:'Exame dentro dos limites da normalidade para a faixa etária. Não foram identificadas alterações estruturais significativas ao método utilizado.'},
-    {id:'d4',keyword:'hernia l4 l5',metodo:'Ressonância Magnética',cat:'Coluna',phrase:'Hérnia discal posterolateral à esquerda em L4-L5, com extensão foraminal, promovendo compressão sobre a raiz nervosa L5 ipsilateral, associada a estenose do forame de conjugação esquerdo em grau moderado.'},
-    {id:'d5',keyword:'joelho normal',metodo:'Ressonância Magnética',cat:'Joelho',phrase:'Exame de ressonância magnética do joelho dentro dos limites da normalidade. Meniscos, ligamentos cruzados e colaterais com morfologia e sinal preservados.'},
-  ];
+function defaultData(){
+  return{categories:[
+    {id:'c1',name:'Ultrassonografia',subs:[{id:'s1',name:'Frases',items:[]},{id:'s2',name:'Máscaras',items:[]}]},
+    {id:'c2',name:'Tomografia',subs:[{id:'s3',name:'Frases',items:[]},{id:'s4',name:'Máscaras',items:[]}]},
+    {id:'c3',name:'Ressonância Magnética',subs:[{id:'s5',name:'Frases',items:[]},{id:'s6',name:'Máscaras',items:[]}]},
+    {id:'c4',name:'Raio-X',subs:[{id:'s7',name:'Frases',items:[]},{id:'s8',name:'Máscaras',items:[]}]},
+  ]};
 }
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function updateCount(){document.getElementById('cntLbl').textContent=db.length+' frase'+(db.length!==1?'s':'');}
 
+function updateCount(){
+  var total=0;
+  data.categories.forEach(function(c){c.subs.forEach(function(s){total+=s.items.length;});});
+  document.getElementById('cntLbl').textContent=total+' item'+(total!==1?'s':'');
+}
+
+// ── ÁRVORE ──
 function renderTree(){
   var q=(document.getElementById('srch').value||'').toLowerCase();
-  var f=q?db.filter(function(d){return d.keyword.toLowerCase().includes(q)||d.phrase.toLowerCase().includes(q)||(d.cat||'').toLowerCase().includes(q);}):db;
-  var metodos=[...new Set(f.map(function(d){return d.metodo||'Outro';}))].sort();
   var h='';
-  metodos.forEach(function(m){
-    var mKey='m_'+m;
-    var mOpen=treeState[mKey]!==false;
-    var mFrases=f.filter(function(d){return(d.metodo||'Outro')===m;});
-    var regioes=[...new Set(mFrases.map(function(d){return d.cat||'Geral';}))].sort();
-    h+='<div class="tree-method" onclick="toggleTree(\''+mKey+'\')">';
-    h+='<span class="tree-arrow'+(mOpen?' open':'')+'">▶</span>';
-    h+='<span>📋 '+esc(m)+'</span>';
-    h+='<span style="margin-left:auto;font-size:10px;opacity:.5">'+mFrases.length+'</span></div>';
-    h+='<div class="tree-children'+(mOpen?' open':'')+'">';
-    regioes.forEach(function(reg){
-      var rKey='r_'+m+'_'+reg;
-      var rOpen=treeState[rKey]!==false;
-      var frases=mFrases.filter(function(d){return(d.cat||'Geral')===reg;});
-      h+='<div class="tree-region" onclick="toggleTree(\''+rKey+'\')">';
-      h+='<span class="tree-arrow'+(rOpen?' open':'')+'">▶</span>';
-      h+='<span>📁 '+esc(reg)+'</span>';
-      h+='<span style="margin-left:auto;font-size:10px;opacity:.5">'+frases.length+'</span></div>';
-      h+='<div class="tree-phrases'+(rOpen?' open':'')+'">';
-      frases.forEach(function(d){
-        h+='<div class="tree-phrase'+(editingId===d.id?' active':'')+'" onclick="insertPhrase(\''+d.id+'\')">';
-        h+='<div class="pkw">'+esc(d.keyword)+'</div>';
-        h+='<div class="ppv">'+esc(d.phrase)+'</div></div>';
+  data.categories.forEach(function(cat){
+    var catOpen=treeOpen['c_'+cat.id]!==false;
+    var catCount=0;
+    cat.subs.forEach(function(s){catCount+=s.items.length;});
+    h+='<div class="t-cat" onclick="toggleNode(\'c_\'+\''+cat.id+'\')">';
+    h+='<span class="t-arr'+(catOpen?' open':'')+'">▶</span>';
+    h+='<span style="flex:1">'+esc(cat.name)+'</span>';
+    h+='<span class="t-count">'+catCount+'</span>';
+    h+='<span class="t-actions" onclick="event.stopPropagation()">';
+    h+='<button class="t-btn" onclick="renameCat(\''+cat.id+'\')" title="Renomear">✎</button>';
+    h+='<button class="t-btn" onclick="addSub(\''+cat.id+'\')" title="Nova subpasta">+</button>';
+    h+='<button class="t-btn del" onclick="deleteCat(\''+cat.id+'\')" title="Excluir">✕</button>';
+    h+='</span></div>';
+    h+='<div class="t-cat-ch'+(catOpen?' open':'')+'">';
+    cat.subs.forEach(function(sub){
+      var subOpen=treeOpen['s_'+sub.id]!==false;
+      var filtered=q?sub.items.filter(function(i){return i.keyword.toLowerCase().includes(q)||i.content.toLowerCase().includes(q);}):sub.items;
+      h+='<div class="t-sub" onclick="toggleNode(\'s_\'+\''+sub.id+'\')">';
+      h+='<span class="t-arr'+(subOpen?' open':'')+'">▶</span>';
+      h+='<span style="flex:1">'+esc(sub.name)+'</span>';
+      h+='<span class="t-count">'+filtered.length+'</span>';
+      h+='<span class="t-actions" onclick="event.stopPropagation()">';
+      h+='<button class="t-btn" onclick="renameSub(\''+cat.id+'\',\''+sub.id+'\')" title="Renomear">✎</button>';
+      h+='<button class="t-btn" onclick="newItem(\''+cat.id+'\',\''+sub.id+'\')" title="Novo item">+</button>';
+      h+='<button class="t-btn del" onclick="deleteSub(\''+cat.id+'\',\''+sub.id+'\')" title="Excluir">✕</button>';
+      h+='</span></div>';
+      h+='<div class="t-sub-ch'+(subOpen?' open':'')+'">';
+      if(!filtered.length)h+='<div class="empty" style="padding:8px 16px 8px 34px;font-size:11px">Vazio — clique + para adicionar</div>';
+      filtered.forEach(function(item){
+        var icon=item.tipo==='mascara'?'📋':'💬';
+        h+='<div class="t-item'+(editingId===item.id?' active':'')+'" onclick="insertItem(\''+item.id+'\')">';
+        h+='<span style="font-size:11px">'+icon+'</span>';
+        h+='<span class="t-item-name">'+esc(item.keyword)+'</span>';
+        h+='<button class="t-item-del" onclick="event.stopPropagation();editItem(\''+item.id+'\')" title="Editar">✎</button>';
+        h+='<button class="t-item-del" onclick="event.stopPropagation();deleteItem(\''+item.id+'\')" title="Excluir">✕</button>';
+        h+='</div>';
       });
       h+='</div>';
     });
     h+='</div>';
   });
-  if(!f.length)h='<div class="empty">Nenhuma frase</div>';
+  if(!data.categories.length)h='<div class="empty">Nenhuma categoria.<br>Clique +Cat para adicionar.</div>';
   document.getElementById('tree').innerHTML=h;
 }
 
-function toggleTree(key){
-  treeState[key]=treeState[key]===false?true:false;
-  renderTree();
+function toggleNode(key){treeOpen[key]=treeOpen[key]===false?true:false;renderTree();}
+
+// ── CATEGORIAS E SUBPASTAS ──
+function addCategory(){
+  openModal('Nova categoria','ex: Ultrassonografia',function(name){
+    if(!name)return;
+    data.categories.push({id:uid(),name:name,subs:[{id:uid(),name:'Frases',items:[]},{id:uid(),name:'Máscaras',items:[]}]});
+    renderTree();updateCount();schedSave();updateEditorSelects();
+  });
 }
 
-function insertPhrase(id){
-  var d=db.find(function(x){return x.id===id;});
-  if(!d)return;
-  var ed=document.getElementById('laudoEditor');
-  var v=ed.value;
-  var sep=v&&!v.endsWith('\n')?'\n\n':'';
-  ed.value=v+sep+d.phrase;
-  ed.scrollTop=ed.scrollHeight;
-  showToast('Frase inserida ✓');
+function renameCat(catId){
+  var cat=data.categories.find(function(c){return c.id===catId;});
+  if(!cat)return;
+  openModal('Renomear categoria',cat.name,function(name){
+    if(!name)return;
+    cat.name=name;renderTree();schedSave();updateEditorSelects();
+  });
+}
+
+function deleteCat(catId){
+  if(!confirm('Excluir esta categoria e todos os itens?'))return;
+  data.categories=data.categories.filter(function(c){return c.id!==catId;});
+  renderTree();updateCount();schedSave();updateEditorSelects();
+}
+
+function addSub(catId){
+  openModal('Nova subpasta','ex: Máscaras, Achados',function(name){
+    if(!name)return;
+    var cat=data.categories.find(function(c){return c.id===catId;});
+    if(cat)cat.subs.push({id:uid(),name:name,items:[]});
+    renderTree();schedSave();updateEditorSelects();
+  });
+}
+
+function renameSub(catId,subId){
+  var cat=data.categories.find(function(c){return c.id===catId;});
+  if(!cat)return;
+  var sub=cat.subs.find(function(s){return s.id===subId;});
+  if(!sub)return;
+  openModal('Renomear subpasta',sub.name,function(name){
+    if(!name)return;
+    sub.name=name;renderTree();schedSave();updateEditorSelects();
+  });
+}
+
+function deleteSub(catId,subId){
+  if(!confirm('Excluir esta subpasta e todos os itens?'))return;
+  var cat=data.categories.find(function(c){return c.id===catId;});
+  if(cat)cat.subs=cat.subs.filter(function(s){return s.id!==subId;});
+  renderTree();updateCount();schedSave();
+}
+
+// ── ITENS ──
+function newItem(catId,subId){
+  sbTab('E');editingId=null;
+  document.getElementById('eId').value='';
+  document.getElementById('eKw').value='';
+  document.getElementById('ePh').value='';
+  document.getElementById('eTipo').value='frase';
+  document.getElementById('delBtn').style.display='none';
+  updateEditorSelects(catId,subId);
+}
+
+function editItem(itemId){
+  var found=findItem(itemId);
+  if(!found)return;
+  sbTab('E');editingId=itemId;
+  document.getElementById('eId').value=itemId;
+  document.getElementById('eKw').value=found.item.keyword;
+  document.getElementById('ePh').value=found.item.content;
+  document.getElementById('eTipo').value=found.item.tipo||'frase';
+  document.getElementById('delBtn').style.display='';
+  updateEditorSelects(found.cat.id,found.sub.id);
+}
+
+function findItem(itemId){
+  for(var ci=0;ci<data.categories.length;ci++){
+    var cat=data.categories[ci];
+    for(var si=0;si<cat.subs.length;si++){
+      var sub=cat.subs[si];
+      for(var ii=0;ii<sub.items.length;ii++){
+        if(sub.items[ii].id===itemId)return{cat:cat,sub:sub,item:sub.items[ii],ii:ii};
+      }
+    }
+  }
+  return null;
+}
+
+function saveItem(){
+  var kw=document.getElementById('eKw').value.trim();
+  var ph=document.getElementById('ePh').value.trim();
+  var tipo=document.getElementById('eTipo').value;
+  var catSel=document.getElementById('eCat').value;
+  var subSel=document.getElementById('eSub').value;
+  if(!kw||!ph){showToast('Preencha o nome e o conteúdo');return;}
+  var cat=data.categories.find(function(c){return c.id===catSel;});
+  if(!cat){showToast('Selecione uma categoria');return;}
+  var sub=cat.subs.find(function(s){return s.id===subSel;});
+  if(!sub){showToast('Selecione uma subpasta');return;}
+  if(editingId){
+    var found=findItem(editingId);
+    if(found){
+      found.sub.items.splice(found.ii,1);
+      sub.items.push({id:editingId,keyword:kw,content:ph,tipo:tipo});
+    }
+  } else {
+    sub.items.push({id:uid(),keyword:kw,content:ph,tipo:tipo});
+  }
+  editingId=null;
+  renderTree();updateCount();schedSave();
+  sbTab('I');showToast('Item salvo ✓');
+}
+
+function deleteItem(itemId){
+  var id=itemId||document.getElementById('eId').value;
+  if(!id||!confirm('Excluir este item?'))return;
+  var found=findItem(id);
+  if(found)found.sub.items=found.sub.items.filter(function(i){return i.id!==id;});
+  editingId=null;
+  renderTree();updateCount();schedSave();
+  if(!itemId)sbTab('I');
+  showToast('Excluído');
+}
+
+function updateEditorSelects(selCatId,selSubId){
+  var catSel=document.getElementById('eCat');
+  var subSel=document.getElementById('eSub');
+  var prevCat=selCatId||catSel.value;
+  catSel.innerHTML='';
+  data.categories.forEach(function(c){
+    var o=document.createElement('option');
+    o.value=c.id;o.textContent=c.name;
+    if(c.id===prevCat)o.selected=true;
+    catSel.appendChild(o);
+  });
+  updateSubList(selSubId);
+}
+
+function updateSubList(selSubId){
+  var catId=document.getElementById('eCat').value;
+  var subSel=document.getElementById('eSub');
+  var prevSub=selSubId||subSel.value;
+  subSel.innerHTML='';
+  var cat=data.categories.find(function(c){return c.id===catId;});
+  if(cat){
+    cat.subs.forEach(function(s){
+      var o=document.createElement('option');
+      o.value=s.id;o.textContent=s.name;
+      if(s.id===prevSub)o.selected=true;
+      subSel.appendChild(o);
+    });
+  }
 }
 
 function sbTab(t){
-  document.querySelectorAll('.sb-tab').forEach(function(b,i){b.classList.toggle('active',['F','E'][i]===t);});
+  document.querySelectorAll('.sb-tab').forEach(function(b,i){b.classList.toggle('active',['I','E'][i]===t);});
   document.querySelectorAll('.sb-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('sb'+t).classList.add('active');
+  if(t==='E')updateEditorSelects();
 }
 
-function openEd(id){
-  sbTab('E');editingId=id;
-  var d=id?db.find(function(x){return x.id===id;}):null;
-  document.getElementById('eId').value=id||'';
-  document.getElementById('eMetodo').value=d?d.metodo||'Ultrassonografia':'Ultrassonografia';
-  document.getElementById('eCat').value=d?d.cat||'':'';
-  document.getElementById('eKw').value=d?d.keyword:'';
-  document.getElementById('ePh').value=d?d.phrase:'';
-  document.getElementById('delBtn').style.display=id?'':'none';
-  renderTree();
+// ── MODAL ──
+function openModal(title,placeholder,cb){
+  modalCallback=cb;
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalInput').placeholder=placeholder;
+  document.getElementById('modalInput').value='';
+  document.getElementById('modalBg').classList.add('open');
+  setTimeout(function(){document.getElementById('modalInput').focus();},100);
 }
 
-function savePhrase(){
-  var kw=document.getElementById('eKw').value.trim();
-  var cat=document.getElementById('eCat').value.trim()||'Geral';
-  var metodo=document.getElementById('eMetodo').value;
-  var ph=document.getElementById('ePh').value.trim();
-  if(!kw||!ph){showToast('Preencha keyword e frase');return;}
-  var id=editingId||uid();
-  var idx=db.findIndex(function(d){return d.id===id;});
-  if(idx>=0)db[idx]={id:id,keyword:kw,cat:cat,metodo:metodo,phrase:ph};
-  else db.push({id:id,keyword:kw,cat:cat,metodo:metodo,phrase:ph});
-  editingId=id;renderTree();updateCount();schedSave();
-  showToast('Frase salva ✓');
+function closeModal(){document.getElementById('modalBg').classList.remove('open');modalCallback=null;}
+
+function confirmModal(){
+  var val=document.getElementById('modalInput').value.trim();
+  closeModal();
+  if(modalCallback)modalCallback(val);
 }
 
-function delPhrase(){
-  if(!editingId||!confirm('Excluir?'))return;
-  db=db.filter(function(d){return d.id!==editingId;});
-  openEd(null);renderTree();updateCount();schedSave();
-  showToast('Excluída');
-}function callClaude(msg,callback){
-  var phrases=db.map(function(d){return'- "'+d.keyword+'" ('+( d.metodo||'')+'/'+( d.cat||'')+') → '+d.phrase;}).join('\n');
-  var system='Você é o PulsarAI, assistente especializado em laudos médicos de imagem.\n\nBanco de frases:\n'+phrases+'\n\nINSTRUÇÕES:\n1. Gere laudos médicos profissionais completos em português.\n2. Use terminologia radiológica formal, terceira pessoa.\n3. Inclua achados e impressão diagnóstica.\n4. Retorne apenas o texto do laudo, sem explicações.';
+document.getElementById('modalInput').addEventListener('keydown',function(e){
+  if(e.key==='Enter')confirmModal();
+  if(e.key==='Escape')closeModal();
+});// ── INSERIR ITEM NO LAUDO ──
+function insertItem(itemId){
+  var found=findItem(itemId);
+  if(!found)return;
+  var ed=document.getElementById('laudoEditor');
+  var content=found.item.content;
+  // Converte o conteúdo para HTML com negrito nos títulos em maiúsculas
+  var html=formatContentToHtml(content);
+  // Insere no final do editor
+  if(ed.innerHTML&&ed.innerHTML!==''){
+    ed.innerHTML=ed.innerHTML+'<br><br>'+html;
+  } else {
+    ed.innerHTML=html;
+  }
+  ed.scrollTop=ed.scrollHeight;
+  showToast(found.item.tipo==='mascara'?'Máscara inserida ✓':'Frase inserida ✓');
+}
+
+function formatContentToHtml(text){
+  var lines=text.split('\n');
+  var html='';
+  lines.forEach(function(line){
+    var trimmed=line.trim();
+    if(!trimmed){html+='<br>';return;}
+    // Detecta títulos: linha toda em maiúsculas ou termina com ':'
+    var isTitle=/^[A-ZÁÀÂÃÉÊÍÓÔÕÚÜÇ\s\-\/]+:?\s*$/.test(trimmed)&&trimmed.length>2;
+    if(isTitle){
+      html+='<p><strong>'+esc(trimmed)+'</strong></p>';
+    } else {
+      html+='<p>'+esc(trimmed)+'</p>';
+    }
+  });
+  return html;
+}
+
+// ── RICH TEXT EDITOR ──
+function fmt(cmd){document.execCommand(cmd,false,null);document.getElementById('laudoEditor').focus();}
+
+function fmtUpper(){
+  var sel=window.getSelection();
+  if(!sel.rangeCount)return;
+  var range=sel.getRangeAt(0);
+  var text=range.toString();
+  if(!text)return;
+  document.execCommand('insertText',false,text.toUpperCase());
+  document.getElementById('laudoEditor').focus();
+}
+
+function clearLaudo(){
+  var ed=document.getElementById('laudoEditor');
+  if(ed.innerHTML&&!confirm('Limpar o laudo?'))return;
+  ed.innerHTML='';
+}
+
+function copyLaudo(){
+  var ed=document.getElementById('laudoEditor');
+  if(!ed.innerHTML){showToast('Laudo vazio');return;}
+  // Copia com formatação (rich text)
+  var blob=new Blob([ed.innerHTML],{type:'text/html'});
+  var blobText=new Blob([ed.innerText],{type:'text/plain'});
+  try{
+    navigator.clipboard.write([new ClipboardItem({'text/html':blob,'text/plain':blobText})]).then(function(){showToast('Laudo copiado com formatação!');});
+  }catch(e){
+    // fallback
+    navigator.clipboard.writeText(ed.innerText).then(function(){showToast('Laudo copiado (texto)!');});
+  }
+}
+
+function exportData(){
+  var json=JSON.stringify(data,null,2);
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([json],{type:'application/json'}));
+  a.download='pulsarai_backup.json';a.click();
+}
+
+// ── CLAUDE AI ──
+function callClaude(msg,callback){
+  var allItems=[];
+  data.categories.forEach(function(c){
+    c.subs.forEach(function(s){
+      s.items.forEach(function(i){
+        allItems.push('"'+i.keyword+'" ('+c.name+'/'+s.name+'): '+i.content);
+      });
+    });
+  });
+  var system='Você é o PulsarAI, assistente especializado em laudos médicos de imagem.\n\nItens do médico:\n'+allItems.join('\n')+'\n\nINSTRUÇÕES:\n1. Gere laudos médicos profissionais completos em português.\n2. Use terminologia radiológica formal, terceira pessoa.\n3. Inclua achados e impressão diagnóstica.\n4. Retorne apenas o texto do laudo.';
   fetch(PROXY,{
     method:'POST',
     headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
     body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,system:system,messages:[{role:'user',content:msg}]})
   })
   .then(function(r){return r.json();})
-  .then(function(data){
-    if(data.error)callback('Erro: '+data.error.message);
-    else callback(data.content[0].text);
+  .then(function(d){
+    if(d.error)callback('Erro: '+d.error.message);
+    else callback(d.content[0].text);
   })
   .catch(function(){callback('Erro ao conectar com Claude.');});
 }
@@ -475,68 +788,58 @@ function sendMsg(){
   var txt=box.value.trim();
   if(!txt)return;
   box.value='';autoResize(box);
-  var match=db.find(function(d){return txt.toLowerCase()===d.keyword.toLowerCase();});
-  if(match){insertPhrase(match.id);return;}
+  // Verifica atalho exato
+  var found=null;
+  data.categories.forEach(function(c){
+    c.subs.forEach(function(s){
+      s.items.forEach(function(i){
+        if(i.keyword.toLowerCase()===txt.toLowerCase())found=i.id;
+      });
+    });
+  });
+  if(found){insertItem(found);return;}
+  // Envia pro Claude
   var ed=document.getElementById('laudoEditor');
-  var orig=ed.value;
-  ed.value=orig+(orig?'\n\n':'')+'⏳ Gerando laudo...';
-  ed.scrollTop=ed.scrollHeight;
+  var orig=ed.innerHTML;
+  ed.innerHTML=orig+(orig?'<br><br>':'')+'<p><em>⏳ Gerando laudo...</em></p>';
   callClaude(txt,function(result){
-    ed.value=orig+(orig?'\n\n':'')+result;
+    ed.innerHTML=orig+(orig?'<br><br>':'')+formatContentToHtml(result);
     ed.scrollTop=ed.scrollHeight;
   });
 }
 
 function improveWithAI(){
   var ed=document.getElementById('laudoEditor');
-  var txt=ed.value.trim();
+  var txt=ed.innerText.trim();
   if(!txt){showToast('Escreva algo primeiro');return;}
   var orig=txt;
-  ed.value='⏳ Melhorando laudo...';
+  ed.innerHTML='<p><em>⏳ Melhorando laudo...</em></p>';
   callClaude('Melhore e formate profissionalmente este laudo médico:\n\n'+orig,function(result){
-    ed.value=result;
+    ed.innerHTML=formatContentToHtml(result);
     ed.scrollTop=ed.scrollHeight;
   });
 }
 
-function clearLaudo(){
-  if(document.getElementById('laudoEditor').value&&!confirm('Limpar o laudo?'))return;
-  document.getElementById('laudoEditor').value='';
-}
-
-function copyLaudo(){
-  var txt=document.getElementById('laudoEditor').value;
-  if(!txt){showToast('Laudo vazio');return;}
-  navigator.clipboard.writeText(txt).then(function(){showToast('Laudo copiado!');});
-}
-
-function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,160)+'px';}
-
+// ── MICROFONE ──
 function toggleMic(){
-  if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){
-    showToast('Use Google Chrome para voz');return;
-  }
+  if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){showToast('Use Chrome para voz');return;}
   if(isListening)stopMic();else startMic();
 }
 
 function startMic(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   recognition=new SR();
-  recognition.lang='pt-BR';
-  recognition.continuous=true;
-  recognition.interimResults=true;
+  recognition.lang='pt-BR';recognition.continuous=true;recognition.interimResults=true;
   finalText=document.getElementById('inpBox').value;
   recognition.onstart=function(){
     isListening=true;
     document.getElementById('micBtn').classList.add('on');
     document.getElementById('micDot').classList.add('on');
     document.getElementById('micBar').classList.add('on');
-    document.getElementById('micTxt').textContent='🔴 Gravando... fale com calma. Clique novamente para enviar.';
+    document.getElementById('micTxt').textContent='🔴 Gravando... fale com calma. Clique novamente para parar e enviar.';
   };
   recognition.onresult=function(e){
-    var interim='';
-    var newFinal='';
+    var interim='';var newFinal='';
     for(var i=e.resultIndex;i<e.results.length;i++){
       if(e.results[i].isFinal)newFinal+=e.results[i][0].transcript+' ';
       else interim+=e.results[i][0].transcript;
@@ -563,38 +866,14 @@ function stopMic(){
   if(txt)sendMsg();
 }
 
-function exportCSV(){
-  var csv=db.map(function(d){return d.keyword+'|'+(d.metodo||'Outro')+'|'+(d.cat||'Geral')+'|'+d.phrase;}).join('\n');
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/plain'}));
-  a.download='pulsarai_frases.csv';a.click();
-}
-
-function importCSV(e){
-  var file=e.target.files[0];if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    var lines=ev.target.result.trim().split('\n');var added=0;
-    lines.forEach(function(l){
-      var p=l.split('|');if(p.length<3)return;
-      var kw,metodo,cat,ph;
-      if(p.length>=4){kw=p[0].trim();metodo=p[1].trim();cat=p[2].trim();ph=p.slice(3).join('|').trim();}
-      else{kw=p[0].trim();metodo='Outro';cat=p[1].trim();ph=p.slice(2).join('|').trim();}
-      if(!kw||!ph)return;
-      db.push({id:uid(),keyword:kw,metodo:metodo||'Outro',cat:cat||'Geral',phrase:ph});added++;
-    });
-    renderTree();updateCount();schedSave();
-    showToast(added+' frases importadas ✓');
-  };
-  reader.readAsText(file);
-}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,160)+'px';}
 
 function showToast(m){
   var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
   setTimeout(function(){t.classList.remove('show');},2500);
 }
 
-// Inicializa Google quando o script carregar
 window.onload=function(){initApp();};
 </script>
 </body>
