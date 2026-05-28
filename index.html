@@ -7,159 +7,153 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
-:root {
-  --blue-900:#042C53;--blue-800:#0C447C;--blue-600:#185FA5;--blue-400:#378ADD;
-  --blue-200:#85B7EB;--blue-100:#B5D4F4;--blue-50:#E6F1FB;
-  --teal-600:#0F6E56;--teal-400:#1D9E75;--teal-200:#5DCAA5;--teal-50:#E1F5EE;
-  --gray-900:#1a1a2a;--gray-700:#3a3a4a;--gray-500:#6b6b7b;
-  --gray-300:#c4c4d0;--gray-100:#f0f0f5;--gray-50:#f8f8fc;
-  --bg:#f9f9fd;--card:#ffffff;--r:12px;--rs:8px;
+:root{
+  --b9:#042C53;--b8:#0C447C;--b6:#185FA5;--b4:#378ADD;--b2:#85B7EB;--b1:#B5D4F4;--b0:#E6F1FB;
+  --t6:#0F6E56;--t4:#1D9E75;--t2:#5DCAA5;--t0:#E1F5EE;
+  --g9:#1a1a2a;--g7:#3a3a4a;--g5:#6b6b7b;--g3:#c4c4d0;--g1:#f0f0f5;--g0:#f8f8fc;
+  --bg:#f9f9fd;--card:#fff;--r:12px;--rs:8px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--gray-900);min-height:100vh}
-.hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--gray-100);position:sticky;top:0;z-index:100}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-height:100vh}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--g1);position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-txt{font-size:20px;font-weight:500;color:var(--blue-800);letter-spacing:-0.5px}
-.logo-txt em{font-style:normal;color:var(--blue-400)}
-.logo-sub{font-size:10px;color:var(--gray-500);letter-spacing:.08em;text-transform:uppercase;margin-top:-2px}
-.hdr-right{display:flex;align-items:center;gap:10px}
-.sync{font-size:12px;color:var(--gray-500);display:flex;align-items:center;gap:5px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--gray-300)}
-.dot.ok{background:var(--teal-400)}.dot.err{background:#e24b4a}.dot.ai{background:#9b59b6}
-.btn{padding:7px 14px;border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border:1px solid var(--gray-300);background:var(--card);color:var(--gray-700);transition:all .15s}
-.btn:hover{background:var(--gray-50)}
-.btn-p{background:var(--blue-400);color:#fff;border-color:var(--blue-400)}
-.btn-p:hover{background:var(--blue-600)}
-.btn-t{background:var(--teal-400);color:#fff;border-color:var(--teal-400)}
-.btn-t:hover{background:var(--teal-600)}
+.logo-txt{font-size:20px;font-weight:500;color:var(--b8);letter-spacing:-.5px}
+.logo-txt em{font-style:normal;color:var(--b4)}
+.logo-sub{font-size:10px;color:var(--g5);letter-spacing:.08em;text-transform:uppercase;margin-top:-2px}
+.hdr-r{display:flex;align-items:center;gap:10px}
+.sync{font-size:12px;color:var(--g5);display:flex;align-items:center;gap:5px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--g3)}
+.dot.ok{background:var(--t4)}.dot.err{background:#e24b4a}
+.btn{padding:7px 14px;border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border:1px solid var(--g3);background:var(--card);color:var(--g7);transition:all .15s}
+.btn:hover{background:var(--g0)}
+.btn-p{background:var(--b4);color:#fff;border-color:var(--b4)}.btn-p:hover{background:var(--b6)}
+.btn-t{background:var(--t4);color:#fff;border-color:var(--t4)}.btn-t:hover{background:var(--t6)}
 #loginScreen{display:flex;align-items:center;justify-content:center;min-height:85vh;padding:40px}
-.login-card{background:var(--card);border:1px solid var(--gray-100);border-radius:20px;padding:48px;text-align:center;max-width:440px;width:100%}
-.login-card h1{font-size:26px;font-weight:500;color:var(--blue-800);letter-spacing:-1px;margin-bottom:6px}
-.login-card h1 em{font-style:normal;color:var(--blue-400)}
-.login-card p{font-size:13px;color:var(--gray-500);line-height:1.6;margin-bottom:24px}
-.api-setup{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--r);padding:16px;margin-bottom:20px;text-align:left}
-.api-setup label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-500);display:block;margin-bottom:6px}
-.api-setup input{width:100%;padding:9px 12px;border:1px solid var(--gray-300);border-radius:var(--rs);font-size:13px;font-family:'DM Mono',monospace;color:var(--gray-900);background:var(--card);outline:none}
-.api-setup input:focus{border-color:var(--blue-400)}
-.api-note{font-size:11px;color:var(--gray-500);margin-top:6px;line-height:1.5}
-.google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 20px;border:1px solid var(--gray-300);border-radius:var(--rs);background:var(--card);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;color:var(--gray-700);transition:all .15s;margin-top:12px}
-.google-btn:hover{background:var(--gray-50)}
+.lcard{background:var(--card);border:1px solid var(--g1);border-radius:20px;padding:48px;text-align:center;max-width:420px;width:100%}
+.lcard h1{font-size:26px;font-weight:500;color:var(--b8);letter-spacing:-1px;margin-bottom:6px}
+.lcard h1 em{font-style:normal;color:var(--b4)}
+.lcard p{font-size:13px;color:var(--g5);line-height:1.6;margin-bottom:28px}
+.api-box{background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:16px;margin-bottom:20px;text-align:left}
+.api-box label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);display:block;margin-bottom:6px}
+.api-box input{width:100%;padding:9px 12px;border:1px solid var(--g3);border-radius:var(--rs);font-size:13px;font-family:'DM Mono',monospace;color:var(--g9);background:var(--card);outline:none;transition:border-color .15s}
+.api-box input:focus{border-color:var(--b4)}
+.api-note{font-size:11px;color:var(--g5);margin-top:6px;line-height:1.5}
+.api-saved{font-size:12px;color:var(--t4);margin-top:8px;display:none;font-weight:500}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 20px;border:1px solid var(--g3);border-radius:var(--rs);background:var(--card);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;color:var(--g7);transition:all .15s}
+.gbtn:hover{background:var(--g0);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 #app{display:none}
 .layout{display:grid;grid-template-columns:280px 1fr;height:calc(100vh - 97px)}
-.sidebar{background:var(--card);border-right:1px solid var(--gray-100);display:flex;flex-direction:column;overflow:hidden}
-.sb-tabs{display:flex;border-bottom:1px solid var(--gray-100)}
-.sb-tab{flex:1;padding:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--gray-500);border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif}
-.sb-tab.active{color:var(--blue-400);border-bottom-color:var(--blue-400)}
+.sidebar{background:var(--card);border-right:1px solid var(--g1);display:flex;flex-direction:column;overflow:hidden}
+.sb-tabs{display:flex;border-bottom:1px solid var(--g1)}
+.sb-tab{flex:1;padding:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--g5);border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif}
+.sb-tab.active{color:var(--b4);border-bottom-color:var(--b4)}
 .sb-panel{display:none;flex:1;flex-direction:column;overflow:hidden}
 .sb-panel.active{display:flex}
-.sb-search{padding:12px;border-bottom:1px solid var(--gray-100)}
-.sb-search input{width:100%;padding:7px 11px;border:1px solid var(--gray-100);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--gray-900);outline:none}
-.sb-search input:focus{border-color:var(--blue-400);background:var(--card)}
+.sb-search{padding:12px;border-bottom:1px solid var(--g1)}
+.sb-search input{width:100%;padding:7px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;background:var(--g0);color:var(--g9);outline:none}
+.sb-search input:focus{border-color:var(--b4);background:var(--card)}
 .sb-list{flex:1;overflow-y:auto;padding:6px 0}
-.cat-hdr{padding:5px 14px 3px;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500)}
-.phrase-row{padding:8px 14px;cursor:pointer;border-left:2px solid transparent;transition:all .12s}
-.phrase-row:hover{background:var(--gray-50)}
-.phrase-row.active{background:var(--blue-50);border-left-color:var(--blue-400)}
-.phrase-kw{font-size:13px;font-weight:500;color:var(--gray-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.phrase-prev{font-size:11px;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
-.sb-footer{padding:10px 12px;border-top:1px solid var(--gray-100);display:flex;gap:6px}
+.cat-hdr{padding:5px 14px 3px;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g5)}
+.prow{padding:8px 14px;cursor:pointer;border-left:2px solid transparent;transition:all .12s}
+.prow:hover{background:var(--g0)}.prow.active{background:var(--b0);border-left-color:var(--b4)}
+.pkw{font-size:13px;font-weight:500;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ppv{font-size:11px;color:var(--g5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.sb-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
 .ed-form{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;overflow-y:auto}
-.field label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-500);margin-bottom:4px}
-.field input,.field textarea{width:100%;padding:8px 11px;border:1px solid var(--gray-100);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--gray-900);background:var(--gray-50);outline:none;transition:border-color .15s}
-.field input:focus,.field textarea:focus{border-color:var(--blue-400);background:var(--card)}
+.field label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);margin-bottom:4px}
+.field input,.field textarea{width:100%;padding:8px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--g9);background:var(--g0);outline:none;transition:border-color .15s}
+.field input:focus,.field textarea:focus{border-color:var(--b4);background:var(--card)}
 .field textarea{min-height:100px;resize:vertical;line-height:1.6}
-.ed-footer{padding:10px 12px;border-top:1px solid var(--gray-100);display:flex;gap:6px}
+.ed-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
 .main{display:flex;flex-direction:column;overflow:hidden}
-.ai-area{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px}
-.msg{display:flex;gap:12px;max-width:100%}
+.chat{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+.msg{display:flex;gap:12px}
 .msg.user{flex-direction:row-reverse}
-.msg-bubble{padding:12px 16px;border-radius:var(--r);font-size:14px;line-height:1.7;max-width:75%}
-.msg.user .msg-bubble{background:var(--blue-400);color:#fff;border-bottom-right-radius:4px}
-.msg.ai .msg-bubble{background:var(--card);border:1px solid var(--gray-100);color:var(--gray-900);border-bottom-left-radius:4px;white-space:pre-wrap}
-.msg.system .msg-bubble{background:var(--teal-50);border:1px solid var(--teal-200);color:var(--teal-600);font-size:12px;max-width:100%;width:100%;border-radius:var(--rs)}
-.msg-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0;margin-top:2px}
-.msg.user .msg-avatar{background:var(--blue-400);color:#fff}
-.msg.ai .msg-avatar{background:linear-gradient(135deg,#7F77DD,#378ADD);color:#fff;font-size:11px}
-.typing{display:flex;gap:4px;padding:14px 16px;background:var(--card);border:1px solid var(--gray-100);border-radius:var(--r);border-bottom-left-radius:4px;width:fit-content}
-.typing span{width:7px;height:7px;border-radius:50%;background:var(--gray-300);animation:bounce .8s infinite}
+.bubble{padding:12px 16px;border-radius:var(--r);font-size:14px;line-height:1.7;max-width:75%}
+.msg.user .bubble{background:var(--b4);color:#fff;border-bottom-right-radius:4px}
+.msg.ai .bubble{background:var(--card);border:1px solid var(--g1);color:var(--g9);border-bottom-left-radius:4px;white-space:pre-wrap}
+.msg.sys .bubble{background:var(--t0);border:1px solid var(--t2);color:var(--t6);font-size:12px;max-width:100%;width:100%;border-radius:var(--rs)}
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0;margin-top:2px}
+.msg.user .av{background:var(--b4);color:#fff}
+.msg.ai .av{background:linear-gradient(135deg,#7F77DD,#378ADD);color:#fff;font-size:11px}
+.typing{display:flex;gap:4px;padding:14px 16px;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);border-bottom-left-radius:4px;width:fit-content}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--g3);animation:bounce .8s infinite}
 .typing span:nth-child(2){animation-delay:.15s}
 .typing span:nth-child(3){animation-delay:.3s}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.laudo-preview{background:var(--card);border:1px solid var(--gray-100);border-radius:var(--r);padding:16px 20px;margin:0 24px 16px;font-size:14px;line-height:1.8;color:var(--gray-900);white-space:pre-wrap;min-height:80px;max-height:200px;overflow-y:auto}
-.laudo-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin:0 24px 6px}
-.laudo-actions{display:flex;gap:8px;margin:0 24px 16px;justify-content:flex-end}
-.input-area{padding:14px 24px;background:var(--card);border-top:1px solid var(--gray-100)}
-.input-row{display:flex;gap:10px;align-items:flex-end}
-.input-box{flex:1;background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--gray-900);resize:none;outline:none;min-height:44px;max-height:120px;line-height:1.5;transition:border-color .15s}
-.input-box:focus{border-color:var(--blue-400);background:var(--card)}
-.mic-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gray-300);background:var(--gray-50);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
-.mic-btn:hover{border-color:var(--blue-400);background:var(--blue-50)}
+.laudo-wrap{margin:0 24px 16px}
+.laudo-lbl{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g5);margin-bottom:6px}
+.laudo-box{background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:16px 20px;font-size:14px;line-height:1.8;color:var(--g9);white-space:pre-wrap;max-height:200px;overflow-y:auto}
+.laudo-act{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.inp-area{padding:14px 24px;background:var(--card);border-top:1px solid var(--g1)}
+.inp-row{display:flex;gap:10px;align-items:flex-end}
+.inp-box{flex:1;background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--g9);resize:none;outline:none;min-height:44px;max-height:120px;line-height:1.5;transition:border-color .15s}
+.inp-box:focus{border-color:var(--b4);background:var(--card)}
+.mic-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--g3);background:var(--g0);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.mic-btn:hover{border-color:var(--b4);background:var(--b0)}
 .mic-btn.on{border-color:#e24b4a;background:#fcebeb;animation:mp 1s infinite}
 @keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,.2)}50%{box-shadow:0 0 0 8px rgba(226,75,74,0)}}
-.send-btn{width:44px;height:44px;border-radius:50%;border:none;background:var(--blue-400);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.send-btn:hover{background:var(--blue-600)}
-.hint{font-size:11px;color:var(--gray-500);margin-top:6px;text-align:center}
-.tools{display:flex;gap:8px;padding:10px 24px;background:var(--bg);border-bottom:1px solid var(--gray-100);align-items:center;flex-wrap:wrap}
-.tools span{font-size:12px;color:var(--gray-500);margin-right:auto}
-.mode-badge{font-size:11px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;font-weight:500}
-.toast{position:fixed;bottom:24px;right:24px;background:var(--gray-900);color:#fff;padding:10px 18px;border-radius:var(--rs);font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
+.send-btn{width:44px;height:44px;border-radius:50%;border:none;background:var(--b4);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.send-btn:hover{background:var(--b6)}
+.hint{font-size:11px;color:var(--g5);margin-top:6px;text-align:center}
+.tools{display:flex;gap:8px;padding:10px 24px;background:var(--bg);border-bottom:1px solid var(--g1);align-items:center;flex-wrap:wrap}
+.tools-lbl{font-size:12px;color:var(--g5);margin-right:auto}
+.badge{font-size:11px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;font-weight:500}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--g9);color:#fff;padding:10px 18px;border-radius:var(--rs);font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
+.empty{text-align:center;padding:40px 20px;color:var(--g5);font-size:13px}
 @keyframes pC{0%,100%{r:9}50%{r:11}}
 @keyframes pR{0%{r:9;opacity:.7;stroke-width:1.5}100%{r:22;opacity:0;stroke-width:.3}}
 @keyframes pR2{0%{r:9;opacity:.4;stroke-width:1}100%{r:28;opacity:0;stroke-width:.2}}
 @keyframes pB{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.p-c{animation:pC 1.4s ease-in-out infinite}
-.p-r1{animation:pR 1.4s ease-out infinite}
-.p-r2{animation:pR2 1.4s ease-out infinite .4s}
-.p-b{animation:pB 5s linear infinite;transform-origin:18px 18px}
-.empty{text-align:center;padding:40px 20px;color:var(--gray-500);font-size:13px;line-height:1.7}
+.pc{animation:pC 1.4s ease-in-out infinite}
+.pr1{animation:pR 1.4s ease-out infinite}
+.pr2{animation:pR2 1.4s ease-out infinite .4s}
+.pb{animation:pB 5s linear infinite;transform-origin:18px 18px}
 </style>
 </head>
 <body><div class="hdr">
   <div class="logo">
     <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-      <circle class="p-r1" cx="18" cy="18" r="9" fill="none" stroke="#378ADD" stroke-width="1.5"/>
-      <circle class="p-r2" cx="18" cy="18" r="9" fill="none" stroke="#85B7EB" stroke-width="1"/>
-      <g class="p-b">
+      <circle class="pr1" cx="18" cy="18" r="9" fill="none" stroke="#378ADD" stroke-width="1.5"/>
+      <circle class="pr2" cx="18" cy="18" r="9" fill="none" stroke="#85B7EB" stroke-width="1"/>
+      <g class="pb">
         <rect x="2" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/>
         <rect x="22" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/>
         <rect x="16.5" y="2" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/>
         <rect x="16.5" y="22" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/>
       </g>
-      <circle class="p-c" cx="18" cy="18" r="9" fill="#378ADD"/>
+      <circle class="pc" cx="18" cy="18" r="9" fill="#378ADD"/>
       <circle cx="18" cy="18" r="5" fill="#0C447C"/>
       <circle cx="16" cy="16" r="2" fill="white" opacity=".85"/>
     </svg>
-    <div>
-      <div class="logo-txt">Pulsar<em>AI</em></div>
-      <div class="logo-sub">Powered by Claude</div>
-    </div>
+    <div><div class="logo-txt">Pulsar<em>AI</em></div><div class="logo-sub">Powered by Claude</div></div>
   </div>
-  <div class="hdr-right">
-    <div class="sync"><div class="dot" id="syncDot"></div><span id="syncLabel">Desconectado</span></div>
-    <div class="sync"><div class="dot ai" id="aiDot" style="display:none"></div><span id="aiLabel" style="display:none"></span></div>
+  <div class="hdr-r">
+    <div class="sync"><div class="dot" id="syncDot"></div><span id="syncLbl">Desconectado</span></div>
     <button class="btn" id="logoutBtn" style="display:none" onclick="logout()">Sair</button>
   </div>
 </div>
 
 <div id="loginScreen">
-  <div class="login-card">
+  <div class="lcard">
     <svg width="52" height="52" viewBox="0 0 36 36" style="margin:0 auto 18px">
-      <circle class="p-r1" cx="18" cy="18" r="9" fill="none" stroke="#378ADD" stroke-width="1.5"/>
-      <circle class="p-r2" cx="18" cy="18" r="9" fill="none" stroke="#85B7EB" stroke-width="1"/>
-      <g class="p-b"><rect x="2" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/><rect x="22" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/><rect x="16.5" y="2" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/><rect x="16.5" y="22" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/></g>
-      <circle class="p-c" cx="18" cy="18" r="9" fill="#378ADD"/>
+      <circle class="pr1" cx="18" cy="18" r="9" fill="none" stroke="#378ADD" stroke-width="1.5"/>
+      <circle class="pr2" cx="18" cy="18" r="9" fill="none" stroke="#85B7EB" stroke-width="1"/>
+      <g class="pb"><rect x="2" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/><rect x="22" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/><rect x="16.5" y="2" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/><rect x="16.5" y="22" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/></g>
+      <circle class="pc" cx="18" cy="18" r="9" fill="#378ADD"/>
       <circle cx="18" cy="18" r="5" fill="#0C447C"/>
       <circle cx="16" cy="16" r="2" fill="white" opacity=".85"/>
     </svg>
     <h1>Pulsar<em>AI</em></h1>
-    <p>Sistema inteligente de laudos por voz. Dite os achados — o Claude redige o laudo completo. Suas frases salvas no Google Drive.</p>
-    <div class="api-setup">
+    <p>Sistema inteligente de laudos por voz. Dite os achados — o Claude redige o laudo completo. Frases salvas no Google Drive.</p>
+    <div class="api-box" id="apiBox">
       <label>Chave API Anthropic (Claude)</label>
       <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-...">
-      <div class="api-note">Salva apenas no seu navegador. Nunca enviada a terceiros.</div>
+      <div class="api-note">Salva no seu navegador. Não precisa digitar de novo.</div>
+      <div class="api-saved" id="apiSaved">✓ Chave salva — só clique em Entrar</div>
     </div>
-    <button class="google-btn" onclick="signIn()">
+    <button class="gbtn" onclick="signIn()">
       <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 6.293C4.672 4.166 6.656 3.58 9 3.58z"/></svg>
       Entrar com Google Drive
     </button>
@@ -168,55 +162,56 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--gray-900)
 
 <div id="app">
   <div class="tools">
-    <span id="countLbl">0 frases salvas</span>
-    <span class="mode-badge">✦ Claude Sonnet 4</span>
-    <button class="btn" onclick="exportCSV()">↓ Exportar frases</button>
-    <label class="btn" style="cursor:pointer">↑ Importar frases<input type="file" accept=".csv,.txt" style="display:none" onchange="importCSV(event)"></label>
-    <button class="btn-t btn" onclick="openEditor(null)">+ Nova frase</button>
+    <span class="tools-lbl" id="cntLbl">0 frases</span>
+    <span class="badge">✦ Claude Sonnet 4.6</span>
+    <button class="btn" onclick="exportCSV()">↓ Exportar</button>
+    <label class="btn" style="cursor:pointer">↑ Importar<input type="file" accept=".csv,.txt" style="display:none" onchange="importCSV(event)"></label>
+    <button class="btn-t btn" onclick="openEd(null)">+ Nova frase</button>
   </div>
   <div class="layout">
     <div class="sidebar">
       <div class="sb-tabs">
-        <button class="sb-tab active" onclick="sbTab('frases')">Frases</button>
-        <button class="sb-tab" onclick="sbTab('editor')">Editor</button>
+        <button class="sb-tab active" onclick="sbTab('F')">Frases</button>
+        <button class="sb-tab" onclick="sbTab('E')">Editor</button>
       </div>
-      <div class="sb-panel active" id="sbFrases">
+      <div class="sb-panel active" id="sbF">
         <div class="sb-search"><input type="text" id="srch" placeholder="Buscar..." oninput="renderList()"></div>
-        <div class="sb-list" id="phraseList"></div>
-        <div class="sb-footer"><button class="btn" style="flex:1;font-size:12px" onclick="openEditor(null)">+ Adicionar</button></div>
+        <div class="sb-list" id="pList"></div>
+        <div class="sb-foot"><button class="btn" style="flex:1;font-size:12px" onclick="openEd(null)">+ Adicionar</button></div>
       </div>
-      <div class="sb-panel" id="sbEditor">
+      <div class="sb-panel" id="sbE">
         <div class="ed-form">
-          <input type="hidden" id="editId">
-          <div class="field"><label>Palavra-chave</label><input type="text" id="fKw" placeholder="ex: supra parcial"></div>
-          <div class="field"><label>Categoria</label><input type="text" id="fCat" placeholder="ex: Ombro, Coluna..."></div>
-          <div class="field"><label>Frase do laudo</label><textarea id="fPh" placeholder="Texto completo..."></textarea></div>
+          <input type="hidden" id="eId">
+          <div class="field"><label>Palavra-chave</label><input type="text" id="eKw" placeholder="ex: supra parcial"></div>
+          <div class="field"><label>Categoria</label><input type="text" id="eCat" placeholder="ex: Ombro, Coluna..."></div>
+          <div class="field"><label>Frase do laudo</label><textarea id="ePh" placeholder="Texto completo..."></textarea></div>
         </div>
-        <div class="ed-footer">
+        <div class="ed-foot">
           <button class="btn-p btn" style="flex:1" onclick="savePhrase()">Salvar</button>
           <button class="btn" onclick="delPhrase()" id="delBtn" style="display:none;color:#e24b4a;border-color:#f09595">Excluir</button>
         </div>
       </div>
     </div>
     <div class="main">
-      <div class="ai-area" id="chat">
-        <div class="msg system">
-          <div class="msg-bubble">👋 Olá! Sou o PulsarAI, seu assistente de laudos médicos com inteligência do Claude.<br><br>
-          Você pode:<br>
-          • <strong>Ditar ou digitar</strong> os achados do exame e eu gero o laudo completo<br>
-          • <strong>Falar palavras-chave</strong> salvas para expandir frases automaticamente<br>
-          • <strong>Pedir para salvar</strong> qualquer frase — fica no seu Google Drive<br><br>
-          Exemplo: <em>"Ultrassom de ombro direito, rotura parcial do supraespinhal, grau moderado"</em></div>
+      <div class="chat" id="chat">
+        <div class="msg sys"><div class="bubble">👋 Olá! Sou o <strong>PulsarAI</strong>, seu assistente de laudos com inteligência do Claude.<br><br>
+        • <strong>Dite ou digite</strong> os achados — gero o laudo completo<br>
+        • <strong>Palavras-chave</strong> salvas expandem automaticamente<br>
+        • <strong>Peça para salvar</strong> qualquer frase no Drive<br><br>
+        Exemplo: <em>"Ultrassom ombro direito, rotura parcial supraespinhal grau moderado"</em></div></div>
+      </div>
+      <div id="laudoWrap" style="display:none">
+        <div class="laudo-wrap">
+          <div class="laudo-lbl">LAUDO GERADO</div>
+          <div class="laudo-box" id="laudoBox"></div>
+          <div class="laudo-act">
+            <button class="btn" onclick="clearLaudo()">Limpar</button>
+            <button class="btn-p btn" onclick="copyLaudo()">Copiar laudo</button>
+          </div>
         </div>
       </div>
-      <div class="laudo-label" id="laudoLabel" style="display:none">LAUDO GERADO</div>
-      <div class="laudo-preview" id="laudoBox" style="display:none"></div>
-      <div class="laudo-actions" id="laudoActions" style="display:none">
-        <button class="btn" onclick="clearLaudo()">Limpar</button>
-        <button class="btn-p btn" onclick="copyLaudo()">Copiar laudo</button>
-      </div>
-      <div class="input-area">
-        <div class="input-row">
+      <div class="inp-area">
+        <div class="inp-row">
           <button class="mic-btn" id="micBtn" onclick="toggleMic()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
@@ -225,7 +220,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--gray-900)
               <line x1="8" y1="23" x2="16" y2="23"/>
             </svg>
           </button>
-          <textarea class="input-box" id="inputBox" placeholder="Descreva os achados do exame..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <textarea class="inp-box" id="inpBox" placeholder="Descreva os achados ou fale uma palavra-chave..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
           <button class="send-btn" onclick="sendMsg()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"/>
@@ -233,7 +228,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--gray-900)
             </svg>
           </button>
         </div>
-        <div class="hint" id="micHint">Microfone desligado — clique no ícone para gravar</div>
+        <div class="hint" id="micHint">Clique no microfone para gravar — fale com calma e clique novamente para enviar</div>
       </div>
     </div>
   </div>
@@ -242,56 +237,65 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--gray-900)
 const GCLIENT='262932370926-2a6beabjmtc19o3e42q5rgnllpub9na6.apps.googleusercontent.com';
 const GSCOPE='https://www.googleapis.com/auth/drive.file';
 const FNAME='pulsarai_frases.json';
+const PROXY='https://pulsarai-proxy.rodmilitao.workers.dev';
+
 let db=[],token=null,fileId=null,isListening=false,recognition=null,tokenClient=null;
 let laudoText='',editingId=null,saveTimer=null;
 let apiKey=localStorage.getItem('pulsar_api_key')||'';
-if(apiKey)document.getElementById('apiKeyInput').value=apiKey;
 
-function initGoogle(){
+// Mostrar chave salva se existir
+window.addEventListener('DOMContentLoaded',()=>{
+  if(apiKey){
+    document.getElementById('apiKeyInput').value=apiKey;
+    document.getElementById('apiSaved').style.display='block';
+  }
+  google.accounts.id.initialize({client_id:GCLIENT});
   tokenClient=google.accounts.oauth2.initTokenClient({
     client_id:GCLIENT,scope:GSCOPE,
     callback:async(r)=>{
-      if(r.error){showToast('Erro ao autenticar');return;}
+      if(r.error){showToast('Erro ao autenticar: '+r.error);return;}
       const k=document.getElementById('apiKeyInput').value.trim();
-      if(!k){showToast('Cole sua chave API do Claude primeiro');return;}
+      if(!k){showToast('Cole sua chave API do Claude');return;}
       apiKey=k;
       localStorage.setItem('pulsar_api_key',k);
       token=r.access_token;
-      setSyncStatus('ok','Drive conectado');
+      setSync('ok','Sincronizado');
       document.getElementById('logoutBtn').style.display='';
       document.getElementById('loginScreen').style.display='none';
       document.getElementById('app').style.display='block';
-      await loadFromDrive();
+      await loadDrive();
     }
   });
-}
+});
 
 function signIn(){
   const k=document.getElementById('apiKeyInput').value.trim();
   if(!k){showToast('Cole sua chave API do Claude primeiro');return;}
-  tokenClient.requestAccessToken({prompt:'consent'});
+  apiKey=k;
+  localStorage.setItem('pulsar_api_key',k);
+  tokenClient.requestAccessToken({prompt:''});
 }
 
 function logout(){
-  google.accounts.oauth2.revoke(token);
+  google.accounts.oauth2.revoke(token,()=>{});
   token=null;fileId=null;db=[];
   document.getElementById('loginScreen').style.display='';
   document.getElementById('app').style.display='none';
   document.getElementById('logoutBtn').style.display='none';
-  setSyncStatus('','Desconectado');
+  setSync('','Desconectado');
 }
 
-function setSyncStatus(s,l){
+function setSync(s,l){
   document.getElementById('syncDot').className='dot'+(s?' '+s:'');
-  document.getElementById('syncLabel').textContent=l;
+  document.getElementById('syncLbl').textContent=l;
 }
 
 async function dreq(url,opts={}){
-  return fetch(url,{...opts,headers:{Authorization:'Bearer '+token,...opts.headers}});
+  return fetch(url,{...opts,headers:{Authorization:'Bearer '+token,...(opts.headers||{})}});
 }
 
-async function loadFromDrive(){
-  setSyncStatus('','Carregando...');
+async function loadDrive(){
+  setSync('','Carregando...');
   try{
     const r=await dreq(`https://www.googleapis.com/drive/v3/files?q=name='${FNAME}' and trashed=false&fields=files(id)`);
     const d=await r.json();
@@ -300,13 +304,13 @@ async function loadFromDrive(){
       const c=await dreq(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`);
       db=await c.json();
     }else{db=defaultPhrases();await saveDrive();}
-    setSyncStatus('ok','Sincronizado');
+    setSync('ok','Sincronizado');
     renderList();updateCount();
-  }catch(e){setSyncStatus('err','Erro Drive');db=defaultPhrases();renderList();}
+  }catch(e){setSync('err','Erro Drive');db=defaultPhrases();renderList();updateCount();}
 }
 
 async function saveDrive(){
-  setSyncStatus('','Salvando...');
+  setSync('','Salvando...');
   try{
     const body=JSON.stringify(db);
     const meta=JSON.stringify({name:FNAME,mimeType:'application/json'});
@@ -314,13 +318,13 @@ async function saveDrive(){
       ?`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
       :'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
     const method=fileId?'PATCH':'POST';
-    const b='bnd_pulsar';
-    const body2=`--${b}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${b}--`;
-    const rr=await dreq(url,{method,headers:{'Content-Type':`multipart/related; boundary=${b}`},body:body2});
+    const b='bnd_p';
+    const rb=`--${b}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${b}--`;
+    const rr=await dreq(url,{method,headers:{'Content-Type':`multipart/related; boundary=${b}`},body:rb});
     const res=await rr.json();
     if(res.id)fileId=res.id;
-    setSyncStatus('ok','Sincronizado');
-  }catch(e){setSyncStatus('err','Erro ao salvar');}
+    setSync('ok','Sincronizado');
+  }catch(e){setSync('err','Erro ao salvar');}
 }
 
 function schedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveDrive,1500);}
@@ -344,232 +348,52 @@ function renderList(){
   cats.forEach(c=>{
     h+=`<div class="cat-hdr">${c}</div>`;
     f.filter(d=>(d.cat||'Geral')===c).forEach(d=>{
-      h+=`<div class="phrase-row${editingId===d.id?' active':''}" onclick="openEditor('${d.id}')">
-        <div class="phrase-kw">${esc(d.keyword)}</div>
-        <div class="phrase-prev">${esc(d.phrase)}</div>
+      h+=`<div class="prow${editingId===d.id?' active':''}" onclick="openEd('${d.id}')">
+        <div class="pkw">${esc(d.keyword)}</div>
+        <div class="ppv">${esc(d.phrase)}</div>
       </div>`;
     });
   });
   if(!f.length)h='<div class="empty">Nenhuma frase</div>';
-  document.getElementById('phraseList').innerHTML=h;
+  document.getElementById('pList').innerHTML=h;
 }
 
-function updateCount(){document.getElementById('countLbl').textContent=db.length+' frase'+(db.length!==1?'s':'')+' salvas';}
+function updateCount(){document.getElementById('cntLbl').textContent=db.length+' frase'+(db.length!==1?'s':'');}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function sbTab(t){
-  document.querySelectorAll('.sb-tab').forEach((b,i)=>b.classList.toggle('active',['frases','editor'][i]===t));
+  document.querySelectorAll('.sb-tab').forEach((b,i)=>b.classList.toggle('active',['F','E'][i]===t));
   document.querySelectorAll('.sb-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('sb'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');
+  document.getElementById('sb'+t).classList.add('active');
 }
 
-function openEditor(id){
-  sbTab('editor');
-  editingId=id;
+function openEd(id){
+  sbTab('E');editingId=id;
   const d=id?db.find(x=>x.id===id):null;
-  document.getElementById('editId').value=id||'';
-  document.getElementById('fKw').value=d?d.keyword:'';
-  document.getElementById('fCat').value=d?d.cat||'':'';
-  document.getElementById('fPh').value=d?d.phrase:'';
+  document.getElementById('eId').value=id||'';
+  document.getElementById('eKw').value=d?d.keyword:'';
+  document.getElementById('eCat').value=d?d.cat||'':'';
+  document.getElementById('ePh').value=d?d.phrase:'';
   document.getElementById('delBtn').style.display=id?'':'none';
   renderList();
 }
 
 function savePhrase(){
-  const kw=document.getElementById('fKw').value.trim();
-  const cat=document.getElementById('fCat').value.trim()||'Geral';
-  const ph=document.getElementById('fPh').value.trim();
+  const kw=document.getElementById('eKw').value.trim();
+  const cat=document.getElementById('eCat').value.trim()||'Geral';
+  const ph=document.getElementById('ePh').value.trim();
   if(!kw||!ph){showToast('Preencha keyword e frase');return;}
   const id=editingId||uid();
   const idx=db.findIndex(d=>d.id===id);
   if(idx>=0)db[idx]={id,keyword:kw,cat,phrase:ph};
   else db.push({id,keyword:kw,cat,phrase:ph});
-  editingId=id;
-  renderList();updateCount();schedSave();
+  editingId=id;renderList();updateCount();schedSave();
   showToast('Frase salva ✓');
 }
 
 function delPhrase(){
   if(!editingId||!confirm('Excluir?'))return;
   db=db.filter(d=>d.id!==editingId);
-  openEditor(null);renderList();updateCount();schedSave();
+  openEd(null);renderList();updateCount();schedSave();
   showToast('Excluída');
-}async function callClaude(userMsg){
-  const aiDot=document.getElementById('aiDot');
-  const aiLbl=document.getElementById('aiLabel');
-  aiDot.style.display='';aiLbl.style.display='';aiLbl.textContent='Claude pensando...';
-  const phrases=db.map(d=>`- Keyword: "${d.keyword}" → ${d.phrase}`).join('\n');
-  const system=`Você é o PulsarAI, assistente especializado em laudos médicos de imagem (radiologia, ultrassonografia, tomografia, ressonância magnética).
-
-Banco de frases do médico:
-${phrases}
-
-INSTRUÇÕES:
-1. Quando o médico descrever achados, gere um laudo médico profissional completo em português com terminologia correta.
-2. Quando mencionar palavra-chave do banco, use exatamente a frase correspondente.
-3. Se pedir para SALVAR uma frase, responda: SALVAR_FRASE|keyword|categoria|frase completa
-4. Laudos em terceira pessoa, estilo radiológico formal.
-5. Inclua: técnica (quando informada), achados, impressão diagnóstica.`;
-
-  try{
-    const r=await fetch('https://pulsarai-proxy.rodmilitao.workers.dev',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
-      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,system,messages:[{role:'user',content:userMsg}]})
-    });
-    const data=await r.json();
-    aiDot.style.display='none';aiLbl.style.display='none';
-    if(data.error)return{text:`Erro: ${data.error.message}`,save:null};
-    const text=data.content[0].text;
-    if(text.includes('SALVAR_FRASE|')){
-      const parts=text.split('SALVAR_FRASE|')[1].split('|');
-      if(parts.length>=3){
-        const[kw,cat,...rest]=parts;
-        const phrase=rest.join('|').trim();
-        db.push({id:uid(),keyword:kw.trim(),cat:cat.trim()||'Geral',phrase});
-        renderList();updateCount();schedSave();
-        return{text:`✓ Frase salva!\n\nKeyword: "${kw.trim()}"\nCategoria: ${cat.trim()}\n\nFrase: ${phrase}`,save:true};
-      }
-    }
-    return{text,save:false};
-  }catch(e){
-    aiDot.style.display='none';aiLbl.style.display='none';
-    return{text:'Erro ao conectar com Claude. Verifique sua chave API.',save:null};
-  }
 }
-
-function addMsg(role,text){
-  const chat=document.getElementById('chat');
-  const div=document.createElement('div');
-  div.className=`msg ${role}`;
-  const initials=role==='user'?'EU':'✦';
-  div.innerHTML=`<div class="msg-avatar">${initials}</div><div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
-  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
-  return div;
-}
-
-function addTyping(){
-  const chat=document.getElementById('chat');
-  const div=document.createElement('div');
-  div.className='msg ai';div.id='typing';
-  div.innerHTML=`<div class="msg-avatar">✦</div><div class="typing"><span></span><span></span><span></span></div>`;
-  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
-}
-
-function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
-
-async function sendMsg(){
-  const box=document.getElementById('inputBox');
-  const txt=box.value.trim();
-  if(!txt)return;
-  box.value='';autoResize(box);
-  const match=db.find(d=>txt.toLowerCase()===d.keyword.toLowerCase());
-  if(match){
-    addMsg('user',txt);
-    addMsg('ai',`🔑 Atalho: <strong>${match.keyword}</strong>`);
-    appendLaudo(match.phrase);
-    return;
-  }
-  addMsg('user',txt);
-  addTyping();
-  const{text,save}=await callClaude(txt);
-  removeTyping();
-  addMsg('ai',text);
-  if(!save&&text.length>100&&!text.startsWith('Erro'))appendLaudo(text);
-}
-
-function appendLaudo(t){
-  laudoText+=(laudoText?'\n\n':'')+t;
-  document.getElementById('laudoBox').textContent=laudoText;
-  document.getElementById('laudoLabel').style.display='';
-  document.getElementById('laudoBox').style.display='';
-  document.getElementById('laudoActions').style.display='';
-}
-
-function clearLaudo(){
-  laudoText='';
-  document.getElementById('laudoBox').textContent='';
-  document.getElementById('laudoLabel').style.display='none';
-  document.getElementById('laudoBox').style.display='none';
-  document.getElementById('laudoActions').style.display='none';
-}
-
-function copyLaudo(){
-  if(!laudoText)return;
-  navigator.clipboard.writeText(laudoText).then(()=>showToast('Laudo copiado!'));
-}
-
-function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
-
-function toggleMic(){
-  if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){showToast('Use Chrome para voz');return;}
-  isListening?stopMic():startMic();
-}
-
-function startMic(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  recognition=new SR();
-  recognition.lang='pt-BR';recognition.continuous=true;recognition.interimResults=true;
-  recognition.onstart=()=>{
-    isListening=true;
-    document.getElementById('micBtn').classList.add('on');
-    document.getElementById('micHint').textContent='🔴 Gravando... fale os achados';
-  };
-  recognition.onresult=(e)=>{
-    let t='';
-    for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;
-    document.getElementById('inputBox').value=t;
-    autoResize(document.getElementById('inputBox'));
-  };
-  recognition.onerror=(e)=>{if(e.error!=='no-speech')stopMic();};
-  recognition.onend=()=>{if(isListening)recognition.start();};
-    stopMic();
-    if(document.getElementById('inputBox').value.trim())sendMsg();
-  };
-  recognition.start();
-}
-
-function stopMic(){
-  isListening=false;
-  if(recognition)recognition.stop();
-  document.getElementById('micBtn').classList.remove('on');
-  document.getElementById('micHint').textContent='Microfone desligado — clique para gravar';
-}
-
-function exportCSV(){
-  const csv=db.map(d=>`${d.keyword}|${d.cat||'Geral'}|${d.phrase}`).join('\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/plain'}));
-  a.download='pulsarai_frases.csv';a.click();
-}
-
-function importCSV(e){
-  const file=e.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const lines=ev.target.result.trim().split('\n');let added=0;
-    lines.forEach(l=>{
-      const p=l.split('|');if(p.length<3)return;
-      const kw=p[0].trim(),cat=p[1].trim(),ph=p.slice(2).join('|').trim();
-      if(!kw||!ph)return;
-      db.push({id:uid(),keyword:kw,cat:cat||'Geral',phrase:ph});added++;
-    });
-    renderList();updateCount();schedSave();
-    showToast(`${added} frases importadas ✓`);
-  };
-  reader.readAsText(file);
-}
-
-function showToast(m){
-  const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
-
-window.onload=()=>{
-  google.accounts.id.initialize({client_id:GCLIENT});
-  initGoogle();
-};
-</script>
-</body>
-</html>
