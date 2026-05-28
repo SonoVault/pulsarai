@@ -273,7 +273,7 @@ function signIn(){
   if(!k){showToast('Cole sua chave API do Claude primeiro');return;}
   apiKey=k;
   localStorage.setItem('pulsar_api_key',k);
-  tokenClient.requestAccessToken({prompt:''});
+  tokenClient.requestAccessToken({prompt:'select_account'});
 }
 
 function logout(){
