@@ -42,63 +42,84 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 20px;border:1px solid var(--g3);border-radius:var(--rs);background:var(--card);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;color:var(--g7);transition:all .15s}
 .gbtn:hover{background:var(--g0);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 #app{display:none}
-.layout{display:grid;grid-template-columns:280px 1fr;height:calc(100vh - 97px)}
+.layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 57px)}
+
+/* SIDEBAR ÁRVORE */
 .sidebar{background:var(--card);border-right:1px solid var(--g1);display:flex;flex-direction:column;overflow:hidden}
 .sb-tabs{display:flex;border-bottom:1px solid var(--g1)}
 .sb-tab{flex:1;padding:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--g5);border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif}
 .sb-tab.active{color:var(--b4);border-bottom-color:var(--b4)}
 .sb-panel{display:none;flex:1;flex-direction:column;overflow:hidden}
 .sb-panel.active{display:flex}
-.sb-search{padding:12px;border-bottom:1px solid var(--g1)}
+.sb-search{padding:10px 12px;border-bottom:1px solid var(--g1)}
 .sb-search input{width:100%;padding:7px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;background:var(--g0);color:var(--g9);outline:none}
 .sb-search input:focus{border-color:var(--b4);background:var(--card)}
-.sb-list{flex:1;overflow-y:auto;padding:6px 0}
-.cat-hdr{padding:5px 14px 3px;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g5)}
-.prow{padding:8px 14px;cursor:pointer;border-left:2px solid transparent;transition:all .12s}
-.prow:hover{background:var(--g0)}.prow.active{background:var(--b0);border-left-color:var(--b4)}
-.pkw{font-size:13px;font-weight:500;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ppv{font-size:11px;color:var(--g5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.tree{flex:1;overflow-y:auto;padding:6px 0;user-select:none}
+
+/* Nível 1 — Método */
+.tree-method{cursor:pointer;padding:8px 14px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--g5);transition:background .12s}
+.tree-method:hover{background:var(--g0)}
+.tree-method .arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.tree-method.open .arrow{transform:rotate(90deg)}
+.tree-method-children{display:none}
+.tree-method.open + .tree-method-children{display:block}
+
+/* Nível 2 — Região */
+.tree-region{cursor:pointer;padding:6px 14px 6px 28px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--g7);transition:background .12s}
+.tree-region:hover{background:var(--g0)}
+.tree-region .arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.tree-region.open .arrow{transform:rotate(90deg)}
+.tree-region-children{display:none}
+.tree-region.open + .tree-region-children{display:block}
+
+/* Nível 3 — Frase */
+.tree-phrase{padding:6px 14px 6px 44px;cursor:pointer;border-left:2px solid transparent;transition:all .12s}
+.tree-phrase:hover{background:var(--g0)}
+.tree-phrase.active{background:var(--b0);border-left-color:var(--b4)}
+.tree-phrase-kw{font-size:12px;font-weight:500;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tree-phrase-pv{font-size:11px;color:var(--g5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+
 .sb-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
 .ed-form{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;overflow-y:auto}
 .field label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);margin-bottom:4px}
-.field input,.field textarea{width:100%;padding:8px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--g9);background:var(--g0);outline:none;transition:border-color .15s}
-.field input:focus,.field textarea:focus{border-color:var(--b4);background:var(--card)}
+.field input,.field select,.field textarea{width:100%;padding:8px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--g9);background:var(--g0);outline:none;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--b4);background:var(--card)}
 .field textarea{min-height:100px;resize:vertical;line-height:1.6}
 .ed-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
-.main{display:flex;flex-direction:column;overflow:hidden}
-.chat{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px}
-.msg{display:flex;gap:12px}
-.msg.user{flex-direction:row-reverse}
-.bubble{padding:12px 16px;border-radius:var(--r);font-size:14px;line-height:1.7;max-width:75%}
-.msg.user .bubble{background:var(--b4);color:#fff;border-bottom-right-radius:4px}
-.msg.ai .bubble{background:var(--card);border:1px solid var(--g1);color:var(--g9);border-bottom-left-radius:4px;white-space:pre-wrap}
-.msg.sys .bubble{background:var(--t0);border:1px solid var(--t2);color:var(--t6);font-size:12px;max-width:100%;width:100%;border-radius:var(--rs)}
-.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0;margin-top:2px}
-.msg.user .av{background:var(--b4);color:#fff}
-.msg.ai .av{background:linear-gradient(135deg,#7F77DD,#378ADD);color:#fff;font-size:11px}
-.typing{display:flex;gap:4px;padding:14px 16px;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);border-bottom-left-radius:4px;width:fit-content}
-.typing span{width:7px;height:7px;border-radius:50%;background:var(--g3);animation:bounce .8s infinite}
-.typing span:nth-child(2){animation-delay:.15s}
-.typing span:nth-child(3){animation-delay:.3s}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.laudo-wrap{margin:0 24px 16px}
-.laudo-lbl{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g5);margin-bottom:6px}
-.laudo-box{background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:16px 20px;font-size:14px;line-height:1.8;color:var(--g9);white-space:pre-wrap;max-height:200px;overflow-y:auto}
-.laudo-act{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
-.inp-area{padding:14px 24px;background:var(--card);border-top:1px solid var(--g1)}
-.inp-row{display:flex;gap:10px;align-items:flex-end}
-.inp-box{flex:1;background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--g9);resize:none;outline:none;min-height:44px;max-height:120px;line-height:1.5;transition:border-color .15s}
+
+/* MAIN */
+.main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.tools{display:flex;gap:8px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--g1);align-items:center;flex-wrap:wrap}
+.tools-lbl{font-size:12px;color:var(--g5);margin-right:auto}
+.badge{font-size:11px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;font-weight:500}
+
+/* LAUDO — área principal grande */
+.laudo-area{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:20px}
+.laudo-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.laudo-title{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g5);flex:1}
+.laudo-editor{flex:1;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:20px 24px;font-size:14px;line-height:1.9;color:var(--g9);resize:none;outline:none;font-family:'DM Sans',sans-serif;overflow-y:auto;min-height:200px}
+.laudo-editor:focus{border-color:var(--b2)}
+
+/* MIC + INPUT */
+.inp-area{padding:12px 20px;background:var(--card);border-top:1px solid var(--g1)}
+.mic-status-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 14px;background:var(--g0);border-radius:var(--rs);font-size:12px;color:var(--g5)}
+.mic-status-bar.recording{background:#fcebeb;color:#a32d2d}
+.mic-indicator{width:8px;height:8px;border-radius:50%;background:var(--g3);flex-shrink:0}
+.mic-indicator.on{background:#e24b4a;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.mic-transcript{flex:1;font-family:'DM Mono',monospace;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inp-row{display:flex;gap:8px;align-items:flex-end}
+.inp-box{flex:1;background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--g9);resize:none;outline:none;min-height:44px;max-height:160px;line-height:1.5;transition:border-color .15s}
 .inp-box:focus{border-color:var(--b4);background:var(--card)}
-.mic-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--g3);background:var(--g0);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.mic-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--g3);background:var(--g0);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;position:relative}
 .mic-btn:hover{border-color:var(--b4);background:var(--b0)}
 .mic-btn.on{border-color:#e24b4a;background:#fcebeb;animation:mp 1s infinite}
+.mic-btn .mic-key{position:absolute;bottom:-16px;font-size:9px;color:var(--g5);white-space:nowrap}
 @keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,.2)}50%{box-shadow:0 0 0 8px rgba(226,75,74,0)}}
 .send-btn{width:44px;height:44px;border-radius:50%;border:none;background:var(--b4);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
 .send-btn:hover{background:var(--b6)}
 .hint{font-size:11px;color:var(--g5);margin-top:6px;text-align:center}
-.tools{display:flex;gap:8px;padding:10px 24px;background:var(--bg);border-bottom:1px solid var(--g1);align-items:center;flex-wrap:wrap}
-.tools-lbl{font-size:12px;color:var(--g5);margin-right:auto}
-.badge{font-size:11px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;font-weight:500}
+
 .toast{position:fixed;bottom:24px;right:24px;background:var(--g9);color:#fff;padding:10px 18px;border-radius:var(--rs);font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 .empty{text-align:center;padding:40px 20px;color:var(--g5);font-size:13px}
@@ -147,7 +168,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
     </svg>
     <h1>Pulsar<em>AI</em></h1>
     <p>Sistema inteligente de laudos por voz. Dite os achados — o Claude redige o laudo completo. Frases salvas no Google Drive.</p>
-    <div class="api-box" id="apiBox">
+    <div class="api-box">
       <label>Chave API Anthropic (Claude)</label>
       <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-...">
       <div class="api-note">Salva no seu navegador. Não precisa digitar de novo.</div>
@@ -175,15 +196,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
         <button class="sb-tab" onclick="sbTab('E')">Editor</button>
       </div>
       <div class="sb-panel active" id="sbF">
-        <div class="sb-search"><input type="text" id="srch" placeholder="Buscar..." oninput="renderList()"></div>
-        <div class="sb-list" id="pList"></div>
-        <div class="sb-foot"><button class="btn" style="flex:1;font-size:12px" onclick="openEd(null)">+ Adicionar</button></div>
+        <div class="sb-search"><input type="text" id="srch" placeholder="Buscar..." oninput="renderTree()"></div>
+        <div class="tree" id="tree"></div>
+        <div class="sb-foot"><button class="btn" style="flex:1;font-size:12px" onclick="openEd(null)">+ Adicionar frase</button></div>
       </div>
       <div class="sb-panel" id="sbE">
         <div class="ed-form">
           <input type="hidden" id="eId">
+          <div class="field">
+            <label>Método</label>
+            <select id="eMetodo">
+              <option value="Ultrassonografia">Ultrassonografia</option>
+              <option value="Tomografia">Tomografia</option>
+              <option value="Ressonância Magnética">Ressonância Magnética</option>
+              <option value="Raio-X">Raio-X</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+          <div class="field"><label>Região / Categoria</label><input type="text" id="eCat" placeholder="ex: Ombro, Coluna, Joelho..."></div>
           <div class="field"><label>Palavra-chave</label><input type="text" id="eKw" placeholder="ex: supra parcial"></div>
-          <div class="field"><label>Categoria</label><input type="text" id="eCat" placeholder="ex: Ombro, Coluna..."></div>
           <div class="field"><label>Frase do laudo</label><textarea id="ePh" placeholder="Texto completo..."></textarea></div>
         </div>
         <div class="ed-foot">
@@ -192,35 +223,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
         </div>
       </div>
     </div>
+
     <div class="main">
-      <div class="chat" id="chat">
-        <div class="msg sys"><div class="bubble">👋 Olá! Sou o <strong>PulsarAI</strong>, seu assistente de laudos com inteligência do Claude.<br><br>
-        • <strong>Dite ou digite</strong> os achados — gero o laudo completo<br>
-        • <strong>Palavras-chave</strong> salvas expandem automaticamente<br>
-        • <strong>Peça para salvar</strong> qualquer frase no Drive<br><br>
-        Exemplo: <em>"Ultrassom ombro direito, rotura parcial supraespinhal grau moderado"</em></div></div>
-      </div>
-      <div id="laudoWrap" style="display:none">
-        <div class="laudo-wrap">
-          <div class="laudo-lbl">LAUDO GERADO</div>
-          <div class="laudo-box" id="laudoBox"></div>
-          <div class="laudo-act">
-            <button class="btn" onclick="clearLaudo()">Limpar</button>
-            <button class="btn-p btn" onclick="copyLaudo()">Copiar laudo</button>
-          </div>
+      <div class="laudo-area">
+        <div class="laudo-toolbar">
+          <div class="laudo-title">📄 Laudo</div>
+          <button class="btn" onclick="clearLaudo()">Limpar</button>
+          <button class="btn" onclick="improveWithAI()">✦ Melhorar com IA</button>
+          <button class="btn-p btn" onclick="copyLaudo()">Copiar</button>
         </div>
+        <textarea class="laudo-editor" id="laudoEditor" placeholder="O laudo gerado aparece aqui. Você pode editar livremente.&#10;&#10;Use o microfone (ou Espaço) para ditar os achados — o Claude gera o laudo automaticamente."></textarea>
       </div>
+
       <div class="inp-area">
+        <div class="mic-status-bar" id="micBar">
+          <div class="mic-indicator" id="micInd"></div>
+          <div class="mic-transcript" id="micTrans">Pressione Espaço ou clique no microfone para começar a gravar</div>
+        </div>
         <div class="inp-row">
-          <button class="mic-btn" id="micBtn" onclick="toggleMic()">
+          <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Gravar (Espaço)">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
               <line x1="12" y1="19" x2="12" y2="23"/>
               <line x1="8" y1="23" x2="16" y2="23"/>
             </svg>
+            <span class="mic-key">ESPAÇO</span>
           </button>
-          <textarea class="inp-box" id="inpBox" placeholder="Descreva os achados ou fale uma palavra-chave..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <textarea class="inp-box" id="inpBox" placeholder="Ou digite os achados aqui e pressione Enter..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
           <button class="send-btn" onclick="sendMsg()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"/>
@@ -228,7 +258,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
             </svg>
           </button>
         </div>
-        <div class="hint" id="micHint">Clique no microfone para gravar — fale com calma e clique novamente para enviar</div>
       </div>
     </div>
   </div>
@@ -240,10 +269,10 @@ const FNAME='pulsarai_frases.json';
 const PROXY='https://pulsarai-proxy.rodmilitao.workers.dev';
 
 let db=[],token=null,fileId=null,isListening=false,recognition=null,tokenClient=null;
-let laudoText='',editingId=null,saveTimer=null;
+let editingId=null,saveTimer=null,interimText='',finalText='';
 let apiKey=localStorage.getItem('pulsar_api_key')||'';
+let treeState={};
 
-// Mostrar chave salva se existir
 window.addEventListener('DOMContentLoaded',()=>{
   if(apiKey){
     document.getElementById('apiKeyInput').value=apiKey;
@@ -253,11 +282,10 @@ window.addEventListener('DOMContentLoaded',()=>{
   tokenClient=google.accounts.oauth2.initTokenClient({
     client_id:GCLIENT,scope:GSCOPE,
     callback:async(r)=>{
-      if(r.error){showToast('Erro ao autenticar: '+r.error);return;}
+      if(r.error){showToast('Erro: '+r.error);return;}
       const k=document.getElementById('apiKeyInput').value.trim();
-      if(!k){showToast('Cole sua chave API do Claude');return;}
-      apiKey=k;
-      localStorage.setItem('pulsar_api_key',k);
+      if(!k){showToast('Cole sua chave API primeiro');return;}
+      apiKey=k;localStorage.setItem('pulsar_api_key',k);
       token=r.access_token;
       setSync('ok','Sincronizado');
       document.getElementById('logoutBtn').style.display='';
@@ -266,13 +294,20 @@ window.addEventListener('DOMContentLoaded',()=>{
       await loadDrive();
     }
   });
+
+  // Tecla Espaço para gravar — só quando não estiver em input/textarea
+  document.addEventListener('keydown',(e)=>{
+    if(e.code==='Space'&&e.target===document.body){
+      e.preventDefault();
+      toggleMic();
+    }
+  });
 });
 
 function signIn(){
   const k=document.getElementById('apiKeyInput').value.trim();
-  if(!k){showToast('Cole sua chave API do Claude primeiro');return;}
-  apiKey=k;
-  localStorage.setItem('pulsar_api_key',k);
+  if(!k){showToast('Cole sua chave API primeiro');return;}
+  apiKey=k;localStorage.setItem('pulsar_api_key',k);
   tokenClient.requestAccessToken({prompt:'select_account'});
 }
 
@@ -305,8 +340,8 @@ async function loadDrive(){
       db=await c.json();
     }else{db=defaultPhrases();await saveDrive();}
     setSync('ok','Sincronizado');
-    renderList();updateCount();
-  }catch(e){setSync('err','Erro Drive');db=defaultPhrases();renderList();updateCount();}
+    renderTree();updateCount();
+  }catch(e){setSync('err','Erro Drive');db=defaultPhrases();renderTree();updateCount();}
 }
 
 async function saveDrive(){
@@ -331,36 +366,80 @@ function schedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveDrive,1500
 
 function defaultPhrases(){
   return[
-    {id:'d1',keyword:'supra parcial',cat:'Ombro',phrase:'Ruptura parcial do tendão do músculo supraespinhal, acometendo sua porção articular, com extensão de aproximadamente 50% da espessura tendinosa, em sua porção crítica, a cerca de 1 cm de sua inserção no tubérculo maior do úmero.'},
-    {id:'d2',keyword:'supra transfixante',cat:'Ombro',phrase:'Ruptura transfixante do tendão do músculo supraespinhal, com extensão de aproximadamente 2 cm no plano coronal, com retração do coto tendíneo e presença de líquido articular no recesso subdeltóideo.'},
-    {id:'d3',keyword:'normal',cat:'Geral',phrase:'Exame dentro dos limites da normalidade para a faixa etária. Não foram identificadas alterações estruturais significativas ao método utilizado.'},
-    {id:'d4',keyword:'hernia l4 l5',cat:'Coluna',phrase:'Hérnia discal posterolateral à esquerda em L4-L5, com extensão foraminal, promovendo compressão sobre a raiz nervosa L5 ipsilateral, associada a estenose do forame de conjugação esquerdo em grau moderado.'},
+    {id:'d1',keyword:'supra parcial',metodo:'Ultrassonografia',cat:'Ombro',phrase:'Ruptura parcial do tendão do músculo supraespinhal, acometendo sua porção articular, com extensão de aproximadamente 50% da espessura tendinosa, em sua porção crítica, a cerca de 1 cm de sua inserção no tubérculo maior do úmero.'},
+    {id:'d2',keyword:'supra transfixante',metodo:'Ultrassonografia',cat:'Ombro',phrase:'Ruptura transfixante do tendão do músculo supraespinhal, com extensão de aproximadamente 2 cm no plano coronal, com retração do coto tendíneo e presença de líquido articular no recesso subdeltóideo.'},
+    {id:'d3',keyword:'normal',metodo:'Ultrassonografia',cat:'Geral',phrase:'Exame dentro dos limites da normalidade para a faixa etária. Não foram identificadas alterações estruturais significativas ao método utilizado.'},
+    {id:'d4',keyword:'hernia l4 l5',metodo:'Ressonância Magnética',cat:'Coluna',phrase:'Hérnia discal posterolateral à esquerda em L4-L5, com extensão foraminal, promovendo compressão sobre a raiz nervosa L5 ipsilateral, associada a estenose do forame de conjugação esquerdo em grau moderado.'},
+    {id:'d5',keyword:'joelho normal',metodo:'Ressonância Magnética',cat:'Joelho',phrase:'Exame de ressonância magnética do joelho dentro dos limites da normalidade. Meniscos, ligamentos cruzados e colaterais com morfologia e sinal preservados. Cartilagem articular íntegra.'},
   ];
 }
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function updateCount(){document.getElementById('cntLbl').textContent=db.length+' frase'+(db.length!==1?'s':'');}
 
-function renderList(){
+// ── ÁRVORE ──
+function renderTree(){
   const q=(document.getElementById('srch').value||'').toLowerCase();
-  const f=db.filter(d=>!q||d.keyword.toLowerCase().includes(q)||d.phrase.toLowerCase().includes(q)||(d.cat||'').toLowerCase().includes(q));
-  const cats=[...new Set(f.map(d=>d.cat||'Geral'))].sort();
+  const f=q?db.filter(d=>d.keyword.toLowerCase().includes(q)||d.phrase.toLowerCase().includes(q)||(d.cat||'').toLowerCase().includes(q)):db;
+
+  const metodos=[...new Set(f.map(d=>d.metodo||'Outro'))].sort();
   let h='';
-  cats.forEach(c=>{
-    h+=`<div class="cat-hdr">${c}</div>`;
-    f.filter(d=>(d.cat||'Geral')===c).forEach(d=>{
-      h+=`<div class="prow${editingId===d.id?' active':''}" onclick="openEd('${d.id}')">
-        <div class="pkw">${esc(d.keyword)}</div>
-        <div class="ppv">${esc(d.phrase)}</div>
-      </div>`;
+
+  metodos.forEach(m=>{
+    const mKey='m_'+m;
+    const mOpen=treeState[mKey]!==false;
+    const regioes=[...new Set(f.filter(d=>(d.metodo||'Outro')===m).map(d=>d.cat||'Geral'))].sort();
+    h+=`<div class="tree-method${mOpen?' open':''}" onclick="toggleTree('${mKey}')">
+      <span class="arrow">▶</span>
+      <span>📋 ${esc(m)}</span>
+      <span style="margin-left:auto;font-size:10px;opacity:.5">${f.filter(d=>(d.metodo||'Outro')===m).length}</span>
+    </div>
+    <div class="tree-method-children">`;
+
+    regioes.forEach(reg=>{
+      const rKey='r_'+m+'_'+reg;
+      const rOpen=treeState[rKey]!==false;
+      const frases=f.filter(d=>(d.metodo||'Outro')===m&&(d.cat||'Geral')===reg);
+      h+=`<div class="tree-region${rOpen?' open':''}" onclick="toggleTree('${rKey}')">
+        <span class="arrow">▶</span>
+        <span>📁 ${esc(reg)}</span>
+        <span style="margin-left:auto;font-size:10px;opacity:.5">${frases.length}</span>
+      </div>
+      <div class="tree-region-children">`;
+
+      frases.forEach(d=>{
+        h+=`<div class="tree-phrase${editingId===d.id?' active':''}" onclick="insertPhrase('${d.id}')">
+          <div class="tree-phrase-kw">${esc(d.keyword)}</div>
+          <div class="tree-phrase-pv">${esc(d.phrase)}</div>
+        </div>`;
+      });
+      h+='</div>';
     });
+    h+='</div>';
   });
+
   if(!f.length)h='<div class="empty">Nenhuma frase</div>';
-  document.getElementById('pList').innerHTML=h;
+  document.getElementById('tree').innerHTML=h;
 }
 
-function updateCount(){document.getElementById('cntLbl').textContent=db.length+' frase'+(db.length!==1?'s':'');}
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function toggleTree(key){
+  treeState[key]=treeState[key]===false?true:false;
+  renderTree();
+}
 
+function insertPhrase(id){
+  const d=db.find(x=>x.id===id);
+  if(!d)return;
+  const ed=document.getElementById('laudoEditor');
+  const v=ed.value;
+  const sep=v&&!v.endsWith('\n')?'\n\n':'';
+  ed.value=v+sep+d.phrase;
+  ed.scrollTop=ed.scrollHeight;
+  showToast('Frase inserida ✓');
+}
+
+// ── EDITOR ──
 function sbTab(t){
   document.querySelectorAll('.sb-tab').forEach((b,i)=>b.classList.toggle('active',['F','E'][i]===t));
   document.querySelectorAll('.sb-panel').forEach(p=>p.classList.remove('active'));
@@ -371,33 +450,36 @@ function openEd(id){
   sbTab('E');editingId=id;
   const d=id?db.find(x=>x.id===id):null;
   document.getElementById('eId').value=id||'';
-  document.getElementById('eKw').value=d?d.keyword:'';
+  document.getElementById('eMetodo').value=d?d.metodo||'Ultrassonografia':'Ultrassonografia';
   document.getElementById('eCat').value=d?d.cat||'':'';
+  document.getElementById('eKw').value=d?d.keyword:'';
   document.getElementById('ePh').value=d?d.phrase:'';
   document.getElementById('delBtn').style.display=id?'':'none';
-  renderList();
+  renderTree();
 }
 
 function savePhrase(){
   const kw=document.getElementById('eKw').value.trim();
   const cat=document.getElementById('eCat').value.trim()||'Geral';
+  const metodo=document.getElementById('eMetodo').value;
   const ph=document.getElementById('ePh').value.trim();
   if(!kw||!ph){showToast('Preencha keyword e frase');return;}
   const id=editingId||uid();
   const idx=db.findIndex(d=>d.id===id);
-  if(idx>=0)db[idx]={id,keyword:kw,cat,phrase:ph};
-  else db.push({id,keyword:kw,cat,phrase:ph});
-  editingId=id;renderList();updateCount();schedSave();
+  if(idx>=0)db[idx]={id,keyword:kw,cat,metodo,phrase:ph};
+  else db.push({id,keyword:kw,cat,metodo,phrase:ph});
+  editingId=id;renderTree();updateCount();schedSave();
   showToast('Frase salva ✓');
 }
 
 function delPhrase(){
   if(!editingId||!confirm('Excluir?'))return;
   db=db.filter(d=>d.id!==editingId);
-  openEd(null);renderList();updateCount();schedSave();
+  openEd(null);renderTree();updateCount();schedSave();
   showToast('Excluída');
-}async function callClaude(msg){
-  const phrases=db.map(d=>`- "${d.keyword}" → ${d.phrase}`).join('\n');
+}// ── CLAUDE AI ──
+async function callClaude(msg){
+  const phrases=db.map(d=>`- "${d.keyword}" (${d.metodo||''} / ${d.cat||''}) → ${d.phrase}`).join('\n');
   const system=`Você é o PulsarAI, assistente especializado em laudos médicos de imagem (radiologia, ultrassonografia, tomografia, ressonância magnética).
 
 Banco de frases do médico:
@@ -405,10 +487,10 @@ ${phrases}
 
 INSTRUÇÕES:
 1. Quando o médico descrever achados, gere um laudo médico profissional completo em português com terminologia correta.
-2. Quando mencionar palavra-chave do banco, use exatamente a frase correspondente.
-3. Se pedir para SALVAR uma frase, responda: SALVAR_FRASE|keyword|categoria|frase completa
-4. Laudos em terceira pessoa, estilo radiológico formal.
-5. Inclua: técnica (quando informada), achados, impressão diagnóstica.`;
+2. Quando mencionar palavra-chave do banco, incorpore a frase correspondente no laudo.
+3. Laudos em terceira pessoa, estilo radiológico formal.
+4. Inclua: técnica (quando informada), achados detalhados, impressão diagnóstica.
+5. Seja direto — gere apenas o texto do laudo, sem explicações adicionais.`;
 
   try{
     const r=await fetch(PROXY,{
@@ -417,83 +499,62 @@ INSTRUÇÕES:
       body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,system,messages:[{role:'user',content:msg}]})
     });
     const data=await r.json();
-    if(data.error)return{text:`Erro: ${data.error.message}`,save:null};
-    const text=data.content[0].text;
-    if(text.includes('SALVAR_FRASE|')){
-      const parts=text.split('SALVAR_FRASE|')[1].split('|');
-      if(parts.length>=3){
-        const[kw,cat,...rest]=parts;
-        const phrase=rest.join('|').trim();
-        db.push({id:uid(),keyword:kw.trim(),cat:cat.trim()||'Geral',phrase});
-        renderList();updateCount();schedSave();
-        return{text:`✓ Frase salva!\nKeyword: "${kw.trim()}"\nCategoria: ${cat.trim()}\n\n${phrase}`,save:true};
-      }
-    }
-    return{text,save:false};
-  }catch(e){return{text:'Erro ao conectar com Claude. Verifique sua chave API.',save:null};}
+    if(data.error)return`Erro: ${data.error.message}`;
+    return data.content[0].text;
+  }catch(e){return'Erro ao conectar com Claude. Verifique sua chave API.';}
 }
-
-function addMsg(role,text){
-  const chat=document.getElementById('chat');
-  const div=document.createElement('div');
-  div.className=`msg ${role}`;
-  const av=role==='user'?'EU':'✦';
-  div.innerHTML=`<div class="av">${av}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`;
-  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
-}
-
-function addTyping(){
-  const chat=document.getElementById('chat');
-  const div=document.createElement('div');
-  div.className='msg ai';div.id='typing';
-  div.innerHTML=`<div class="av">✦</div><div class="typing"><span></span><span></span><span></span></div>`;
-  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
-}
-
-function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
 
 async function sendMsg(){
   const box=document.getElementById('inpBox');
   const txt=box.value.trim();
   if(!txt)return;
   box.value='';autoResize(box);
+
+  // verifica atalho exato primeiro
   const match=db.find(d=>txt.toLowerCase()===d.keyword.toLowerCase());
-  if(match){
-    addMsg('user',txt);
-    addMsg('ai',`🔑 Atalho: <strong>${match.keyword}</strong>`);
-    appendLaudo(match.phrase);
-    return;
-  }
-  addMsg('user',txt);
-  addTyping();
-  const{text,save}=await callClaude(txt);
-  removeTyping();
-  addMsg('ai',text);
-  if(!save&&text.length>80&&!text.startsWith('Erro'))appendLaudo(text);
+  if(match){insertPhrase(match.id);return;}
+
+  // senão manda pro Claude
+  const ed=document.getElementById('laudoEditor');
+  const orig=ed.value;
+  ed.value=orig+(orig?'\n\n':'')+'⏳ Gerando laudo...';
+  ed.scrollTop=ed.scrollHeight;
+
+  const result=await callClaude(txt);
+
+  ed.value=orig+(orig?'\n\n':'')+result;
+  ed.scrollTop=ed.scrollHeight;
 }
 
-function appendLaudo(t){
-  laudoText+=(laudoText?'\n\n':'')+t;
-  document.getElementById('laudoBox').textContent=laudoText;
-  document.getElementById('laudoWrap').style.display='';
+async function improveWithAI(){
+  const ed=document.getElementById('laudoEditor');
+  const txt=ed.value.trim();
+  if(!txt){showToast('Escreva algo no laudo primeiro');return;}
+  ed.value='⏳ Melhorando laudo...';
+  const result=await callClaude(`Melhore e formate profissionalmente este laudo médico, corrigindo qualquer erro e deixando no estilo radiológico formal:\n\n${txt}`);
+  ed.value=result;
+  ed.scrollTop=ed.scrollHeight;
 }
 
 function clearLaudo(){
-  laudoText='';
-  document.getElementById('laudoBox').textContent='';
-  document.getElementById('laudoWrap').style.display='none';
+  if(document.getElementById('laudoEditor').value&&!confirm('Limpar o laudo?'))return;
+  document.getElementById('laudoEditor').value='';
 }
 
 function copyLaudo(){
-  if(!laudoText)return;
-  navigator.clipboard.writeText(laudoText).then(()=>showToast('Laudo copiado!'));
+  const txt=document.getElementById('laudoEditor').value;
+  if(!txt){showToast('Laudo vazio');return;}
+  navigator.clipboard.writeText(txt).then(()=>showToast('Laudo copiado!'));
 }
 
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,160)+'px';}
 
+// ── MICROFONE — acumula sem apagar ──
 function toggleMic(){
-  if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){showToast('Use Chrome para voz');return;}
+  if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){
+    showToast('Use Google Chrome para reconhecimento de voz');return;
+  }
   isListening?stopMic():startMic();
 }
 
@@ -503,19 +564,42 @@ function startMic(){
   recognition.lang='pt-BR';
   recognition.continuous=true;
   recognition.interimResults=true;
+  finalText=document.getElementById('inpBox').value;
+
   recognition.onstart=()=>{
     isListening=true;
     document.getElementById('micBtn').classList.add('on');
-    document.getElementById('micHint').textContent='🔴 Gravando... fale os achados. Clique no microfone para enviar.';
+    document.getElementById('micInd').classList.add('on');
+    document.getElementById('micBar').classList.add('recording');
+    document.getElementById('micTrans').textContent='🔴 Gravando... fale os achados com calma';
   };
+
   recognition.onresult=(e)=>{
-    let t='';
-    for(let i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;
-    document.getElementById('inpBox').value=t;
+    let interim='';
+    let newFinal='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal){
+        newFinal+=e.results[i][0].transcript+' ';
+      } else {
+        interim+=e.results[i][0].transcript;
+      }
+    }
+    if(newFinal) finalText+=newFinal;
+    const display=finalText+(interim?interim:'');
+    document.getElementById('inpBox').value=display;
+    document.getElementById('micTrans').textContent=interim||'Ouvindo...';
     autoResize(document.getElementById('inpBox'));
   };
-  recognition.onerror=(e)=>{if(e.error!=='no-speech')stopMic();};
-  recognition.onend=()=>{if(isListening)recognition.start();};
+
+  recognition.onerror=(e)=>{
+    if(e.error==='no-speech')return;
+    stopMic();
+  };
+
+  recognition.onend=()=>{
+    if(isListening)recognition.start();
+  };
+
   recognition.start();
 }
 
@@ -523,13 +607,17 @@ function stopMic(){
   isListening=false;
   if(recognition){recognition.stop();recognition=null;}
   document.getElementById('micBtn').classList.remove('on');
-  document.getElementById('micHint').textContent='Clique no microfone para gravar — fale com calma e clique novamente para enviar';
+  document.getElementById('micInd').classList.remove('on');
+  document.getElementById('micBar').classList.remove('recording');
+  document.getElementById('micTrans').textContent='Pressione Espaço ou clique no microfone para gravar';
   const txt=document.getElementById('inpBox').value.trim();
+  finalText='';
   if(txt)sendMsg();
 }
 
+// ── IMPORT/EXPORT ──
 function exportCSV(){
-  const csv=db.map(d=>`${d.keyword}|${d.cat||'Geral'}|${d.phrase}`).join('\n');
+  const csv=db.map(d=>`${d.keyword}|${d.metodo||'Outro'}|${d.cat||'Geral'}|${d.phrase}`).join('\n');
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([csv],{type:'text/plain'}));
   a.download='pulsarai_frases.csv';a.click();
@@ -541,12 +629,15 @@ function importCSV(e){
   reader.onload=ev=>{
     const lines=ev.target.result.trim().split('\n');let added=0;
     lines.forEach(l=>{
-      const p=l.split('|');if(p.length<3)return;
-      const kw=p[0].trim(),cat=p[1].trim(),ph=p.slice(2).join('|').trim();
+      const p=l.split('|');
+      if(p.length<3)return;
+      let kw,metodo,cat,ph;
+      if(p.length>=4){kw=p[0].trim();metodo=p[1].trim();cat=p[2].trim();ph=p.slice(3).join('|').trim();}
+      else{kw=p[0].trim();metodo='Outro';cat=p[1].trim();ph=p.slice(2).join('|').trim();}
       if(!kw||!ph)return;
-      db.push({id:uid(),keyword:kw,cat:cat||'Geral',phrase:ph});added++;
+      db.push({id:uid(),keyword:kw,metodo:metodo||'Outro',cat:cat||'Geral',phrase:ph});added++;
     });
-    renderList();updateCount();schedSave();
+    renderTree();updateCount();schedSave();
     showToast(`${added} frases importadas ✓`);
   };
   reader.readAsText(file);
