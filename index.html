@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulsarAI — Laudos por Voz</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+:root {
+  --blue-900: #042C53; --blue-800: #0C447C; --blue-600: #185FA5;
+  --blue-400: #378ADD; --blue-200: #85B7EB; --blue-100: #B5D4F4; --blue-50: #E6F1FB;
+  --teal-600: #0F6E56; --teal-400: #1D9E75; --teal-200: #5DCAA5;
+  --teal-100: #9FE1CB; --teal-50: #E1F5EE;
+  --gray-900: #1a1a2a; --gray-700: #3a3a4a; --gray-500: #6b6b7b;
+  --gray-300: #c4c4d0; --gray-100: #f0f0f5; --gray-50: #f8f8fc;
+  --bg: #f9f9fd; --card: #ffffff; --radius: 12px; --radius-sm: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--gray-900); min-height: 100vh; overflow-x: hidden; }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: var(--card); border-bottom: 1px solid var(--gray-100); position: sticky; top: 0; z-index: 100; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 36px; height: 36px; }
+.logo-text { font-size: 20px; font-weight: 500; color: var(--blue-800); letter-spacing: -0.5px; }
+.logo-text em { font-style: normal; color: var(--blue-400); }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.sync-status { font-size: 12px; color: var(--gray-500); display: flex; align-items: center; gap: 5px; }
+.sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gray-300); }
+.sync-dot.ok { background: var(--teal-400); }
+.sync-dot.err { background: #e24b4a; }
+.btn { padding: 7px 16px; border-radius: var(--radius-sm); font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; border: 1px solid var(--gray-300); background: var(--card); color: var(--gray-700); transition: all .15s; }
+.btn:hover { background: var(--gray-50); border-color: var(--gray-500); }
+.btn-primary { background: var(--blue-400); color: #fff; border-color: var(--blue-400); }
+.btn-primary:hover { background: var(--blue-600); border-color: var(--blue-600); }
+.btn-teal { background: var(--teal-400); color: #fff; border-color: var(--teal-400); }
+.btn-teal:hover { background: var(--teal-600); border-color: var(--teal-600); }
+#loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 28px; padding: 40px; }
+.login-card { background: var(--card); border: 1px solid var(--gray-100); border-radius: 20px; padding: 48px 56px; text-align: center; max-width: 420px; width: 100%; }
+.login-card h1 { font-size: 28px; font-weight: 500; color: var(--blue-800); letter-spacing: -1px; margin-bottom: 8px; }
+.login-card h1 em { font-style: normal; color: var(--blue-400); }
+.login-card p { font-size: 14px; color: var(--gray-500); line-height: 1.6; margin-bottom: 32px; }
+.google-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px 20px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); background: var(--card); font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; color: var(--gray-700); transition: all .15s; }
+.google-btn:hover { background: var(--gray-50); }
+#app { display: none; }
+.layout { display: grid; grid-template-columns: 260px 1fr 320px; height: calc(100vh - 97px); }
+.sidebar { background: var(--card); border-right: 1px solid var(--gray-100); display: flex; flex-direction: column; overflow: hidden; }
+.sidebar-search { padding: 14px 16px; border-bottom: 1px solid var(--gray-100); }
+.sidebar-search input { width: 100%; padding: 8px 12px; border: 1px solid #e0e0ea; border-radius: var(--radius-sm); font-size: 13px; font-family: 'DM Sans', sans-serif; background: var(--gray-50); color: var(--gray-900); outline: none; }
+.sidebar-search input:focus { border-color: var(--blue-400); background: var(--card); }
+.cat-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+.cat-header { padding: 6px 16px 4px; font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-500); }
+.phrase-item { padding: 9px 16px; cursor: pointer; border-left: 2px solid transparent; transition: all .12s; }
+.phrase-item:hover { background: var(--gray-50); }
+.phrase-item.active { background: var(--blue-50); border-left-color: var(--blue-400); }
+.phrase-item-kw { font-size: 13px; font-weight: 500; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.phrase-item-preview { font-size: 11px; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--gray-100); display: flex; gap: 6px; }.main { display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+.mic-area { display: flex; flex-direction: column; align-items: center; padding: 28px 28px 20px; gap: 14px; border-bottom: 1px solid var(--gray-100); background: var(--card); }
+.mic-row { display: flex; align-items: center; gap: 16px; }
+.mic-btn { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gray-300); background: var(--gray-50); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; flex-shrink: 0; }
+.mic-btn svg { width: 28px; height: 28px; }
+.mic-btn:hover { border-color: var(--blue-400); background: var(--blue-50); }
+.mic-btn.listening { border-color: #e24b4a; background: #fcebeb; animation: micPulse 1s infinite; }
+.mic-btn.listening svg { color: #e24b4a; }
+@keyframes micPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(226,75,74,.25); } 50% { box-shadow: 0 0 0 10px rgba(226,75,74,0); } }
+.mic-info { flex: 1; }
+.mic-status { font-size: 13px; font-weight: 500; color: var(--gray-700); }
+.mic-transcript { font-size: 12px; color: var(--gray-500); margin-top: 3px; min-height: 16px; font-family: 'DM Mono', monospace; }
+.match-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; padding: 3px 10px; border-radius: 99px; background: var(--teal-50); color: var(--teal-600); font-weight: 500; opacity: 0; transition: opacity .3s; }
+.match-badge.show { opacity: 1; }
+.output-area { flex: 1; padding: 20px 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.output-label { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--gray-500); }
+.output-box { flex: 1; background: var(--card); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 18px 20px; font-size: 14px; line-height: 1.75; color: var(--gray-900); white-space: pre-wrap; min-height: 120px; }
+.output-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.editor-panel { background: var(--card); border-left: 1px solid var(--gray-100); display: flex; flex-direction: column; overflow: hidden; }
+.editor-header { padding: 14px 18px; border-bottom: 1px solid var(--gray-100); font-size: 13px; font-weight: 500; color: var(--gray-700); display: flex; align-items: center; justify-content: space-between; }
+.editor-form { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; flex: 1; overflow-y: auto; }
+.field label { display: block; font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 5px; }
+.field input, .field textarea { width: 100%; padding: 9px 12px; border: 1px solid #e0e0ea; border-radius: var(--radius-sm); font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--gray-900); background: var(--gray-50); outline: none; transition: border-color .15s; }
+.field input:focus, .field textarea:focus { border-color: var(--blue-400); background: var(--card); }
+.field textarea { min-height: 140px; resize: vertical; line-height: 1.6; }
+.editor-footer { padding: 14px 18px; border-top: 1px solid var(--gray-100); display: flex; gap: 8px; }
+.tools-bar { display: flex; gap: 8px; padding: 12px 28px; background: var(--bg); border-bottom: 1px solid var(--gray-100); align-items: center; }
+.tools-bar span { font-size: 12px; color: var(--gray-500); margin-right: auto; }
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--gray-900); color: #fff; padding: 10px 18px; border-radius: var(--radius-sm); font-size: 13px; z-index: 999; opacity: 0; transform: translateY(8px); transition: all .2s; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.empty { text-align: center; padding: 40px 20px; color: var(--gray-500); font-size: 13px; line-height: 1.7; }
+@keyframes pCore { 0%,100%{r:9} 50%{r:11} }
+@keyframes pRing { 0%{r:9;opacity:.7;stroke-width:1.5} 100%{r:22;opacity:0;stroke-width:.3} }
+@keyframes pRing2 { 0%{r:9;opacity:.4;stroke-width:1} 100%{r:28;opacity:0;stroke-width:.2} }
+@keyframes pBeam { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.p-core { animation: pCore 1.4s ease-in-out infinite; }
+.p-r1 { animation: pRing 1.4s ease-out infinite; }
+.p-r2 { animation: pRing2 1.4s ease-out infinite .4s; }
+.p-beam { animation: pBeam 5s linear infinite; transform-origin: 18px 18px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">
+    <svg class="logo-icon" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+      <circle class="p-r1" cx="18" cy="18" r="9" fill="none" stroke="#378ADD" stroke-width="1.5"/>
+      <circle class="p-r2" cx="18" cy="18" r="9" fill="none" stroke="#85B7EB" stroke-width="1"/>
+      <g class="p-beam">
+        <rect x="2" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/>
+        <rect x="22" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/>
+        <rect x="16.5" y="2" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/>
+        <rect x="16.5" y="22" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/>
+      </g>
+      <circle class="p-core" cx="18" cy="18" r="9" fill="#378ADD"/>
+      <circle cx="18" cy="18" r="5" fill="#0C447C"/>
+      <circle cx="16" cy="16" r="2" fill="white" opacity=".85"/>
+    </svg>
+    <span class="logo-text">Pulsar<em>AI</em></span>
+  </div>
+  <div class="header-right">
+    <div class="sync-status">
+      <div class="sync-dot" id="syncDot"></div>
+      <span id="syncLabel">Desconectado</span>
+    </div>
+    <button class="btn" id="logoutBtn" style="display:none" onclick="logout()">Sair</button>
+  </div>
+</div>
+<div id="loginScreen">
+  <div class="login-card">
+    <svg width="56" height="56" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto 20px">
+      <circle class="p-r1" cx="18" cy="18" r="9" fill="none" stroke="#378ADD" stroke-width="1.5"/>
+      <circle class="p-r2" cx="18" cy="18" r="9" fill="none" stroke="#85B7EB" stroke-width="1"/>
+      <g class="p-beam">
+        <rect x="2" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/>
+        <rect x="22" y="16.5" width="12" height="3" rx="1.5" fill="#185FA5" opacity=".7"/>
+        <rect x="16.5" y="2" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/>
+        <rect x="16.5" y="22" width="3" height="12" rx="1.5" fill="#185FA5" opacity=".7"/>
+      </g>
+      <circle class="p-core" cx="18" cy="18" r="9" fill="#378ADD"/>
+      <circle cx="18" cy="18" r="5" fill="#0C447C"/>
+      <circle cx="16" cy="16" r="2" fill="white" opacity=".85"/>
+    </svg>
+    <h1>Pulsar<em>AI</em></h1>
+    <p>Sistema de laudos por voz com expansão de frases. Suas frases ficam salvas no Google Drive e acessíveis de qualquer computador.</p>
+    <button class="google-btn" onclick="signIn()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 6.293C4.672 4.166 6.656 3.58 9 3.58z"/></svg>
+      Entrar com Google
+    </button>
+  </div>
+</div><div id="app">
+  <div class="tools-bar">
+    <span id="countLabel">0 frases</span>
+    <button class="btn" onclick="exportCSV()">↓ Exportar CSV</button>
+    <label class="btn" style="cursor:pointer">
+      ↑ Importar CSV
+      <input type="file" accept=".csv,.txt" style="display:none" onchange="importCSV(event)">
+    </label>
+    <button class="btn-teal btn" onclick="newPhrase()">+ Nova frase</button>
+  </div>
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-search">
+        <input type="text" id="searchInput" placeholder="Buscar frases..." oninput="renderSidebar()">
+      </div>
+      <div class="cat-list" id="catList"></div>
+      <div class="sidebar-footer">
+        <button class="btn" style="flex:1;font-size:12px" onclick="newPhrase()">+ Adicionar</button>
+      </div>
+    </div>
+    <div class="main">
+      <div class="mic-area">
+        <div class="mic-row">
+          <button class="mic-btn" id="micBtn" onclick="toggleRec()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+          <div class="mic-info">
+            <div class="mic-status" id="micStatus">Clique para gravar</div>
+            <div class="mic-transcript" id="micTranscript">—</div>
+          </div>
+          <div class="match-badge" id="matchBadge">✓ atalho ativado</div>
+        </div>
+      </div>
+      <div class="output-area">
+        <div class="output-label">Laudo gerado</div>
+        <div class="output-box" id="outputBox"></div>
+        <div class="output-actions">
+          <button class="btn" onclick="clearOutput()">Limpar</button>
+          <button class="btn-primary btn" onclick="copyOutput()">Copiar texto</button>
+        </div>
+      </div>
+    </div>
+    <div class="editor-panel">
+      <div class="editor-header">
+        <span id="editorTitle">Nova frase</span>
+        <button class="btn" style="font-size:11px;padding:4px 10px" onclick="cancelEdit()">✕</button>
+      </div>
+      <div class="editor-form">
+        <input type="hidden" id="editId">
+        <div class="field">
+          <label>Palavra-chave (o que você fala)</label>
+          <input type="text" id="fKeyword" placeholder="ex: supra parcial">
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <input type="text" id="fCat" placeholder="ex: Ombro, Coluna, Joelho">
+        </div>
+        <div class="field">
+          <label>Frase do laudo</label>
+          <textarea id="fPhrase" placeholder="Texto completo que será inserido no laudo..."></textarea>
+        </div>
+      </div>
+      <div class="editor-footer">
+        <button class="btn-primary btn" style="flex:1" onclick="savePhrase()">Salvar</button>
+        <button class="btn" onclick="deletePhrase()" id="deleteBtn" style="display:none;color:#e24b4a;border-color:#f09595">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div><script>
+const CLIENT_ID = '262932370926-2a6beabjmtc19o3e42q5rgnllpub9na6.apps.googleusercontent.com';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+const FILE_NAME = 'pulsarai_frases.json';
+let db = [], token = null, fileId = null, isListening = false;
+let recognition = null, outputText = '', lastMatch = null;
+let editingId = null, saveTimer = null, tokenClient = null;
+
+function initGoogle() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID, scope: SCOPES,
+    callback: async (resp) => {
+      if (resp.error) { showToast('Erro ao autenticar'); return; }
+      token = resp.access_token;
+      setSyncStatus('ok', 'Conectado');
+      document.getElementById('logoutBtn').style.display = '';
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      await loadFromDrive();
+    }
+  });
+}
+
+function signIn() { tokenClient.requestAccessToken({ prompt: 'consent' }); }
+
+function logout() {
+  google.accounts.oauth2.revoke(token);
+  token = null; fileId = null; db = [];
+  document.getElementById('loginScreen').style.display = '';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('logoutBtn').style.display = 'none';
+  setSyncStatus('', 'Desconectado');
+}
+
+function setSyncStatus(state, label) {
+  document.getElementById('syncDot').className = 'sync-dot' + (state ? ' ' + state : '');
+  document.getElementById('syncLabel').textContent = label;
+}
+
+async function driveReq(url, opts = {}) {
+  return fetch(url, { ...opts, headers: { Authorization: 'Bearer ' + token, ...opts.headers } });
+}
+
+async function loadFromDrive() {
+  setSyncStatus('', 'Carregando...');
+  try {
+    const search = await driveReq(`https://www.googleapis.com/drive/v3/files?q=name='${FILE_NAME}' and trashed=false&fields=files(id,name)`);
+    const data = await search.json();
+    if (data.files && data.files.length > 0) {
+      fileId = data.files[0].id;
+      const content = await driveReq(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`);
+      db = await content.json();
+    } else {
+      db = defaultPhrases();
+      await saveToDrive();
+    }
+    setSyncStatus('ok', 'Sincronizado');
+    renderSidebar(); updateCount();
+  } catch(e) {
+    setSyncStatus('err', 'Erro ao carregar');
+    db = defaultPhrases(); renderSidebar();
+  }
+}
+
+async function saveToDrive() {
+  setSyncStatus('', 'Salvando...');
+  try {
+    const body = JSON.stringify(db);
+    const meta = JSON.stringify({ name: FILE_NAME, mimeType: 'application/json' });
+    const url = fileId
+      ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
+      : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+    const method = fileId ? 'PATCH' : 'POST';
+    const boundary = 'boundary_pulsar';
+    const reqBody = `--${boundary}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${boundary}--`;
+    const resp = await driveReq(url, { method, headers: { 'Content-Type': `multipart/related; boundary=${boundary}` }, body: reqBody });
+    const result = await resp.json();
+    if (result.id) fileId = result.id;
+    setSyncStatus('ok', 'Sincronizado');
+  } catch(e) { setSyncStatus('err', 'Erro ao salvar'); }
+}
+
+function scheduleSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveToDrive, 1500); }
+
+function defaultPhrases() {
+  return [
+    { id: 'demo1', keyword: 'supra parcial', cat: 'Ombro', phrase: 'Ruptura parcial do tendão do músculo supraespinhal, acometendo sua porção articular, com extensão de aproximadamente 50% da espessura tendinosa, em sua porção crítica, a cerca de 1 cm de sua inserção no tubérculo maior do úmero.' },
+    { id: 'demo2', keyword: 'supra transfixante', cat: 'Ombro', phrase: 'Ruptura transfixante do tendão do músculo supraespinhal, com extensão de aproximadamente 2 cm no plano coronal, com retração do coto tendíneo e presença de líquido articular no recesso subdeltóideo.' },
+    { id: 'demo3', keyword: 'tbc aguda', cat: 'Pulmão', phrase: 'Processo inflamatório pulmonar de aspecto infiltrativo bilateral, com predomínio nos lobos superiores, associado a micronódulos de distribuição centrolobular, compatível com tuberculose pulmonar primária em atividade.' },
+    { id: 'demo4', keyword: 'hernia l4 l5', cat: 'Coluna', phrase: 'Hérnia discal posterolateral à esquerda em L4-L5, com extensão foraminal, promovendo compressão sobre a raiz nervosa L5 ipsilateral, associada a estenose do forame de conjugação esquerdo em grau moderado.' },
+  ];
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+
+function renderSidebar() {
+  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  const filtered = db.filter(d => !q || d.keyword.toLowerCase().includes(q) || d.phrase.toLowerCase().includes(q) || (d.cat||'').toLowerCase().includes(q));
+  const cats = [...new Set(filtered.map(d => d.cat || 'Geral'))].sort();
+  let html = '';
+  cats.forEach(cat => {
+    const items = filtered.filter(d => (d.cat || 'Geral') === cat);
+    html += `<div class="cat-header">${cat}</div>`;
+    items.forEach(d => {
+      html += `<div class="phrase-item${editingId===d.id?' active':''}" onclick="editPhrase('${d.id}')">
+        <div class="phrase-item-kw">${esc(d.keyword)}</div>
+        <div class="phrase-item-preview">${esc(d.phrase)}</div>
+      </div>`;
+    });
+  });
+  if (!filtered.length) html = '<div class="empty">Nenhuma frase encontrada</div>';
+  document.getElementById('catList').innerHTML = html;
+}
+
+function updateCount() {
+  document.getElementById('countLabel').textContent = db.length + ' frase' + (db.length !== 1 ? 's' : '');
+}
+
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function newPhrase() {
+  editingId = null;
+  document.getElementById('editId').value = '';
+  document.getElementById('fKeyword').value = '';
+  document.getElementById('fCat').value = '';
+  document.getElementById('fPhrase').value = '';
+  document.getElementById('editorTitle').textContent = 'Nova frase';
+  document.getElementById('deleteBtn').style.display = 'none';
+  renderSidebar();
+}
+
+function editPhrase(id) {
+  const d = db.find(x => x.id === id);
+  if (!d) return;
+  editingId = id;
+  document.getElementById('editId').value = id;
+  document.getElementById('fKeyword').value = d.keyword;
+  document.getElementById('fCat').value = d.cat || '';
+  document.getElementById('fPhrase').value = d.phrase;
+  document.getElementById('editorTitle').textContent = 'Editar frase';
+  document.getElementById('deleteBtn').style.display = '';
+  renderSidebar();
+}
+
+function cancelEdit() { newPhrase(); }
+
+function savePhrase() {
+  const kw = document.getElementById('fKeyword').value.trim();
+  const cat = document.getElementById('fCat').value.trim() || 'Geral';
+  const ph = document.getElementById('fPhrase').value.trim();
+  if (!kw || !ph) { showToast('Preencha a palavra-chave e a frase'); return; }
+  const id = editingId || uid();
+  const idx = db.findIndex(d => d.id === id);
+  if (idx >= 0) db[idx] = { id, keyword: kw, cat, phrase: ph };
+  else db.push({ id, keyword: kw, cat, phrase: ph });
+  editingId = id;
+  renderSidebar(); updateCount(); scheduleSave();
+  showToast('Frase salva ✓');
+}
+
+function deletePhrase() {
+  if (!editingId || !confirm('Excluir esta frase?')) return;
+  db = db.filter(d => d.id !== editingId);
+  newPhrase(); renderSidebar(); updateCount(); scheduleSave();
+  showToast('Frase excluída');
+}
+
+function toggleRec() {
+  if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    showToast('Use Google Chrome para reconhecimento de voz'); return;
+  }
+  isListening ? stopRec() : startRec();
+}
+
+function startRec() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'pt-BR';
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.onstart = () => {
+    isListening = true;
+    document.getElementById('micBtn').classList.add('listening');
+    document.getElementById('micStatus').textContent = 'Ouvindo...';
+  };
+  recognition.onresult = (e) => {
+    let text = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) text += e.results[i][0].transcript;
+    document.getElementById('micTranscript').textContent = text || '—';
+    const match = db.find(d => text.toLowerCase().includes(d.keyword.toLowerCase()));
+    if (match && match.keyword !== lastMatch) {
+      lastMatch = match.keyword;
+      outputText += (outputText ? '\n\n' : '') + match.phrase;
+      document.getElementById('outputBox').textContent = outputText;
+      const badge = document.getElementById('matchBadge');
+      badge.textContent = '✓ ' + match.keyword;
+      badge.classList.add('show');
+      setTimeout(() => badge.classList.remove('show'), 2500);
+    }
+    if (e.results[e.results.length - 1].isFinal) lastMatch = null;
+  };
+  recognition.onerror = (e) => { if (e.error !== 'no-speech') stopRec(); };
+  recognition.onend = () => { if (isListening) recognition.start(); };
+  recognition.start();
+}
+
+function stopRec() {
+  isListening = false;
+  if (recognition) recognition.stop();
+  document.getElementById('micBtn').classList.remove('listening');
+  document.getElementById('micStatus').textContent = 'Clique para gravar';
+  document.getElementById('micTranscript').textContent = '—';
+}
+
+function clearOutput() { outputText = ''; document.getElementById('outputBox').textContent = ''; }
+
+function copyOutput() {
+  if (!outputText) return;
+  navigator.clipboard.writeText(outputText).then(() => showToast('Copiado!'));
+}
+
+function exportCSV() {
+  const csv = db.map(d => `${d.keyword}|${d.cat||'Geral'}|${d.phrase}`).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/plain' }));
+  a.download = 'pulsarai_frases.csv';
+  a.click();
+}
+
+function importCSV(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const lines = ev.target.result.trim().split('\n');
+    let added = 0;
+    lines.forEach(l => {
+      const p = l.split('|');
+      if (p.length < 3) return;
+      const kw = p[0].trim(), cat = p[1].trim(), ph = p.slice(2).join('|').trim();
+      if (!kw || !ph) return;
+      db.push({ id: uid(), keyword: kw, cat: cat || 'Geral', phrase: ph });
+      added++;
+    });
+    renderSidebar(); updateCount(); scheduleSave();
+    showToast(`${added} frases importadas ✓`);
+  };
+  reader.readAsText(file);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+window.onload = () => {
+  google.accounts.id.initialize({ client_id: CLIENT_ID });
+  initGoogle();
+};
+</script>
+</body>
+</html>
