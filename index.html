@@ -4,11 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulsarAI — Laudos Inteligentes</title>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
 :root{
-  --b9:#042C53;--b8:#0C447C;--b6:#185FA5;--b4:#378ADD;--b2:#85B7EB;--b1:#B5D4F4;--b0:#E6F1FB;
+  --b8:#0C447C;--b6:#185FA5;--b4:#378ADD;--b2:#85B7EB;--b0:#E6F1FB;
   --t6:#0F6E56;--t4:#1D9E75;--t2:#5DCAA5;--t0:#E1F5EE;
   --g9:#1a1a2a;--g7:#3a3a4a;--g5:#6b6b7b;--g3:#c4c4d0;--g1:#f0f0f5;--g0:#f8f8fc;
   --bg:#f9f9fd;--card:#fff;--r:12px;--rs:8px;
@@ -42,9 +41,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 20px;border:1px solid var(--g3);border-radius:var(--rs);background:var(--card);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;color:var(--g7);transition:all .15s}
 .gbtn:hover{background:var(--g0);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 #app{display:none}
-.layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 57px)}
-
-/* SIDEBAR ÁRVORE */
+.layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 97px)}
 .sidebar{background:var(--card);border-right:1px solid var(--g1);display:flex;flex-direction:column;overflow:hidden}
 .sb-tabs{display:flex;border-bottom:1px solid var(--g1)}
 .sb-tab{flex:1;padding:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--g5);border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif}
@@ -55,30 +52,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .sb-search input{width:100%;padding:7px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;background:var(--g0);color:var(--g9);outline:none}
 .sb-search input:focus{border-color:var(--b4);background:var(--card)}
 .tree{flex:1;overflow-y:auto;padding:6px 0;user-select:none}
-
-/* Nível 1 — Método */
-.tree-method{cursor:pointer;padding:8px 14px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--g5);transition:background .12s}
+.tree-method{cursor:pointer;padding:8px 14px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--g5)}
 .tree-method:hover{background:var(--g0)}
-.tree-method .arrow{font-size:10px;transition:transform .2s;display:inline-block}
-.tree-method.open .arrow{transform:rotate(90deg)}
-.tree-method-children{display:none}
-.tree-method.open + .tree-method-children{display:block}
-
-/* Nível 2 — Região */
-.tree-region{cursor:pointer;padding:6px 14px 6px 28px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--g7);transition:background .12s}
+.tree-arrow{font-size:10px;transition:transform .2s;display:inline-block;width:10px}
+.tree-arrow.open{transform:rotate(90deg)}
+.tree-children{display:none;padding-left:0}
+.tree-children.open{display:block}
+.tree-region{cursor:pointer;padding:6px 14px 6px 28px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--g7)}
 .tree-region:hover{background:var(--g0)}
-.tree-region .arrow{font-size:10px;transition:transform .2s;display:inline-block}
-.tree-region.open .arrow{transform:rotate(90deg)}
-.tree-region-children{display:none}
-.tree-region.open + .tree-region-children{display:block}
-
-/* Nível 3 — Frase */
-.tree-phrase{padding:6px 14px 6px 44px;cursor:pointer;border-left:2px solid transparent;transition:all .12s}
+.tree-phrases{display:none;padding-left:0}
+.tree-phrases.open{display:block}
+.tree-phrase{padding:6px 14px 6px 44px;cursor:pointer;border-left:2px solid transparent}
 .tree-phrase:hover{background:var(--g0)}
 .tree-phrase.active{background:var(--b0);border-left-color:var(--b4)}
-.tree-phrase-kw{font-size:12px;font-weight:500;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tree-phrase-pv{font-size:11px;color:var(--g5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
-
+.pkw{font-size:12px;font-weight:500;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ppv{font-size:11px;color:var(--g5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
 .sb-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
 .ed-form{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;overflow-y:auto}
 .field label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);margin-bottom:4px}
@@ -86,40 +74,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--b4);background:var(--card)}
 .field textarea{min-height:100px;resize:vertical;line-height:1.6}
 .ed-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
-
-/* MAIN */
 .main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
 .tools{display:flex;gap:8px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--g1);align-items:center;flex-wrap:wrap}
 .tools-lbl{font-size:12px;color:var(--g5);margin-right:auto}
 .badge{font-size:11px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;font-weight:500}
-
-/* LAUDO — área principal grande */
-.laudo-area{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:20px}
-.laudo-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.laudo-area{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:16px 20px}
+.laudo-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .laudo-title{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g5);flex:1}
-.laudo-editor{flex:1;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:20px 24px;font-size:14px;line-height:1.9;color:var(--g9);resize:none;outline:none;font-family:'DM Sans',sans-serif;overflow-y:auto;min-height:200px}
+.laudo-editor{flex:1;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:20px 24px;font-size:14px;line-height:1.9;color:var(--g9);resize:none;outline:none;font-family:'DM Sans',sans-serif;overflow-y:auto}
 .laudo-editor:focus{border-color:var(--b2)}
-
-/* MIC + INPUT */
 .inp-area{padding:12px 20px;background:var(--card);border-top:1px solid var(--g1)}
-.mic-status-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 14px;background:var(--g0);border-radius:var(--rs);font-size:12px;color:var(--g5)}
-.mic-status-bar.recording{background:#fcebeb;color:#a32d2d}
-.mic-indicator{width:8px;height:8px;border-radius:50%;background:var(--g3);flex-shrink:0}
-.mic-indicator.on{background:#e24b4a;animation:blink 1s infinite}
+.mic-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 14px;background:var(--g0);border-radius:var(--rs);font-size:12px;color:var(--g5)}
+.mic-bar.on{background:#fcebeb;color:#a32d2d}
+.mic-dot{width:8px;height:8px;border-radius:50%;background:var(--g3);flex-shrink:0}
+.mic-dot.on{background:#e24b4a;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.mic-transcript{flex:1;font-family:'DM Mono',monospace;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mic-txt{flex:1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .inp-row{display:flex;gap:8px;align-items:flex-end}
 .inp-box{flex:1;background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--g9);resize:none;outline:none;min-height:44px;max-height:160px;line-height:1.5;transition:border-color .15s}
 .inp-box:focus{border-color:var(--b4);background:var(--card)}
-.mic-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--g3);background:var(--g0);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;position:relative}
+.mic-btn{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--g3);background:var(--g0);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;gap:2px}
 .mic-btn:hover{border-color:var(--b4);background:var(--b0)}
 .mic-btn.on{border-color:#e24b4a;background:#fcebeb;animation:mp 1s infinite}
-.mic-btn .mic-key{position:absolute;bottom:-16px;font-size:9px;color:var(--g5);white-space:nowrap}
+.mic-btn span{font-size:9px;color:var(--g5)}
 @keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,.2)}50%{box-shadow:0 0 0 8px rgba(226,75,74,0)}}
-.send-btn{width:44px;height:44px;border-radius:50%;border:none;background:var(--b4);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.send-btn{width:48px;height:48px;border-radius:50%;border:none;background:var(--b4);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
 .send-btn:hover{background:var(--b6)}
-.hint{font-size:11px;color:var(--g5);margin-top:6px;text-align:center}
-
 .toast{position:fixed;bottom:24px;right:24px;background:var(--g9);color:#fff;padding:10px 18px;border-radius:var(--rs);font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 .empty{text-align:center;padding:40px 20px;color:var(--g5);font-size:13px}
@@ -198,7 +178,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
       <div class="sb-panel active" id="sbF">
         <div class="sb-search"><input type="text" id="srch" placeholder="Buscar..." oninput="renderTree()"></div>
         <div class="tree" id="tree"></div>
-        <div class="sb-foot"><button class="btn" style="flex:1;font-size:12px" onclick="openEd(null)">+ Adicionar frase</button></div>
+        <div class="sb-foot"><button class="btn" style="flex:1;font-size:12px" onclick="openEd(null)">+ Adicionar</button></div>
       </div>
       <div class="sb-panel" id="sbE">
         <div class="ed-form">
@@ -213,7 +193,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
               <option value="Outro">Outro</option>
             </select>
           </div>
-          <div class="field"><label>Região / Categoria</label><input type="text" id="eCat" placeholder="ex: Ombro, Coluna, Joelho..."></div>
+          <div class="field"><label>Região</label><input type="text" id="eCat" placeholder="ex: Ombro, Coluna..."></div>
           <div class="field"><label>Palavra-chave</label><input type="text" id="eKw" placeholder="ex: supra parcial"></div>
           <div class="field"><label>Frase do laudo</label><textarea id="ePh" placeholder="Texto completo..."></textarea></div>
         </div>
@@ -223,34 +203,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
         </div>
       </div>
     </div>
-
     <div class="main">
       <div class="laudo-area">
         <div class="laudo-toolbar">
           <div class="laudo-title">📄 Laudo</div>
           <button class="btn" onclick="clearLaudo()">Limpar</button>
-          <button class="btn" onclick="improveWithAI()">✦ Melhorar com IA</button>
+          <button class="btn" onclick="improveWithAI()">✦ Melhorar</button>
           <button class="btn-p btn" onclick="copyLaudo()">Copiar</button>
         </div>
-        <textarea class="laudo-editor" id="laudoEditor" placeholder="O laudo gerado aparece aqui. Você pode editar livremente.&#10;&#10;Use o microfone (ou Espaço) para ditar os achados — o Claude gera o laudo automaticamente."></textarea>
+        <textarea class="laudo-editor" id="laudoEditor" placeholder="O laudo aparece aqui. Você pode editar livremente.&#10;&#10;Use o microfone ou pressione Espaço para ditar os achados."></textarea>
       </div>
-
       <div class="inp-area">
-        <div class="mic-status-bar" id="micBar">
-          <div class="mic-indicator" id="micInd"></div>
-          <div class="mic-transcript" id="micTrans">Pressione Espaço ou clique no microfone para começar a gravar</div>
+        <div class="mic-bar" id="micBar">
+          <div class="mic-dot" id="micDot"></div>
+          <div class="mic-txt" id="micTxt">Pressione Espaço ou clique no microfone para gravar</div>
         </div>
         <div class="inp-row">
-          <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Gravar (Espaço)">
+          <button class="mic-btn" id="micBtn" onclick="toggleMic()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
               <line x1="12" y1="19" x2="12" y2="23"/>
               <line x1="8" y1="23" x2="16" y2="23"/>
             </svg>
-            <span class="mic-key">ESPAÇO</span>
+            <span>ESPAÇO</span>
           </button>
-          <textarea class="inp-box" id="inpBox" placeholder="Ou digite os achados aqui e pressione Enter..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <textarea class="inp-box" id="inpBox" placeholder="Ou digite os achados aqui..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
           <button class="send-btn" onclick="sendMsg()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"/>
@@ -262,28 +240,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
     </div>
   </div>
 </div>
-<div class="toast" id="toast"></div><script>
+<div class="toast" id="toast"></div>
+<script src="https://accounts.google.com/gsi/client"></script>
+<script>
 const GCLIENT='262932370926-2a6beabjmtc19o3e42q5rgnllpub9na6.apps.googleusercontent.com';
 const GSCOPE='https://www.googleapis.com/auth/drive.file';
 const FNAME='pulsarai_frases.json';
 const PROXY='https://pulsarai-proxy.rodmilitao.workers.dev';
 
-let db=[],token=null,fileId=null,isListening=false,recognition=null,tokenClient=null;
-let editingId=null,saveTimer=null,interimText='',finalText='';
-let apiKey=localStorage.getItem('pulsar_api_key')||'';
-let treeState={};
+var db=[],token=null,fileId=null,isListening=false,recognition=null,tokenClient=null;
+var editingId=null,saveTimer=null,finalText='';
+var apiKey=localStorage.getItem('pulsar_api_key')||'';
+var treeState={};
 
-window.onload=()=>{
-  if(apiKey){
-    document.getElementById('apiKeyInput').value=apiKey;
-    document.getElementById('apiSaved').style.display='block';
-  }
-  google.accounts.id.initialize({client_id:GCLIENT});
+// Inicializa ao carregar
+if(apiKey){
+  document.getElementById('apiKeyInput').value=apiKey;
+  document.getElementById('apiSaved').style.display='block';
+}
+
+function initApp(){
   tokenClient=google.accounts.oauth2.initTokenClient({
     client_id:GCLIENT,scope:GSCOPE,
-    callback:async(r)=>{
+    callback:function(r){
       if(r.error){showToast('Erro: '+r.error);return;}
-      const k=document.getElementById('apiKeyInput').value.trim();
+      var k=document.getElementById('apiKeyInput').value.trim();
       if(!k){showToast('Cole sua chave API primeiro');return;}
       apiKey=k;localStorage.setItem('pulsar_api_key',k);
       token=r.access_token;
@@ -291,27 +272,21 @@ window.onload=()=>{
       document.getElementById('logoutBtn').style.display='';
       document.getElementById('loginScreen').style.display='none';
       document.getElementById('app').style.display='block';
-      await loadDrive();
+      loadDrive();
     }
   });
-
-  // Tecla Espaço para gravar — só quando não estiver em input/textarea
-  document.addEventListener('keydown',(e)=>{
-    if(e.code==='Space'&&e.target===document.body){
-      e.preventDefault();
-      toggleMic();
-    }
-  });
+}
 
 function signIn(){
-  const k=document.getElementById('apiKeyInput').value.trim();
+  var k=document.getElementById('apiKeyInput').value.trim();
   if(!k){showToast('Cole sua chave API primeiro');return;}
   apiKey=k;localStorage.setItem('pulsar_api_key',k);
+  if(!tokenClient){showToast('Aguarde o Google carregar...');return;}
   tokenClient.requestAccessToken({prompt:'select_account'});
 }
 
 function logout(){
-  google.accounts.oauth2.revoke(token,()=>{});
+  google.accounts.oauth2.revoke(token,function(){});
   token=null;fileId=null;db=[];
   document.getElementById('loginScreen').style.display='';
   document.getElementById('app').style.display='none';
@@ -324,41 +299,53 @@ function setSync(s,l){
   document.getElementById('syncLbl').textContent=l;
 }
 
-async function dreq(url,opts={}){
-  return fetch(url,{...opts,headers:{Authorization:'Bearer '+token,...(opts.headers||{})}});
+document.addEventListener('keydown',function(e){
+  var tag=document.activeElement.tagName.toLowerCase();
+  if(e.code==='Space'&&tag!=='input'&&tag!=='textarea'&&tag!=='button'){
+    e.preventDefault();toggleMic();
+  }
+});function dreq(url,opts){
+  opts=opts||{};
+  var headers=Object.assign({Authorization:'Bearer '+token},opts.headers||{});
+  return fetch(url,Object.assign({},opts,{headers:headers}));
 }
 
-async function loadDrive(){
+function loadDrive(){
   setSync('','Carregando...');
-  try{
-    const r=await dreq(`https://www.googleapis.com/drive/v3/files?q=name='${FNAME}' and trashed=false&fields=files(id)`);
-    const d=await r.json();
+  dreq("https://www.googleapis.com/drive/v3/files?q=name='"+FNAME+"' and trashed=false&fields=files(id)")
+  .then(function(r){return r.json();})
+  .then(function(d){
     if(d.files&&d.files.length){
       fileId=d.files[0].id;
-      const c=await dreq(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`);
-      db=await c.json();
-    }else{db=defaultPhrases();await saveDrive();}
+      return dreq('https://www.googleapis.com/drive/v3/files/'+fileId+'?alt=media').then(function(c){return c.json();});
+    } else {
+      db=defaultPhrases();
+      saveDrive();
+      return db;
+    }
+  })
+  .then(function(data){
+    if(data)db=data;
     setSync('ok','Sincronizado');
     renderTree();updateCount();
-  }catch(e){setSync('err','Erro Drive');db=defaultPhrases();renderTree();updateCount();}
+  })
+  .catch(function(){setSync('err','Erro Drive');db=defaultPhrases();renderTree();updateCount();});
 }
 
-async function saveDrive(){
+function saveDrive(){
   setSync('','Salvando...');
-  try{
-    const body=JSON.stringify(db);
-    const meta=JSON.stringify({name:FNAME,mimeType:'application/json'});
-    const url=fileId
-      ?`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
-      :'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
-    const method=fileId?'PATCH':'POST';
-    const b='bnd_p';
-    const rb=`--${b}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${b}--`;
-    const rr=await dreq(url,{method,headers:{'Content-Type':`multipart/related; boundary=${b}`},body:rb});
-    const res=await rr.json();
-    if(res.id)fileId=res.id;
-    setSync('ok','Sincronizado');
-  }catch(e){setSync('err','Erro ao salvar');}
+  var body=JSON.stringify(db);
+  var meta=JSON.stringify({name:FNAME,mimeType:'application/json'});
+  var url=fileId
+    ?'https://www.googleapis.com/upload/drive/v3/files/'+fileId+'?uploadType=multipart'
+    :'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+  var method=fileId?'PATCH':'POST';
+  var b='bnd_p';
+  var rb='--'+b+'\r\nContent-Type: application/json\r\n\r\n'+meta+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
+  dreq(url,{method:method,headers:{'Content-Type':'multipart/related; boundary='+b},body:rb})
+  .then(function(r){return r.json();})
+  .then(function(res){if(res.id)fileId=res.id;setSync('ok','Sincronizado');})
+  .catch(function(){setSync('err','Erro ao salvar');});
 }
 
 function schedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveDrive,1500);}
@@ -369,7 +356,7 @@ function defaultPhrases(){
     {id:'d2',keyword:'supra transfixante',metodo:'Ultrassonografia',cat:'Ombro',phrase:'Ruptura transfixante do tendão do músculo supraespinhal, com extensão de aproximadamente 2 cm no plano coronal, com retração do coto tendíneo e presença de líquido articular no recesso subdeltóideo.'},
     {id:'d3',keyword:'normal',metodo:'Ultrassonografia',cat:'Geral',phrase:'Exame dentro dos limites da normalidade para a faixa etária. Não foram identificadas alterações estruturais significativas ao método utilizado.'},
     {id:'d4',keyword:'hernia l4 l5',metodo:'Ressonância Magnética',cat:'Coluna',phrase:'Hérnia discal posterolateral à esquerda em L4-L5, com extensão foraminal, promovendo compressão sobre a raiz nervosa L5 ipsilateral, associada a estenose do forame de conjugação esquerdo em grau moderado.'},
-    {id:'d5',keyword:'joelho normal',metodo:'Ressonância Magnética',cat:'Joelho',phrase:'Exame de ressonância magnética do joelho dentro dos limites da normalidade. Meniscos, ligamentos cruzados e colaterais com morfologia e sinal preservados. Cartilagem articular íntegra.'},
+    {id:'d5',keyword:'joelho normal',metodo:'Ressonância Magnética',cat:'Joelho',phrase:'Exame de ressonância magnética do joelho dentro dos limites da normalidade. Meniscos, ligamentos cruzados e colaterais com morfologia e sinal preservados.'},
   ];
 }
 
@@ -377,47 +364,39 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function updateCount(){document.getElementById('cntLbl').textContent=db.length+' frase'+(db.length!==1?'s':'');}
 
-// ── ÁRVORE ──
 function renderTree(){
-  const q=(document.getElementById('srch').value||'').toLowerCase();
-  const f=q?db.filter(d=>d.keyword.toLowerCase().includes(q)||d.phrase.toLowerCase().includes(q)||(d.cat||'').toLowerCase().includes(q)):db;
-
-  const metodos=[...new Set(f.map(d=>d.metodo||'Outro'))].sort();
-  let h='';
-
-  metodos.forEach(m=>{
-    const mKey='m_'+m;
-    const mOpen=treeState[mKey]!==false;
-    const regioes=[...new Set(f.filter(d=>(d.metodo||'Outro')===m).map(d=>d.cat||'Geral'))].sort();
-    h+=`<div class="tree-method${mOpen?' open':''}" onclick="toggleTree('${mKey}')">
-      <span class="arrow">▶</span>
-      <span>📋 ${esc(m)}</span>
-      <span style="margin-left:auto;font-size:10px;opacity:.5">${f.filter(d=>(d.metodo||'Outro')===m).length}</span>
-    </div>
-    <div class="tree-method-children">`;
-
-    regioes.forEach(reg=>{
-      const rKey='r_'+m+'_'+reg;
-      const rOpen=treeState[rKey]!==false;
-      const frases=f.filter(d=>(d.metodo||'Outro')===m&&(d.cat||'Geral')===reg);
-      h+=`<div class="tree-region${rOpen?' open':''}" onclick="toggleTree('${rKey}')">
-        <span class="arrow">▶</span>
-        <span>📁 ${esc(reg)}</span>
-        <span style="margin-left:auto;font-size:10px;opacity:.5">${frases.length}</span>
-      </div>
-      <div class="tree-region-children">`;
-
-      frases.forEach(d=>{
-        h+=`<div class="tree-phrase${editingId===d.id?' active':''}" onclick="insertPhrase('${d.id}')">
-          <div class="tree-phrase-kw">${esc(d.keyword)}</div>
-          <div class="tree-phrase-pv">${esc(d.phrase)}</div>
-        </div>`;
+  var q=(document.getElementById('srch').value||'').toLowerCase();
+  var f=q?db.filter(function(d){return d.keyword.toLowerCase().includes(q)||d.phrase.toLowerCase().includes(q)||(d.cat||'').toLowerCase().includes(q);}):db;
+  var metodos=[...new Set(f.map(function(d){return d.metodo||'Outro';}))].sort();
+  var h='';
+  metodos.forEach(function(m){
+    var mKey='m_'+m;
+    var mOpen=treeState[mKey]!==false;
+    var mFrases=f.filter(function(d){return(d.metodo||'Outro')===m;});
+    var regioes=[...new Set(mFrases.map(function(d){return d.cat||'Geral';}))].sort();
+    h+='<div class="tree-method" onclick="toggleTree(\''+mKey+'\')">';
+    h+='<span class="tree-arrow'+(mOpen?' open':'')+'">▶</span>';
+    h+='<span>📋 '+esc(m)+'</span>';
+    h+='<span style="margin-left:auto;font-size:10px;opacity:.5">'+mFrases.length+'</span></div>';
+    h+='<div class="tree-children'+(mOpen?' open':'')+'">';
+    regioes.forEach(function(reg){
+      var rKey='r_'+m+'_'+reg;
+      var rOpen=treeState[rKey]!==false;
+      var frases=mFrases.filter(function(d){return(d.cat||'Geral')===reg;});
+      h+='<div class="tree-region" onclick="toggleTree(\''+rKey+'\')">';
+      h+='<span class="tree-arrow'+(rOpen?' open':'')+'">▶</span>';
+      h+='<span>📁 '+esc(reg)+'</span>';
+      h+='<span style="margin-left:auto;font-size:10px;opacity:.5">'+frases.length+'</span></div>';
+      h+='<div class="tree-phrases'+(rOpen?' open':'')+'">';
+      frases.forEach(function(d){
+        h+='<div class="tree-phrase'+(editingId===d.id?' active':'')+'" onclick="insertPhrase(\''+d.id+'\')">';
+        h+='<div class="pkw">'+esc(d.keyword)+'</div>';
+        h+='<div class="ppv">'+esc(d.phrase)+'</div></div>';
       });
       h+='</div>';
     });
     h+='</div>';
   });
-
   if(!f.length)h='<div class="empty">Nenhuma frase</div>';
   document.getElementById('tree').innerHTML=h;
 }
@@ -428,26 +407,25 @@ function toggleTree(key){
 }
 
 function insertPhrase(id){
-  const d=db.find(x=>x.id===id);
+  var d=db.find(function(x){return x.id===id;});
   if(!d)return;
-  const ed=document.getElementById('laudoEditor');
-  const v=ed.value;
-  const sep=v&&!v.endsWith('\n')?'\n\n':'';
+  var ed=document.getElementById('laudoEditor');
+  var v=ed.value;
+  var sep=v&&!v.endsWith('\n')?'\n\n':'';
   ed.value=v+sep+d.phrase;
   ed.scrollTop=ed.scrollHeight;
   showToast('Frase inserida ✓');
 }
 
-// ── EDITOR ──
 function sbTab(t){
-  document.querySelectorAll('.sb-tab').forEach((b,i)=>b.classList.toggle('active',['F','E'][i]===t));
-  document.querySelectorAll('.sb-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-tab').forEach(function(b,i){b.classList.toggle('active',['F','E'][i]===t);});
+  document.querySelectorAll('.sb-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('sb'+t).classList.add('active');
 }
 
 function openEd(id){
   sbTab('E');editingId=id;
-  const d=id?db.find(x=>x.id===id):null;
+  var d=id?db.find(function(x){return x.id===id;}):null;
   document.getElementById('eId').value=id||'';
   document.getElementById('eMetodo').value=d?d.metodo||'Ultrassonografia':'Ultrassonografia';
   document.getElementById('eCat').value=d?d.cat||'':'';
@@ -458,81 +436,67 @@ function openEd(id){
 }
 
 function savePhrase(){
-  const kw=document.getElementById('eKw').value.trim();
-  const cat=document.getElementById('eCat').value.trim()||'Geral';
-  const metodo=document.getElementById('eMetodo').value;
-  const ph=document.getElementById('ePh').value.trim();
+  var kw=document.getElementById('eKw').value.trim();
+  var cat=document.getElementById('eCat').value.trim()||'Geral';
+  var metodo=document.getElementById('eMetodo').value;
+  var ph=document.getElementById('ePh').value.trim();
   if(!kw||!ph){showToast('Preencha keyword e frase');return;}
-  const id=editingId||uid();
-  const idx=db.findIndex(d=>d.id===id);
-  if(idx>=0)db[idx]={id,keyword:kw,cat,metodo,phrase:ph};
-  else db.push({id,keyword:kw,cat,metodo,phrase:ph});
+  var id=editingId||uid();
+  var idx=db.findIndex(function(d){return d.id===id;});
+  if(idx>=0)db[idx]={id:id,keyword:kw,cat:cat,metodo:metodo,phrase:ph};
+  else db.push({id:id,keyword:kw,cat:cat,metodo:metodo,phrase:ph});
   editingId=id;renderTree();updateCount();schedSave();
   showToast('Frase salva ✓');
 }
 
 function delPhrase(){
   if(!editingId||!confirm('Excluir?'))return;
-  db=db.filter(d=>d.id!==editingId);
+  db=db.filter(function(d){return d.id!==editingId;});
   openEd(null);renderTree();updateCount();schedSave();
   showToast('Excluída');
-}// ── CLAUDE AI ──
-async function callClaude(msg){
-  const phrases=db.map(d=>`- "${d.keyword}" (${d.metodo||''} / ${d.cat||''}) → ${d.phrase}`).join('\n');
-  const system=`Você é o PulsarAI, assistente especializado em laudos médicos de imagem (radiologia, ultrassonografia, tomografia, ressonância magnética).
-
-Banco de frases do médico:
-${phrases}
-
-INSTRUÇÕES:
-1. Quando o médico descrever achados, gere um laudo médico profissional completo em português com terminologia correta.
-2. Quando mencionar palavra-chave do banco, incorpore a frase correspondente no laudo.
-3. Laudos em terceira pessoa, estilo radiológico formal.
-4. Inclua: técnica (quando informada), achados detalhados, impressão diagnóstica.
-5. Seja direto — gere apenas o texto do laudo, sem explicações adicionais.`;
-
-  try{
-    const r=await fetch(PROXY,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
-      body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,system,messages:[{role:'user',content:msg}]})
-    });
-    const data=await r.json();
-    if(data.error)return`Erro: ${data.error.message}`;
-    return data.content[0].text;
-  }catch(e){return'Erro ao conectar com Claude. Verifique sua chave API.';}
+}function callClaude(msg,callback){
+  var phrases=db.map(function(d){return'- "'+d.keyword+'" ('+( d.metodo||'')+'/'+( d.cat||'')+') → '+d.phrase;}).join('\n');
+  var system='Você é o PulsarAI, assistente especializado em laudos médicos de imagem.\n\nBanco de frases:\n'+phrases+'\n\nINSTRUÇÕES:\n1. Gere laudos médicos profissionais completos em português.\n2. Use terminologia radiológica formal, terceira pessoa.\n3. Inclua achados e impressão diagnóstica.\n4. Retorne apenas o texto do laudo, sem explicações.';
+  fetch(PROXY,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+    body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:2000,system:system,messages:[{role:'user',content:msg}]})
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.error)callback('Erro: '+data.error.message);
+    else callback(data.content[0].text);
+  })
+  .catch(function(){callback('Erro ao conectar com Claude.');});
 }
 
-async function sendMsg(){
-  const box=document.getElementById('inpBox');
-  const txt=box.value.trim();
+function sendMsg(){
+  var box=document.getElementById('inpBox');
+  var txt=box.value.trim();
   if(!txt)return;
   box.value='';autoResize(box);
-
-  // verifica atalho exato primeiro
-  const match=db.find(d=>txt.toLowerCase()===d.keyword.toLowerCase());
+  var match=db.find(function(d){return txt.toLowerCase()===d.keyword.toLowerCase();});
   if(match){insertPhrase(match.id);return;}
-
-  // senão manda pro Claude
-  const ed=document.getElementById('laudoEditor');
-  const orig=ed.value;
+  var ed=document.getElementById('laudoEditor');
+  var orig=ed.value;
   ed.value=orig+(orig?'\n\n':'')+'⏳ Gerando laudo...';
   ed.scrollTop=ed.scrollHeight;
-
-  const result=await callClaude(txt);
-
-  ed.value=orig+(orig?'\n\n':'')+result;
-  ed.scrollTop=ed.scrollHeight;
+  callClaude(txt,function(result){
+    ed.value=orig+(orig?'\n\n':'')+result;
+    ed.scrollTop=ed.scrollHeight;
+  });
 }
 
-async function improveWithAI(){
-  const ed=document.getElementById('laudoEditor');
-  const txt=ed.value.trim();
-  if(!txt){showToast('Escreva algo no laudo primeiro');return;}
+function improveWithAI(){
+  var ed=document.getElementById('laudoEditor');
+  var txt=ed.value.trim();
+  if(!txt){showToast('Escreva algo primeiro');return;}
+  var orig=txt;
   ed.value='⏳ Melhorando laudo...';
-  const result=await callClaude(`Melhore e formate profissionalmente este laudo médico, corrigindo qualquer erro e deixando no estilo radiológico formal:\n\n${txt}`);
-  ed.value=result;
-  ed.scrollTop=ed.scrollHeight;
+  callClaude('Melhore e formate profissionalmente este laudo médico:\n\n'+orig,function(result){
+    ed.value=result;
+    ed.scrollTop=ed.scrollHeight;
+  });
 }
 
 function clearLaudo(){
@@ -541,64 +505,49 @@ function clearLaudo(){
 }
 
 function copyLaudo(){
-  const txt=document.getElementById('laudoEditor').value;
+  var txt=document.getElementById('laudoEditor').value;
   if(!txt){showToast('Laudo vazio');return;}
-  navigator.clipboard.writeText(txt).then(()=>showToast('Laudo copiado!'));
+  navigator.clipboard.writeText(txt).then(function(){showToast('Laudo copiado!');});
 }
 
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,160)+'px';}
 
-// ── MICROFONE — acumula sem apagar ──
 function toggleMic(){
   if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){
-    showToast('Use Google Chrome para reconhecimento de voz');return;
+    showToast('Use Google Chrome para voz');return;
   }
-  isListening?stopMic():startMic();
+  if(isListening)stopMic();else startMic();
 }
 
 function startMic(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   recognition=new SR();
   recognition.lang='pt-BR';
   recognition.continuous=true;
   recognition.interimResults=true;
   finalText=document.getElementById('inpBox').value;
-
-  recognition.onstart=()=>{
+  recognition.onstart=function(){
     isListening=true;
     document.getElementById('micBtn').classList.add('on');
-    document.getElementById('micInd').classList.add('on');
-    document.getElementById('micBar').classList.add('recording');
-    document.getElementById('micTrans').textContent='🔴 Gravando... fale os achados com calma';
+    document.getElementById('micDot').classList.add('on');
+    document.getElementById('micBar').classList.add('on');
+    document.getElementById('micTxt').textContent='🔴 Gravando... fale com calma. Clique novamente para enviar.';
   };
-
-  recognition.onresult=(e)=>{
-    let interim='';
-    let newFinal='';
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal){
-        newFinal+=e.results[i][0].transcript+' ';
-      } else {
-        interim+=e.results[i][0].transcript;
-      }
+  recognition.onresult=function(e){
+    var interim='';
+    var newFinal='';
+    for(var i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal)newFinal+=e.results[i][0].transcript+' ';
+      else interim+=e.results[i][0].transcript;
     }
-    if(newFinal) finalText+=newFinal;
-    const display=finalText+(interim?interim:'');
-    document.getElementById('inpBox').value=display;
-    document.getElementById('micTrans').textContent=interim||'Ouvindo...';
+    if(newFinal)finalText+=newFinal;
+    document.getElementById('inpBox').value=finalText+(interim||'');
+    document.getElementById('micTxt').textContent=interim||'Ouvindo...';
     autoResize(document.getElementById('inpBox'));
   };
-
-  recognition.onerror=(e)=>{
-    if(e.error==='no-speech')return;
-    stopMic();
-  };
-
-  recognition.onend=()=>{
-    if(isListening)recognition.start();
-  };
-
+  recognition.onerror=function(e){if(e.error!=='no-speech')stopMic();};
+  recognition.onend=function(){if(isListening)recognition.start();};
   recognition.start();
 }
 
@@ -606,46 +555,47 @@ function stopMic(){
   isListening=false;
   if(recognition){recognition.stop();recognition=null;}
   document.getElementById('micBtn').classList.remove('on');
-  document.getElementById('micInd').classList.remove('on');
-  document.getElementById('micBar').classList.remove('recording');
-  document.getElementById('micTrans').textContent='Pressione Espaço ou clique no microfone para gravar';
-  const txt=document.getElementById('inpBox').value.trim();
+  document.getElementById('micDot').classList.remove('on');
+  document.getElementById('micBar').classList.remove('on');
+  document.getElementById('micTxt').textContent='Pressione Espaço ou clique no microfone para gravar';
+  var txt=document.getElementById('inpBox').value.trim();
   finalText='';
   if(txt)sendMsg();
 }
 
-// ── IMPORT/EXPORT ──
 function exportCSV(){
-  const csv=db.map(d=>`${d.keyword}|${d.metodo||'Outro'}|${d.cat||'Geral'}|${d.phrase}`).join('\n');
-  const a=document.createElement('a');
+  var csv=db.map(function(d){return d.keyword+'|'+(d.metodo||'Outro')+'|'+(d.cat||'Geral')+'|'+d.phrase;}).join('\n');
+  var a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([csv],{type:'text/plain'}));
   a.download='pulsarai_frases.csv';a.click();
 }
 
 function importCSV(e){
-  const file=e.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const lines=ev.target.result.trim().split('\n');let added=0;
-    lines.forEach(l=>{
-      const p=l.split('|');
-      if(p.length<3)return;
-      let kw,metodo,cat,ph;
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    var lines=ev.target.result.trim().split('\n');var added=0;
+    lines.forEach(function(l){
+      var p=l.split('|');if(p.length<3)return;
+      var kw,metodo,cat,ph;
       if(p.length>=4){kw=p[0].trim();metodo=p[1].trim();cat=p[2].trim();ph=p.slice(3).join('|').trim();}
       else{kw=p[0].trim();metodo='Outro';cat=p[1].trim();ph=p.slice(2).join('|').trim();}
       if(!kw||!ph)return;
       db.push({id:uid(),keyword:kw,metodo:metodo||'Outro',cat:cat||'Geral',phrase:ph});added++;
     });
     renderTree();updateCount();schedSave();
-    showToast(`${added} frases importadas ✓`);
+    showToast(added+' frases importadas ✓');
   };
   reader.readAsText(file);
 }
 
 function showToast(m){
-  const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+  var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2500);
 }
-}
-</script>
 
+// Inicializa Google quando o script carregar
+window.onload=function(){initApp();};
+</script>
+</body>
+</html>
