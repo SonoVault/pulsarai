@@ -27,7 +27,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .btn:hover{background:var(--g0)}
 .btn-p{background:var(--b4);color:#fff;border-color:var(--b4)}.btn-p:hover{background:var(--b6)}
 .btn-t{background:var(--t4);color:#fff;border-color:var(--t4)}.btn-t:hover{background:var(--t6)}
-.btn-sm{padding:3px 8px;font-size:11px;border-radius:4px}
 #loginScreen{display:flex;align-items:center;justify-content:center;min-height:85vh;padding:40px}
 .lcard{background:var(--card);border:1px solid var(--g1);border-radius:20px;padding:48px;text-align:center;max-width:420px;width:100%}
 .lcard h1{font-size:26px;font-weight:500;color:var(--b8);letter-spacing:-1px;margin-bottom:6px}
@@ -42,9 +41,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 20px;border:1px solid var(--g3);border-radius:var(--rs);background:var(--card);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;color:var(--g7);transition:all .15s}
 .gbtn:hover{background:var(--g0)}
 #app{display:none}
-.layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 97px)}
-
-/* SIDEBAR */
+.layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 57px)}
 .sidebar{background:var(--card);border-right:1px solid var(--g1);display:flex;flex-direction:column;overflow:hidden}
 .sb-tabs{display:flex;border-bottom:1px solid var(--g1)}
 .sb-tab{flex:1;padding:10px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--g5);border-bottom:2px solid transparent;font-family:'DM Sans',sans-serif}
@@ -55,89 +52,81 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .sb-search input{flex:1;padding:7px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;background:var(--g0);color:var(--g9);outline:none}
 .sb-search input:focus{border-color:var(--b4);background:var(--card)}
 .tree{flex:1;overflow-y:auto;padding:4px 0}
-
-/* Nível 1 - Categoria (ex: Ultrassonografia) */
 .t-cat{display:flex;align-items:center;gap:5px;padding:7px 10px;cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--g7);border-radius:6px;margin:1px 6px}
 .t-cat:hover{background:var(--g0)}
 .t-arr{font-size:9px;transition:transform .2s;display:inline-block;width:10px;flex-shrink:0}
 .t-arr.open{transform:rotate(90deg)}
 .t-cat-ch{display:none;padding-left:6px}
 .t-cat-ch.open{display:block}
-
-/* Nível 2 - Subpasta (ex: Frases, Máscaras) */
 .t-sub{display:flex;align-items:center;gap:5px;padding:5px 10px 5px 20px;cursor:pointer;font-size:12px;font-weight:500;color:var(--g5);border-radius:6px;margin:1px 6px}
 .t-sub:hover{background:var(--g0)}
 .t-sub-ch{display:none;padding-left:4px}
 .t-sub-ch.open{display:block}
-
-/* Nível 3 - Item */
 .t-item{display:flex;align-items:center;padding:5px 8px 5px 34px;cursor:pointer;border-left:2px solid transparent;border-radius:0 6px 6px 0;margin:1px 0 1px 12px;gap:4px}
 .t-item:hover{background:var(--g0)}
 .t-item.active{background:var(--b0);border-left-color:var(--b4)}
 .t-item-name{font-size:12px;font-weight:500;color:var(--g9);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.t-item-del{font-size:11px;padding:1px 5px;border:none;background:none;color:var(--g3);cursor:pointer;border-radius:3px;flex-shrink:0}
-.t-item-del:hover{background:#fcebeb;color:#e24b4a}
-
-/* Contador */
+.t-item-btn{font-size:11px;padding:2px 5px;border:none;background:none;color:var(--g3);cursor:pointer;border-radius:3px;flex-shrink:0}
+.t-item-btn:hover{background:#fcebeb;color:#e24b4a}
 .t-count{font-size:10px;color:var(--g3);margin-left:auto;flex-shrink:0}
-
-/* Ações inline nas pastas */
-.t-actions{display:flex;gap:4px;margin-left:auto}
-.t-btn{font-size:10px;padding:1px 6px;border:none;background:none;color:var(--g5);cursor:pointer;border-radius:3px}
+.t-actions{display:flex;gap:3px;margin-left:auto}
+.t-btn{font-size:11px;padding:1px 5px;border:none;background:none;color:var(--g5);cursor:pointer;border-radius:3px}
 .t-btn:hover{background:var(--g1);color:var(--g9)}
 .t-btn.del:hover{background:#fcebeb;color:#e24b4a}
-
 .sb-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
 
 /* EDITOR PAINEL */
-.ed-form{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;overflow-y:auto}
+.ed-scroll{flex:1;overflow-y:auto}
+.ed-form{padding:14px;display:flex;flex-direction:column;gap:10px}
 .field label{display:block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);margin-bottom:4px}
-.field input,.field select,.field textarea{width:100%;padding:8px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--g9);background:var(--g0);outline:none;transition:border-color .15s}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--b4);background:var(--card)}
-.field textarea{min-height:120px;resize:vertical;line-height:1.6}
-.ed-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px}
+.field input,.field select{width:100%;padding:8px 11px;border:1px solid var(--g1);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--g9);background:var(--g0);outline:none}
+.field input:focus,.field select:focus{border-color:var(--b4);background:var(--card)}
+
+/* RICH TEXT EDITOR NO PAINEL */
+.rte-wrap{border:1px solid var(--g1);border-radius:var(--rs);overflow:hidden;background:var(--card)}
+.rte-toolbar{display:flex;gap:3px;padding:6px 8px;background:var(--g0);border-bottom:1px solid var(--g1);flex-wrap:wrap}
+.rte-btn{padding:3px 8px;border:1px solid var(--g3);border-radius:4px;font-size:12px;cursor:pointer;background:var(--card);color:var(--g7)}
+.rte-btn:hover{background:var(--g1)}
+.rte-editor{min-height:200px;max-height:300px;overflow-y:auto;padding:12px;font-size:13px;line-height:1.7;outline:none;color:var(--g9)}
+.rte-editor:empty:before{content:attr(data-placeholder);color:var(--g3);pointer-events:none}
+
+.ed-foot{padding:10px 12px;border-top:1px solid var(--g1);display:flex;gap:6px;flex-shrink:0}
 
 /* MAIN */
 .main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
 .tools{display:flex;gap:8px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--g1);align-items:center;flex-wrap:wrap}
 .tools-lbl{font-size:12px;color:var(--g5);margin-right:auto}
 .badge{font-size:11px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#ede9fe,#dbeafe);color:#5b21b6;font-weight:500}
-
-/* RICH TEXT EDITOR */
-.laudo-area{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:16px 20px}
-.laudo-toolbar{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
-.laudo-title{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g5);margin-right:4px}
-.fmt-btn{padding:4px 10px;border:1px solid var(--g3);border-radius:var(--rs);font-size:12px;cursor:pointer;background:var(--card);color:var(--g7);font-family:'DM Sans',sans-serif}
+.laudo-area{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:14px 18px}
+.laudo-toolbar{display:flex;align-items:center;gap:5px;margin-bottom:8px;flex-wrap:wrap}
+.laudo-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g5);margin-right:4px}
+.fmt-btn{padding:4px 9px;border:1px solid var(--g3);border-radius:var(--rs);font-size:12px;cursor:pointer;background:var(--card);color:var(--g7)}
 .fmt-btn:hover{background:var(--g0)}
-.fmt-btn.active{background:var(--b0);border-color:var(--b4);color:var(--b6)}
-.fmt-sep{width:1px;height:20px;background:var(--g1);margin:0 2px}
-.laudo-editor{flex:1;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:20px 24px;font-size:14px;line-height:1.9;color:var(--g9);outline:none;overflow-y:auto;font-family:'DM Sans',sans-serif}
+.fmt-sep{width:1px;height:18px;background:var(--g1);margin:0 2px}
+.laudo-editor{flex:1;background:var(--card);border:1px solid var(--g1);border-radius:var(--r);padding:20px 24px;font-size:14px;line-height:1.9;color:var(--g9);outline:none;overflow-y:auto}
 .laudo-editor:focus{border-color:var(--b2)}
-.laudo-editor[contenteditable]:empty:before{content:attr(data-placeholder);color:var(--g3);pointer-events:none}
-
-/* MIC + INPUT */
-.inp-area{padding:12px 20px;background:var(--card);border-top:1px solid var(--g1)}
-.mic-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 14px;background:var(--g0);border-radius:var(--rs);font-size:12px;color:var(--g5)}
+.laudo-editor p{margin-bottom:4px}
+.laudo-editor p:empty{min-height:1.5em}
+.inp-area{padding:12px 18px;background:var(--card);border-top:1px solid var(--g1)}
+.mic-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:7px 12px;background:var(--g0);border-radius:var(--rs);font-size:12px;color:var(--g5)}
 .mic-bar.on{background:#fcebeb;color:#a32d2d}
-.mic-dot{width:8px;height:8px;border-radius:50%;background:var(--g3);flex-shrink:0}
+.mic-dot{width:7px;height:7px;border-radius:50%;background:var(--g3);flex-shrink:0}
 .mic-dot.on{background:#e24b4a;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .mic-txt{flex:1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .inp-row{display:flex;gap:8px;align-items:flex-end}
-.inp-box{flex:1;background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--g9);resize:none;outline:none;min-height:44px;max-height:160px;line-height:1.5;transition:border-color .15s}
+.inp-box{flex:1;background:var(--g0);border:1px solid var(--g1);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--g9);resize:none;outline:none;min-height:44px;max-height:120px;line-height:1.5;transition:border-color .15s}
 .inp-box:focus{border-color:var(--b4);background:var(--card)}
-.mic-btn{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--g3);background:var(--g0);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;gap:2px}
+.mic-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--g3);background:var(--g0);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:all .2s;flex-shrink:0}
 .mic-btn:hover{border-color:var(--b4);background:var(--b0)}
 .mic-btn.on{border-color:#e24b4a;background:#fcebeb;animation:mp 1s infinite}
-.mic-btn span{font-size:9px;color:var(--g5)}
+.mic-btn span{font-size:8px;color:var(--g5)}
 @keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,.2)}50%{box-shadow:0 0 0 8px rgba(226,75,74,0)}}
-.send-btn{width:48px;height:48px;border-radius:50%;border:none;background:var(--b4);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.send-btn{width:44px;height:44px;border-radius:50%;border:none;background:var(--b4);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .send-btn:hover{background:var(--b6)}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--g9);color:#fff;padding:10px 18px;border-radius:var(--rs);font-size:13px;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
-.empty{text-align:center;padding:32px 16px;color:var(--g5);font-size:12px;line-height:1.6}
-
-/* MODAL */
+.empty{text-align:center;padding:20px 12px;color:var(--g5);font-size:11px;line-height:1.6}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
 .modal{background:var(--card);border-radius:16px;padding:24px;width:90%;max-width:400px}
@@ -145,7 +134,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
 .modal input{width:100%;padding:9px 12px;border:1px solid var(--g3);border-radius:var(--rs);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:14px}
 .modal input:focus{border-color:var(--b4)}
 .modal-btns{display:flex;gap:8px;justify-content:flex-end}
-
 @keyframes pC{0%,100%{r:9}50%{r:11}}
 @keyframes pR{0%{r:9;opacity:.7;stroke-width:1.5}100%{r:22;opacity:0;stroke-width:.3}}
 @keyframes pR2{0%{r:9;opacity:.4;stroke-width:1}100%{r:28;opacity:0;stroke-width:.2}}
@@ -218,39 +206,50 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
         <button class="sb-tab active" onclick="sbTab('I')">Itens</button>
         <button class="sb-tab" onclick="sbTab('E')">Editor</button>
       </div>
-
-      <!-- PAINEL ITENS -->
       <div class="sb-panel active" id="sbI">
         <div class="sb-search">
           <input type="text" id="srch" placeholder="Buscar..." oninput="renderTree()">
-          <button class="btn btn-sm" onclick="addCategory()" title="Nova categoria">+Cat</button>
+          <button class="btn" style="padding:5px 10px;font-size:12px" onclick="addCategory()">+Cat</button>
         </div>
         <div class="tree" id="tree"></div>
       </div>
-
-      <!-- PAINEL EDITOR -->
       <div class="sb-panel" id="sbE">
-        <div class="ed-form">
-          <input type="hidden" id="eId">
-          <div class="field">
-            <label>Categoria (Método)</label>
-            <select id="eCat" onchange="updateSubList()"></select>
-          </div>
-          <div class="field">
-            <label>Subpasta</label>
-            <select id="eSub"></select>
-          </div>
-          <div class="field">
-            <label>Tipo</label>
-            <select id="eTipo">
-              <option value="frase">Frase</option>
-              <option value="mascara">Máscara</option>
-            </select>
-          </div>
-          <div class="field"><label>Nome / Palavra-chave</label><input type="text" id="eKw" placeholder="ex: supra parcial"></div>
-          <div class="field">
-            <label>Conteúdo</label>
-            <textarea id="ePh" placeholder="Texto da frase ou máscara completa..."></textarea>
+        <div class="ed-scroll">
+          <div class="ed-form">
+            <input type="hidden" id="eId">
+            <div class="field">
+              <label>Categoria</label>
+              <select id="eCat" onchange="updateSubList()"></select>
+            </div>
+            <div class="field">
+              <label>Subpasta</label>
+              <select id="eSub"></select>
+            </div>
+            <div class="field">
+              <label>Tipo</label>
+              <select id="eTipo">
+                <option value="frase">💬 Frase</option>
+                <option value="mascara">📋 Máscara</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Nome / Palavra-chave</label>
+              <input type="text" id="eKw" placeholder="ex: supra parcial">
+            </div>
+            <div class="field">
+              <label>Conteúdo</label>
+              <div class="rte-wrap">
+                <div class="rte-toolbar">
+                  <button class="rte-btn" onclick="rteCmd('bold')"><b>N</b></button>
+                  <button class="rte-btn" onclick="rteCmd('italic')"><i>I</i></button>
+                  <button class="rte-btn" onclick="rteCmd('underline')"><u>S</u></button>
+                  <button class="rte-btn" onclick="rteUpper()">AA</button>
+                  <button class="rte-btn" onclick="rteCmd('insertUnorderedList')">• Lista</button>
+                  <button class="rte-btn" onclick="rteClear()">Limpar</button>
+                </div>
+                <div class="rte-editor" id="ePhRte" contenteditable="true" data-placeholder="Digite o conteúdo da frase ou máscara aqui..."></div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="ed-foot">
@@ -261,24 +260,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
       </div>
     </div>
 
-    <!-- MAIN: EDITOR RICH TEXT -->
     <div class="main">
       <div class="laudo-area">
         <div class="laudo-toolbar">
           <span class="laudo-title">📄 Laudo</span>
-          <button class="fmt-btn" onclick="fmt('bold')" title="Negrito"><b>N</b></button>
-          <button class="fmt-btn" onclick="fmt('italic')" title="Itálico"><i>I</i></button>
-          <button class="fmt-btn" onclick="fmt('underline')" title="Sublinhado"><u>S</u></button>
-          <button class="fmt-btn" onclick="fmtUpper()" title="MAIÚSCULAS">AA</button>
+          <button class="fmt-btn" onclick="fmt('bold')"><b>N</b></button>
+          <button class="fmt-btn" onclick="fmt('italic')"><i>I</i></button>
+          <button class="fmt-btn" onclick="fmt('underline')"><u>S</u></button>
+          <button class="fmt-btn" onclick="fmtUpper()">AA</button>
           <div class="fmt-sep"></div>
-          <button class="fmt-btn" onclick="improveWithAI()" title="Melhorar com IA">✦ IA</button>
+          <button class="fmt-btn" onclick="improveWithAI()">✦ IA</button>
           <div class="fmt-sep"></div>
           <button class="fmt-btn" onclick="clearLaudo()">Limpar</button>
           <button class="fmt-btn btn-p" onclick="copyLaudo()">Copiar</button>
         </div>
-        <div class="laudo-editor" id="laudoEditor" contenteditable="true"
-          data-placeholder="O laudo aparece aqui. Você pode editar livremente com formatação.&#10;&#10;Use o microfone (Espaço) para ditar ou clique em uma frase/máscara na barra lateral.">
-        </div>
+        <div class="laudo-editor" id="laudoEditor" contenteditable="true" data-placeholder="O laudo aparece aqui. Use o microfone (Espaço) para ditar ou clique em uma frase/máscara na barra lateral."></div>
       </div>
       <div class="inp-area">
         <div class="mic-bar" id="micBar">
@@ -287,7 +283,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
         </div>
         <div class="inp-row">
           <button class="mic-btn" id="micBtn" onclick="toggleMic()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
               <line x1="12" y1="19" x2="12" y2="23"/>
@@ -308,7 +304,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
   </div>
 </div>
 
-<!-- MODAL NOME -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <h3 id="modalTitle">Nome</h3>
@@ -319,7 +314,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--g9);min-h
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 <script src="https://accounts.google.com/gsi/client"></script>
 <script>
@@ -327,22 +321,13 @@ const GCLIENT='262932370926-2a6beabjmtc19o3e42q5rgnllpub9na6.apps.googleusercont
 const GSCOPE='https://www.googleapis.com/auth/drive.file';
 const FNAME='pulsarai_v3.json';
 const PROXY='https://pulsarai-proxy.rodmilitao.workers.dev';
-
 var token=null,fileId=null,tokenClient=null;
 var isListening=false,recognition=null,finalText='';
-var saveTimer=null,editingId=null;
-var modalCallback=null;
-
-// Estrutura de dados: {categories:[{id,name,subs:[{id,name,items:[{id,tipo,keyword,content}]}]}]}
+var saveTimer=null,editingId=null,modalCallback=null;
 var data={categories:[]};
 var apiKey=localStorage.getItem('pulsar_api_key')||'';
 var treeOpen={};
-
-if(apiKey){
-  document.getElementById('apiKeyInput').value=apiKey;
-  document.getElementById('apiSaved').style.display='block';
-}
-
+if(apiKey){document.getElementById('apiKeyInput').value=apiKey;document.getElementById('apiSaved').style.display='block';}
 function initApp(){
   tokenClient=google.accounts.oauth2.initTokenClient({
     client_id:GCLIENT,scope:GSCOPE,
@@ -360,15 +345,13 @@ function initApp(){
     }
   });
 }
-
 function signIn(){
   var k=document.getElementById('apiKeyInput').value.trim();
   if(!k){showToast('Cole sua chave API primeiro');return;}
   apiKey=k;localStorage.setItem('pulsar_api_key',k);
-  if(!tokenClient){showToast('Aguarde o Google carregar...');return;}
+  if(!tokenClient){showToast('Aguarde...');return;}
   tokenClient.requestAccessToken({prompt:'select_account'});
 }
-
 function logout(){
   google.accounts.oauth2.revoke(token,function(){});
   token=null;fileId=null;
@@ -377,23 +360,14 @@ function logout(){
   document.getElementById('logoutBtn').style.display='none';
   setSync('','Desconectado');
 }
-
-function setSync(s,l){
-  document.getElementById('syncDot').className='dot'+(s?' '+s:'');
-  document.getElementById('syncLbl').textContent=l;
-}
-
+function setSync(s,l){document.getElementById('syncDot').className='dot'+(s?' '+s:'');document.getElementById('syncLbl').textContent=l;}
 document.addEventListener('keydown',function(e){
   var tag=document.activeElement.tagName.toLowerCase();
-  if(e.code==='Space'&&tag!=='input'&&tag!=='textarea'&&tag!=='button'&&!document.activeElement.isContentEditable){
-    e.preventDefault();toggleMic();
-  }
+  if(e.code==='Space'&&tag!=='input'&&tag!=='textarea'&&tag!=='button'&&!document.activeElement.isContentEditable){e.preventDefault();toggleMic();}
 });function dreq(url,opts){
   opts=opts||{};
-  var headers=Object.assign({Authorization:'Bearer '+token},opts.headers||{});
-  return fetch(url,Object.assign({},opts,{headers:headers}));
+  return fetch(url,Object.assign({},opts,{headers:Object.assign({Authorization:'Bearer '+token},opts.headers||{})}));
 }
-
 function loadDrive(){
   setSync('','Carregando...');
   dreq("https://www.googleapis.com/drive/v3/files?q=name='"+FNAME+"' and trashed=false&fields=files(id)")
@@ -402,27 +376,16 @@ function loadDrive(){
     if(d.files&&d.files.length){
       fileId=d.files[0].id;
       return dreq('https://www.googleapis.com/drive/v3/files/'+fileId+'?alt=media').then(function(c){return c.json();});
-    } else {
-      data=defaultData();
-      saveDrive();
-      return data;
-    }
+    }else{data=defaultData();saveDrive();return data;}
   })
-  .then(function(d){
-    if(d)data=d;
-    setSync('ok','Sincronizado');
-    renderTree();updateCount();updateEditorSelects();
-  })
+  .then(function(d){if(d)data=d;setSync('ok','Sincronizado');renderTree();updateCount();updateEditorSelects();})
   .catch(function(){setSync('err','Erro Drive');data=defaultData();renderTree();updateCount();});
 }
-
 function saveDrive(){
   setSync('','Salvando...');
   var body=JSON.stringify(data);
   var meta=JSON.stringify({name:FNAME,mimeType:'application/json'});
-  var url=fileId
-    ?'https://www.googleapis.com/upload/drive/v3/files/'+fileId+'?uploadType=multipart'
-    :'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+  var url=fileId?'https://www.googleapis.com/upload/drive/v3/files/'+fileId+'?uploadType=multipart':'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
   var method=fileId?'PATCH':'POST';
   var b='bnd_p';
   var rb='--'+b+'\r\nContent-Type: application/json\r\n\r\n'+meta+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
@@ -431,9 +394,7 @@ function saveDrive(){
   .then(function(res){if(res.id)fileId=res.id;setSync('ok','Sincronizado');})
   .catch(function(){setSync('err','Erro ao salvar');});
 }
-
 function schedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveDrive,1500);}
-
 function defaultData(){
   return{categories:[
     {id:'c1',name:'Ultrassonografia',subs:[{id:'s1',name:'Frases',items:[]},{id:'s2',name:'Máscaras',items:[]}]},
@@ -442,55 +403,46 @@ function defaultData(){
     {id:'c4',name:'Raio-X',subs:[{id:'s7',name:'Frases',items:[]},{id:'s8',name:'Máscaras',items:[]}]},
   ]};
 }
-
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-function updateCount(){
-  var total=0;
-  data.categories.forEach(function(c){c.subs.forEach(function(s){total+=s.items.length;});});
-  document.getElementById('cntLbl').textContent=total+' item'+(total!==1?'s':'');
-}
-
-// ── ÁRVORE ──
+function updateCount(){var t=0;data.categories.forEach(function(c){c.subs.forEach(function(s){t+=s.items.length;});});document.getElementById('cntLbl').textContent=t+' item'+(t!==1?'s':'');}
 function renderTree(){
   var q=(document.getElementById('srch').value||'').toLowerCase();
   var h='';
   data.categories.forEach(function(cat){
-    var catOpen=treeOpen['c_'+cat.id]!==false;
-    var catCount=0;
-    cat.subs.forEach(function(s){catCount+=s.items.length;});
-    h+='<div class="t-cat" onclick="toggleNode(\'c_\'+\''+cat.id+'\')">';
-    h+='<span class="t-arr'+(catOpen?' open':'')+'">▶</span>';
+    var op=treeOpen['c_'+cat.id]!==false;
+    var ct=0;cat.subs.forEach(function(s){ct+=s.items.length;});
+    h+='<div class="t-cat" onclick="toggleNode(\'c_'+cat.id+'\')">';
+    h+='<span class="t-arr'+(op?' open':'')+'">▶</span>';
     h+='<span style="flex:1">'+esc(cat.name)+'</span>';
-    h+='<span class="t-count">'+catCount+'</span>';
+    h+='<span class="t-count">'+ct+'</span>';
     h+='<span class="t-actions" onclick="event.stopPropagation()">';
-    h+='<button class="t-btn" onclick="renameCat(\''+cat.id+'\')" title="Renomear">✎</button>';
-    h+='<button class="t-btn" onclick="addSub(\''+cat.id+'\')" title="Nova subpasta">+</button>';
-    h+='<button class="t-btn del" onclick="deleteCat(\''+cat.id+'\')" title="Excluir">✕</button>';
+    h+='<button class="t-btn" onclick="renameCat(\''+cat.id+'\')">✎</button>';
+    h+='<button class="t-btn" onclick="addSub(\''+cat.id+'\')">+</button>';
+    h+='<button class="t-btn del" onclick="deleteCat(\''+cat.id+'\')">✕</button>';
     h+='</span></div>';
-    h+='<div class="t-cat-ch'+(catOpen?' open':'')+'">';
+    h+='<div class="t-cat-ch'+(op?' open':'')+'">';
     cat.subs.forEach(function(sub){
-      var subOpen=treeOpen['s_'+sub.id]!==false;
-      var filtered=q?sub.items.filter(function(i){return i.keyword.toLowerCase().includes(q)||i.content.toLowerCase().includes(q);}):sub.items;
-      h+='<div class="t-sub" onclick="toggleNode(\'s_\'+\''+sub.id+'\')">';
-      h+='<span class="t-arr'+(subOpen?' open':'')+'">▶</span>';
+      var sop=treeOpen['s_'+sub.id]!==false;
+      var f=q?sub.items.filter(function(i){return i.keyword.toLowerCase().includes(q);}):sub.items;
+      h+='<div class="t-sub" onclick="toggleNode(\'s_'+sub.id+'\')">';
+      h+='<span class="t-arr'+(sop?' open':'')+'">▶</span>';
       h+='<span style="flex:1">'+esc(sub.name)+'</span>';
-      h+='<span class="t-count">'+filtered.length+'</span>';
+      h+='<span class="t-count">'+f.length+'</span>';
       h+='<span class="t-actions" onclick="event.stopPropagation()">';
-      h+='<button class="t-btn" onclick="renameSub(\''+cat.id+'\',\''+sub.id+'\')" title="Renomear">✎</button>';
-      h+='<button class="t-btn" onclick="newItem(\''+cat.id+'\',\''+sub.id+'\')" title="Novo item">+</button>';
-      h+='<button class="t-btn del" onclick="deleteSub(\''+cat.id+'\',\''+sub.id+'\')" title="Excluir">✕</button>';
+      h+='<button class="t-btn" onclick="renameSub(\''+cat.id+'\',\''+sub.id+'\')">✎</button>';
+      h+='<button class="t-btn" onclick="newItem(\''+cat.id+'\',\''+sub.id+'\')">+</button>';
+      h+='<button class="t-btn del" onclick="deleteSub(\''+cat.id+'\',\''+sub.id+'\')">✕</button>';
       h+='</span></div>';
-      h+='<div class="t-sub-ch'+(subOpen?' open':'')+'">';
-      if(!filtered.length)h+='<div class="empty" style="padding:8px 16px 8px 34px;font-size:11px">Vazio — clique + para adicionar</div>';
-      filtered.forEach(function(item){
+      h+='<div class="t-sub-ch'+(sop?' open':'')+'">';
+      if(!f.length)h+='<div class="empty">Vazio — clique + para adicionar</div>';
+      f.forEach(function(item){
         var icon=item.tipo==='mascara'?'📋':'💬';
         h+='<div class="t-item'+(editingId===item.id?' active':'')+'" onclick="insertItem(\''+item.id+'\')">';
         h+='<span style="font-size:11px">'+icon+'</span>';
         h+='<span class="t-item-name">'+esc(item.keyword)+'</span>';
-        h+='<button class="t-item-del" onclick="event.stopPropagation();editItem(\''+item.id+'\')" title="Editar">✎</button>';
-        h+='<button class="t-item-del" onclick="event.stopPropagation();deleteItem(\''+item.id+'\')" title="Excluir">✕</button>';
+        h+='<button class="t-item-btn" onclick="event.stopPropagation();editItem(\''+item.id+'\')" title="Editar">✎</button>';
+        h+='<button class="t-item-btn" onclick="event.stopPropagation();confirmDeleteItem(\''+item.id+'\')" title="Excluir">✕</button>';
         h+='</div>';
       });
       h+='</div>';
@@ -500,10 +452,7 @@ function renderTree(){
   if(!data.categories.length)h='<div class="empty">Nenhuma categoria.<br>Clique +Cat para adicionar.</div>';
   document.getElementById('tree').innerHTML=h;
 }
-
 function toggleNode(key){treeOpen[key]=treeOpen[key]===false?true:false;renderTree();}
-
-// ── CATEGORIAS E SUBPASTAS ──
 function addCategory(){
   openModal('Nova categoria','ex: Ultrassonografia',function(name){
     if(!name)return;
@@ -511,72 +460,57 @@ function addCategory(){
     renderTree();updateCount();schedSave();updateEditorSelects();
   });
 }
-
-function renameCat(catId){
-  var cat=data.categories.find(function(c){return c.id===catId;});
-  if(!cat)return;
-  openModal('Renomear categoria',cat.name,function(name){
-    if(!name)return;
-    cat.name=name;renderTree();schedSave();updateEditorSelects();
+function renameCat(id){
+  var cat=data.categories.find(function(c){return c.id===id;});if(!cat)return;
+  openModal('Renomear',cat.name,function(n){if(!n)return;cat.name=n;renderTree();schedSave();updateEditorSelects();});
+}
+function deleteCat(id){
+  openModal('Confirmar exclusão','Digite "excluir" para confirmar',function(v){
+    if(v!=='excluir')return;
+    data.categories=data.categories.filter(function(c){return c.id!==id;});
+    renderTree();updateCount();schedSave();updateEditorSelects();
   });
 }
-
-function deleteCat(catId){
-  if(!confirm('Excluir esta categoria e todos os itens?'))return;
-  data.categories=data.categories.filter(function(c){return c.id!==catId;});
-  renderTree();updateCount();schedSave();updateEditorSelects();
-}
-
 function addSub(catId){
-  openModal('Nova subpasta','ex: Máscaras, Achados',function(name){
+  openModal('Nova subpasta','ex: Máscaras',function(name){
     if(!name)return;
     var cat=data.categories.find(function(c){return c.id===catId;});
     if(cat)cat.subs.push({id:uid(),name:name,items:[]});
     renderTree();schedSave();updateEditorSelects();
   });
 }
-
 function renameSub(catId,subId){
-  var cat=data.categories.find(function(c){return c.id===catId;});
-  if(!cat)return;
-  var sub=cat.subs.find(function(s){return s.id===subId;});
-  if(!sub)return;
-  openModal('Renomear subpasta',sub.name,function(name){
-    if(!name)return;
-    sub.name=name;renderTree();schedSave();updateEditorSelects();
+  var cat=data.categories.find(function(c){return c.id===catId;});if(!cat)return;
+  var sub=cat.subs.find(function(s){return s.id===subId;});if(!sub)return;
+  openModal('Renomear',sub.name,function(n){if(!n)return;sub.name=n;renderTree();schedSave();updateEditorSelects();});
+}
+function deleteSub(catId,subId){
+  openModal('Confirmar exclusão','Digite "excluir" para confirmar',function(v){
+    if(v!=='excluir')return;
+    var cat=data.categories.find(function(c){return c.id===catId;});
+    if(cat)cat.subs=cat.subs.filter(function(s){return s.id!==subId;});
+    renderTree();updateCount();schedSave();
   });
 }
-
-function deleteSub(catId,subId){
-  if(!confirm('Excluir esta subpasta e todos os itens?'))return;
-  var cat=data.categories.find(function(c){return c.id===catId;});
-  if(cat)cat.subs=cat.subs.filter(function(s){return s.id!==subId;});
-  renderTree();updateCount();schedSave();
-}
-
-// ── ITENS ──
 function newItem(catId,subId){
   sbTab('E');editingId=null;
   document.getElementById('eId').value='';
   document.getElementById('eKw').value='';
-  document.getElementById('ePh').value='';
+  document.getElementById('ePhRte').innerHTML='';
   document.getElementById('eTipo').value='frase';
   document.getElementById('delBtn').style.display='none';
   updateEditorSelects(catId,subId);
 }
-
 function editItem(itemId){
-  var found=findItem(itemId);
-  if(!found)return;
+  var found=findItem(itemId);if(!found)return;
   sbTab('E');editingId=itemId;
   document.getElementById('eId').value=itemId;
   document.getElementById('eKw').value=found.item.keyword;
-  document.getElementById('ePh').value=found.item.content;
+  document.getElementById('ePhRte').innerHTML=found.item.content||'';
   document.getElementById('eTipo').value=found.item.tipo||'frase';
   document.getElementById('delBtn').style.display='';
   updateEditorSelects(found.cat.id,found.sub.id);
 }
-
 function findItem(itemId){
   for(var ci=0;ci<data.categories.length;ci++){
     var cat=data.categories[ci];
@@ -586,49 +520,44 @@ function findItem(itemId){
         if(sub.items[ii].id===itemId)return{cat:cat,sub:sub,item:sub.items[ii],ii:ii};
       }
     }
-  }
-  return null;
+  }return null;
 }
-
 function saveItem(){
   var kw=document.getElementById('eKw').value.trim();
-  var ph=document.getElementById('ePh').value.trim();
+  var ph=document.getElementById('ePhRte').innerHTML.trim();
   var tipo=document.getElementById('eTipo').value;
-  var catSel=document.getElementById('eCat').value;
-  var subSel=document.getElementById('eSub').value;
+  var catId=document.getElementById('eCat').value;
+  var subId=document.getElementById('eSub').value;
   if(!kw||!ph){showToast('Preencha o nome e o conteúdo');return;}
-  var cat=data.categories.find(function(c){return c.id===catSel;});
+  var cat=data.categories.find(function(c){return c.id===catId;});
   if(!cat){showToast('Selecione uma categoria');return;}
-  var sub=cat.subs.find(function(s){return s.id===subSel;});
+  var sub=cat.subs.find(function(s){return s.id===subId;});
   if(!sub){showToast('Selecione uma subpasta');return;}
   if(editingId){
     var found=findItem(editingId);
-    if(found){
-      found.sub.items.splice(found.ii,1);
-      sub.items.push({id:editingId,keyword:kw,content:ph,tipo:tipo});
-    }
-  } else {
-    sub.items.push({id:uid(),keyword:kw,content:ph,tipo:tipo});
-  }
-  editingId=null;
-  renderTree();updateCount();schedSave();
-  sbTab('I');showToast('Item salvo ✓');
+    if(found){found.sub.items.splice(found.ii,1);sub.items.push({id:editingId,keyword:kw,content:ph,tipo:tipo});}
+  }else{sub.items.push({id:uid(),keyword:kw,content:ph,tipo:tipo});}
+  editingId=null;renderTree();updateCount();schedSave();sbTab('I');showToast('Salvo ✓');
 }
-
-function deleteItem(itemId){
-  var id=itemId||document.getElementById('eId').value;
-  if(!id||!confirm('Excluir este item?'))return;
-  var found=findItem(id);
-  if(found)found.sub.items=found.sub.items.filter(function(i){return i.id!==id;});
-  editingId=null;
-  renderTree();updateCount();schedSave();
-  if(!itemId)sbTab('I');
-  showToast('Excluído');
+function confirmDeleteItem(itemId){
+  openModal('Excluir item?','Digite "excluir" para confirmar',function(v){
+    if(v!=='excluir')return;
+    var found=findItem(itemId);
+    if(found)found.sub.items=found.sub.items.filter(function(i){return i.id!==itemId;});
+    editingId=null;renderTree();updateCount();schedSave();showToast('Excluído');
+  });
 }
-
+function deleteItem(){
+  var id=document.getElementById('eId').value;if(!id)return;
+  openModal('Excluir item?','Digite "excluir" para confirmar',function(v){
+    if(v!=='excluir')return;
+    var found=findItem(id);
+    if(found)found.sub.items=found.sub.items.filter(function(i){return i.id!==id;});
+    editingId=null;renderTree();updateCount();schedSave();sbTab('I');showToast('Excluído');
+  });
+}
 function updateEditorSelects(selCatId,selSubId){
   var catSel=document.getElementById('eCat');
-  var subSel=document.getElementById('eSub');
   var prevCat=selCatId||catSel.value;
   catSel.innerHTML='';
   data.categories.forEach(function(c){
@@ -639,31 +568,20 @@ function updateEditorSelects(selCatId,selSubId){
   });
   updateSubList(selSubId);
 }
-
 function updateSubList(selSubId){
   var catId=document.getElementById('eCat').value;
   var subSel=document.getElementById('eSub');
   var prevSub=selSubId||subSel.value;
   subSel.innerHTML='';
   var cat=data.categories.find(function(c){return c.id===catId;});
-  if(cat){
-    cat.subs.forEach(function(s){
-      var o=document.createElement('option');
-      o.value=s.id;o.textContent=s.name;
-      if(s.id===prevSub)o.selected=true;
-      subSel.appendChild(o);
-    });
-  }
+  if(cat){cat.subs.forEach(function(s){var o=document.createElement('option');o.value=s.id;o.textContent=s.name;if(s.id===prevSub)o.selected=true;subSel.appendChild(o);});}
 }
-
 function sbTab(t){
   document.querySelectorAll('.sb-tab').forEach(function(b,i){b.classList.toggle('active',['I','E'][i]===t);});
   document.querySelectorAll('.sb-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('sb'+t).classList.add('active');
   if(t==='E')updateEditorSelects();
 }
-
-// ── MODAL ──
 function openModal(title,placeholder,cb){
   modalCallback=cb;
   document.getElementById('modalTitle').textContent=title;
@@ -672,104 +590,77 @@ function openModal(title,placeholder,cb){
   document.getElementById('modalBg').classList.add('open');
   setTimeout(function(){document.getElementById('modalInput').focus();},100);
 }
-
 function closeModal(){document.getElementById('modalBg').classList.remove('open');modalCallback=null;}
-
-function confirmModal(){
-  var val=document.getElementById('modalInput').value.trim();
-  closeModal();
-  if(modalCallback)modalCallback(val);
+function confirmModal(){var val=document.getElementById('modalInput').value.trim();closeModal();if(modalCallback)modalCallback(val);}
+document.getElementById('modalInput').addEventListener('keydown',function(e){if(e.key==='Enter')confirmModal();if(e.key==='Escape')closeModal();});
+function rteCmd(cmd){document.execCommand(cmd,false,null);document.getElementById('ePhRte').focus();}
+function rteUpper(){
+  var sel=window.getSelection();if(!sel.rangeCount)return;
+  var t=sel.getRangeAt(0).toString();if(!t)return;
+  document.execCommand('insertText',false,t.toUpperCase());
 }
-
-document.getElementById('modalInput').addEventListener('keydown',function(e){
-  if(e.key==='Enter')confirmModal();
-  if(e.key==='Escape')closeModal();
-});// ── INSERIR ITEM NO LAUDO ──
-function insertItem(itemId){
-  var found=findItem(itemId);
-  if(!found)return;
+function rteClear(){document.getElementById('ePhRte').innerHTML='';}function insertItem(itemId){
+  var found=findItem(itemId);if(!found)return;
   var ed=document.getElementById('laudoEditor');
-  var content=found.item.content;
-  // Converte o conteúdo para HTML com negrito nos títulos em maiúsculas
-  var html=formatContentToHtml(content);
-  // Insere no final do editor
-  if(ed.innerHTML&&ed.innerHTML!==''){
-    ed.innerHTML=ed.innerHTML+'<br><br>'+html;
-  } else {
-    ed.innerHTML=html;
-  }
+  var content=found.item.content||'';
+  var sep=ed.innerHTML?'<br>':'';
+  ed.innerHTML=ed.innerHTML+sep+content;
   ed.scrollTop=ed.scrollHeight;
   showToast(found.item.tipo==='mascara'?'Máscara inserida ✓':'Frase inserida ✓');
 }
-
-function formatContentToHtml(text){
-  var lines=text.split('\n');
-  var html='';
-  lines.forEach(function(line){
-    var trimmed=line.trim();
-    if(!trimmed){html+='<br>';return;}
-    // Detecta títulos: linha toda em maiúsculas ou termina com ':'
-    var isTitle=/^[A-ZÁÀÂÃÉÊÍÓÔÕÚÜÇ\s\-\/]+:?\s*$/.test(trimmed)&&trimmed.length>2;
-    if(isTitle){
-      html+='<p><strong>'+esc(trimmed)+'</strong></p>';
-    } else {
-      html+='<p>'+esc(trimmed)+'</p>';
-    }
-  });
-  return html;
-}
-
-// ── RICH TEXT EDITOR ──
 function fmt(cmd){document.execCommand(cmd,false,null);document.getElementById('laudoEditor').focus();}
-
 function fmtUpper(){
-  var sel=window.getSelection();
-  if(!sel.rangeCount)return;
-  var range=sel.getRangeAt(0);
-  var text=range.toString();
-  if(!text)return;
-  document.execCommand('insertText',false,text.toUpperCase());
+  var sel=window.getSelection();if(!sel.rangeCount)return;
+  var t=sel.getRangeAt(0).toString();if(!t)return;
+  document.execCommand('insertText',false,t.toUpperCase());
   document.getElementById('laudoEditor').focus();
 }
-
-function clearLaudo(){
-  var ed=document.getElementById('laudoEditor');
-  if(ed.innerHTML&&!confirm('Limpar o laudo?'))return;
-  ed.innerHTML='';
-}
-
+function clearLaudo(){document.getElementById('laudoEditor').innerHTML='';}
 function copyLaudo(){
   var ed=document.getElementById('laudoEditor');
   if(!ed.innerHTML){showToast('Laudo vazio');return;}
-  // Copia com formatação (rich text)
-  var blob=new Blob([ed.innerHTML],{type:'text/html'});
-  var blobText=new Blob([ed.innerText],{type:'text/plain'});
   try{
-    navigator.clipboard.write([new ClipboardItem({'text/html':blob,'text/plain':blobText})]).then(function(){showToast('Laudo copiado com formatação!');});
-  }catch(e){
-    // fallback
-    navigator.clipboard.writeText(ed.innerText).then(function(){showToast('Laudo copiado (texto)!');});
-  }
+    var blob=new Blob([ed.innerHTML],{type:'text/html'});
+    var blobTxt=new Blob([ed.innerText],{type:'text/plain'});
+    navigator.clipboard.write([new ClipboardItem({'text/html':blob,'text/plain':blobTxt})]).then(function(){showToast('Laudo copiado com formatação!');});
+  }catch(e){navigator.clipboard.writeText(ed.innerText).then(function(){showToast('Laudo copiado!');});}
 }
-
 function exportData(){
-  var json=JSON.stringify(data,null,2);
   var a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([json],{type:'application/json'}));
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
   a.download='pulsarai_backup.json';a.click();
 }
-
-// ── CLAUDE AI ──
+function mdToHtml(text){
+  // Converte markdown para HTML limpo
+  var lines=text.split('\n');
+  var html='';
+  lines.forEach(function(line){
+    var t=line.trim();
+    if(!t){html+='<br>';return;}
+    // Remove ## e # de títulos markdown
+    t=t.replace(/^#{1,3}\s*/,'');
+    // Converte **texto** para <strong>texto</strong>
+    t=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+    // Converte *texto* para <em>texto</em>
+    t=t.replace(/\*([^*]+)\*/g,'<em>$1</em>');
+    // Detecta linhas que são títulos (maiúsculas ou terminam com :)
+    var stripped=t.replace(/<[^>]+>/g,'');
+    var isTitle=/^[A-ZÁÀÂÃÉÊÍÓÔÕÚÜÇ\s\-\/0-9]+:?\s*$/.test(stripped)&&stripped.length>3;
+    if(isTitle)html+='<p><strong>'+t+'</strong></p>';
+    else html+='<p>'+t+'</p>';
+  });
+  return html;
+}
 function callClaude(msg,callback){
   var allItems=[];
   data.categories.forEach(function(c){
     c.subs.forEach(function(s){
       s.items.forEach(function(i){
-        allItems.push('"'+i.keyword+'" ('+c.name+'/'+s.name+'): '+i.content);
+        allItems.push('"'+i.keyword+'" ('+c.name+'): '+i.keyword);
       });
     });
   });
-  var system='Você é o PulsarAI, assistente especializado em laudos médicos de imagem.\n\nItens do médico:\n'+allItems.join('\n')+'\n\nINSTRUÇÕES:\n1. Gere laudos médicos profissionais completos em português.\n2. Use terminologia radiológica formal, terceira pessoa.\n3. Inclua achados e impressão diagnóstica.\n4. Retorne apenas o texto do laudo.';
+  var system='Você é o PulsarAI, assistente especializado em laudos médicos de imagem (radiologia, ultrassonografia, tomografia, ressonância magnética).\n\nINSTRUÇÕES IMPORTANTES:\n1. Gere laudos médicos profissionais completos em português.\n2. Use terminologia radiológica formal, terceira pessoa.\n3. NÃO use markdown (sem **, sem ##, sem *). Use texto puro.\n4. Títulos como INDICAÇÃO:, TÉCNICA:, IMPRESSÃO DIAGNÓSTICA: ficam em MAIÚSCULAS seguidos de dois pontos.\n5. Inclua: técnica, achados detalhados e impressão diagnóstica.\n6. Retorne APENAS o texto do laudo, sem explicações extras.';
   fetch(PROXY,{
     method:'POST',
     headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
@@ -777,74 +668,60 @@ function callClaude(msg,callback){
   })
   .then(function(r){return r.json();})
   .then(function(d){
-    if(d.error)callback('Erro: '+d.error.message);
-    else callback(d.content[0].text);
+    if(d.error)callback(null,'Erro: '+d.error.message);
+    else callback(d.content[0].text,null);
   })
-  .catch(function(){callback('Erro ao conectar com Claude.');});
+  .catch(function(){callback(null,'Erro ao conectar com Claude.');});
 }
-
 function sendMsg(){
   var box=document.getElementById('inpBox');
-  var txt=box.value.trim();
-  if(!txt)return;
+  var txt=box.value.trim();if(!txt)return;
   box.value='';autoResize(box);
-  // Verifica atalho exato
   var found=null;
-  data.categories.forEach(function(c){
-    c.subs.forEach(function(s){
-      s.items.forEach(function(i){
-        if(i.keyword.toLowerCase()===txt.toLowerCase())found=i.id;
-      });
-    });
-  });
+  data.categories.forEach(function(c){c.subs.forEach(function(s){s.items.forEach(function(i){if(i.keyword.toLowerCase()===txt.toLowerCase())found=i.id;});});});
   if(found){insertItem(found);return;}
-  // Envia pro Claude
   var ed=document.getElementById('laudoEditor');
   var orig=ed.innerHTML;
-  ed.innerHTML=orig+(orig?'<br><br>':'')+'<p><em>⏳ Gerando laudo...</em></p>';
-  callClaude(txt,function(result){
-    ed.innerHTML=orig+(orig?'<br><br>':'')+formatContentToHtml(result);
+  ed.innerHTML=orig+(orig?'<br>':'')+'<p><em>⏳ Gerando laudo...</em></p>';
+  callClaude(txt,function(result,err){
+    if(err){ed.innerHTML=orig+(orig?'<br>':'')+'<p>'+err+'</p>';return;}
+    var html=mdToHtml(result);
+    ed.innerHTML=orig+(orig?'<br>':'')+html;
     ed.scrollTop=ed.scrollHeight;
   });
 }
-
 function improveWithAI(){
   var ed=document.getElementById('laudoEditor');
-  var txt=ed.innerText.trim();
-  if(!txt){showToast('Escreva algo primeiro');return;}
+  var txt=ed.innerText.trim();if(!txt){showToast('Escreva algo primeiro');return;}
   var orig=txt;
   ed.innerHTML='<p><em>⏳ Melhorando laudo...</em></p>';
-  callClaude('Melhore e formate profissionalmente este laudo médico:\n\n'+orig,function(result){
-    ed.innerHTML=formatContentToHtml(result);
-    ed.scrollTop=ed.scrollHeight;
+  callClaude('Melhore e formate profissionalmente este laudo médico, mantendo toda a informação clínica. NÃO use markdown:\n\n'+orig,function(result,err){
+    if(err){ed.innerHTML='<p>'+err+'</p>';return;}
+    ed.innerHTML=mdToHtml(result);ed.scrollTop=ed.scrollHeight;
   });
 }
-
-// ── MICROFONE ──
 function toggleMic(){
   if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){showToast('Use Chrome para voz');return;}
   if(isListening)stopMic();else startMic();
 }
-
 function startMic(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  recognition=new SR();
-  recognition.lang='pt-BR';recognition.continuous=true;recognition.interimResults=true;
+  recognition=new SR();recognition.lang='pt-BR';recognition.continuous=true;recognition.interimResults=true;
   finalText=document.getElementById('inpBox').value;
   recognition.onstart=function(){
     isListening=true;
     document.getElementById('micBtn').classList.add('on');
     document.getElementById('micDot').classList.add('on');
     document.getElementById('micBar').classList.add('on');
-    document.getElementById('micTxt').textContent='🔴 Gravando... fale com calma. Clique novamente para parar e enviar.';
+    document.getElementById('micTxt').textContent='🔴 Gravando... fale com calma. Clique para parar e enviar.';
   };
   recognition.onresult=function(e){
-    var interim='';var newFinal='';
+    var interim='';var nf='';
     for(var i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal)newFinal+=e.results[i][0].transcript+' ';
+      if(e.results[i].isFinal)nf+=e.results[i][0].transcript+' ';
       else interim+=e.results[i][0].transcript;
     }
-    if(newFinal)finalText+=newFinal;
+    if(nf)finalText+=nf;
     document.getElementById('inpBox').value=finalText+(interim||'');
     document.getElementById('micTxt').textContent=interim||'Ouvindo...';
     autoResize(document.getElementById('inpBox'));
@@ -853,7 +730,6 @@ function startMic(){
   recognition.onend=function(){if(isListening)recognition.start();};
   recognition.start();
 }
-
 function stopMic(){
   isListening=false;
   if(recognition){recognition.stop();recognition=null;}
@@ -862,18 +738,11 @@ function stopMic(){
   document.getElementById('micBar').classList.remove('on');
   document.getElementById('micTxt').textContent='Pressione Espaço ou clique no microfone para gravar';
   var txt=document.getElementById('inpBox').value.trim();
-  finalText='';
-  if(txt)sendMsg();
+  finalText='';if(txt)sendMsg();
 }
-
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,160)+'px';}
-
-function showToast(m){
-  var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show');},2500);
-}
-
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 window.onload=function(){initApp();};
 </script>
 </body>
